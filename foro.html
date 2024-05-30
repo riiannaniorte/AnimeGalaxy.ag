@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro Anime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para iconos -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        .forum-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .forum-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .forum-topic {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d; /* Estilo 3D */
+            transition: transform 0.3s; /* Transición */
+        }
+
+        .forum-topic:hover {
+            transform: translate(0, -5px); /* Efecto 3D al hacer hover */
+        }
+
+        .forum-topic a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .forum-form {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .forum-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .forum-form input[type="text"],
+        .forum-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .forum-form input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #0072ff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .forum-form input[type="submit"]:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenido del cuerpo de la página omitido por brevedad -->
+
+    <button class="like-button"><i class="fas fa-thumbs-up"></i> Me gusta</button>
+    <label for="category-select">Selecciona una categoría:</label>
+    <select id="category-select">
+      <option value="anime">Anime</option>
+      <option value="manga">Manga</option>
+      <option value="cosplay">Cosplay</option>
+      <!-- Agrega más opciones según sea necesario -->
+    </select>
+    <a href="perfil.html">Mi perfil</a>
+    <textarea id="post-content" rows="5" cols="50" placeholder="Escribe tu publicación en Markdown..."></textarea>
+    <a href="https://twitter.com/intent/tweet?url=URL_DE_TU_PUBLICACIÓN&text=Título de tu publicación" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i> Compartir en Twitter</a>
+</body>
+</html>

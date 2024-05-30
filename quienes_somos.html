@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - AnimeGalaxy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9d00, #ff1b6b);
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Para separar el logo y el menú */
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra */
+        }
+
+        .navbar-brand {
+            font-size: 2em;
+            margin-left: 20px;
+            text-transform: uppercase; /* Mayúsculas */
+            letter-spacing: 2px; /* Espaciado entre letras */
+            color: #ffcc00; /* Color de texto */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center; /* Para centrar el emoji verticalmente */
+            transition: all 0.3s ease; /* Transición suave */
+        }
+
+        .navbar-menu a:hover {
+            color: #ffcc00;
+            transform: scale(1.1); /* Escala al hacer hover */
+        }
+
+        .search-bar {
+            margin-right: 20px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            width: 200px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+        }
+
+        .container {
+            padding-top: 80px; /* To offset the fixed navbar */
+            text-align: center;
+        }
+
+        .section {
+            padding: 50px 20px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px; /* Bordes redondeados */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra */
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #ffcc00; /* Color de texto */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6; /* Espaciado entre líneas */
+            color: #ffffff; /* Color de texto */
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy</div>
+        <form action="#" method="get"> <!-- Formulario de búsqueda -->
+            <input type="text" name="search" class="search-bar" placeholder="Buscar...">
+            <button type="submit"><i class="fas fa-search"></i></button> <!-- Botón de búsqueda -->
+        </form>
+        <div class="navbar-menu">
+            <a href="index.html">Inicio 🏠</a>
+            <a href="ventas.html">Productos 🛒</a>
+            <a href="pre-registro.html">Pre-Registro 📋</a>
+            <a href="foro.html"><i class="fas fa-comments"></i> Foro 💬</a> <!-- Enlace al foro -->
+            <a href="quienes_somos.html">Quiénes Somos ℹ️</a>
+            <a href="contacto.html">Contacto 📧</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h1>Quiénes Somos</h1>
+            <p>Somos una comunidad apasionada por el anime, dedicada a compartir y difundir el amor por esta forma de arte japonés. Nuestro objetivo es proporcionar un espacio donde los fanáticos del anime puedan encontrar información, discutir y disfrutar de sus series y películas favoritas.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

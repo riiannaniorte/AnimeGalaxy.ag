@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Registro - AnimeGalaxy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para iconos -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Fuente Roboto */
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #ff8c00, #ff0080); /* Gradiente más vibrante */
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center; /* Centro el contenido del menú */
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.5em;
+            margin-right: 20px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+        }
+
+        .navbar-menu a::before, .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ffcc00;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar-menu a::after {
+            left: auto;
+            right: 0;
+        }
+
+        .navbar-menu a:hover::before, .navbar-menu a:hover::after {
+            visibility: visible;
+            width: 100%;
+        }
+
+        .navbar-menu a:hover {
+            color: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding-top: 100px; /* To offset the fixed navbar */
+            text-align: center;
+        }
+
+        .section {
+            padding: 50px 20px;
+            margin: 20px auto;
+            max-width: 600px; /* Adjusted for better mobile view */
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff0080;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #e60073;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar-menu a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar-menu">
+        <a href="index.html">Inicio 🏠</a>
+        <a href="ventas.html">Productos 🛒</a>
+        <a href="pre-registro.html">Pre-Registro 📋</a>
+        <a href="foro.html"><i class="fas fa-comments"></i> Foro 💬</a> <!-- Enlace al foro -->
+        <a href="quienes_somos.html">Quiénes Somos ℹ️</a>
+        <a href="contacto.html">Contacto 📧</a>
+    </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h1>Pre-Registro</h1>
+            <!-- Botones de pre-registro -->
+            <button onclick="window.location.href='registro.html'">Registro</button>
+            <button onclick="window.location.href='iniciar_sesion.html'">Inicio de Sesión</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
