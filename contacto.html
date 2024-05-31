@@ -138,14 +138,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="section">
             <h1>Quejas</h1>
-            <?php
-            if (!empty($mensajeExito)) {
-                echo "<div class='message'><h1>¡Queja enviada con éxito!</h1><p>$mensajeExito</p></div>";
-            }
-            if (!empty($mensajeError)) {
-                echo "<div class='message'><h1>Error</h1><p>$mensajeError</p></div>";
-            }
-            ?>
+            <?php if (!empty($mensajeExito)) : ?>
+                <div class="message">
+                    <h1>¡Queja enviada con éxito!</h1>
+                    <p><?php echo $mensajeExito; ?></p>
+                </div>
+            <?php endif; ?>
+            <?php if (!empty($mensajeError)) : ?>
+                <div class="message">
+                    <h1>Error</h1>
+                    <p><?php echo $mensajeError; ?></p>
+                </div>
+            <?php endif; ?>
             <form id="quejasForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <input type="text" id="name" name="name" placeholder="Nombre" required>
                 <textarea id="message" name="message" rows="5" placeholder="Describa su queja" required></textarea>
