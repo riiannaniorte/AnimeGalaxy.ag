@@ -12,6 +12,27 @@
             background-color: #191919;
             color: white;
         }
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-menu {
+            margin-top: 10px;
+        }
+        .navbar-menu a {
+            margin-right: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .navbar-menu a:hover {
+            color: #D90429;
+        }
         h1 {
             text-align: center;
             margin-top: 50px;
@@ -62,6 +83,17 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy</div>
+        <div class="navbar-menu">
+            <a href="index.html">🏠 Inicio</a>
+            <a href="ventas.html">🎬 Directorio Anime</a>
+            <a href="pre-registro.html">📝 Pre-registro</a>
+            <a href="foro.html">💬 Foro</a>
+            <a href="quienes_somos.html">💼 Quiénes Somos</a>
+            <a href="contacto.html">📧 Contacto</a>
+        </div>
+    </div>
     <h1>Formulario de Quejas</h1>
     <form id="quejasForm">
         <label for="name">Nombre:</label>
