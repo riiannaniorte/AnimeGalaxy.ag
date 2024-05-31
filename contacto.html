@@ -1,173 +1,34 @@
-<?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
-
-$mensajeExito = "";
-$mensajeError = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibe los datos del formulario
-    $nombre = $_POST['name'];
-    $queja = $_POST['message'];
-
-    // Configuración de PHPMailer
-    $mail = new PHPMailer(true);
-
-    try {
-        // Configuración del servidor
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP de Gmail
-        $mail->SMTPAuth = true;
-        $mail->Username = 'aniorteadrian@gmail.com'; // Tu correo de Gmail
-        $mail->Password = 'zjcohedfrjmwxsvt'; // Tu contraseña de aplicación de Gmail
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-
-        // Configuración del correo electrónico
-        $mail->setFrom('noreply@animegalaxy.com', 'AnimeGalaxy');
-        $mail->addAddress('aniorteadrian@gmail.com'); // Cambia esto por tu dirección de correo
-        $mail->Subject = 'Nueva queja de AnimeGalaxy';
-        $mail->Body = "Nombre: $nombre\nQueja: $queja";
-
-        // Envía el correo
-        $mail->send();
-        $mensajeExito = "¡Queja enviada con éxito! Agradecemos tu retroalimentación. Nos pondremos en contacto contigo pronto.";
-    } catch (Exception $e) {
-        $mensajeError = "Hubo un error al enviar la queja. Por favor, inténtalo de nuevo más tarde. Error: {$mail->ErrorInfo}";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quejas - AnimeGalaxy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: #0F0A16;
-            color: white;
-        }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar-brand {
-            float: left;
-            font-size: 1.5em;
-            padding: 14px 20px;
-        }
-        .navbar-menu {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        .navbar-menu li {
-            float: left;
-        }
-        .navbar-menu li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar-menu li a:hover {
-            background-color: #575757;
-        }
-        .container {
-            padding: 20px;
-        }
-        .section {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .message {
-            background-color: #D90429;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            margin: 20px 0;
-        }
-        .message h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-        .message p {
-            font-size: 1.2em;
-        }
-        form {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        }
-        form input, form textarea, form button {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-        form button {
-            background-color: #D90429;
-            color: white;
-            cursor: pointer;
-        }
-        form button:hover {
-            background-color: #a5031f;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #333;
-        }
-    </style>
+    <title>Formulario de Quejas</title>
 </head>
 <body>
-    <div class="navbar">
-        <div class="navbar-brand">AnimeGalaxy 🌟</div>
-        <ul class="navbar-menu">
-            <li><a href="index.html">🏠 Inicio</a></li>
-            <li><a href="ventas.html">🛒 Productos</a></li>
-            <li><a href="foro.html"><i class="fas fa-comments"></i> 💬 Foro</a></li>
-            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
-            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
-            <li><a href="contacto.html">✉️ Contacto</a></li>
-        </ul>
-    </div>
-    <div class="container">
-        <div class="section">
-            <h1>Quejas</h1>
-            <?php if (!empty($mensajeExito)) : ?>
-                <div class="message">
-                    <h1>¡Queja enviada con éxito!</h1>
-                    <p><?php echo $mensajeExito; ?></p>
-                </div>
-            <?php elseif (!empty($mensajeError)) : ?>
-                <div class="message">
-                    <h1>Error</h1>
-                    <p><?php echo $mensajeError; ?></p>
-                </div>
-            <?php endif; ?>
-            <form id="quejasForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="text" id="name" name="name" placeholder="Nombre" required>
-                <textarea id="message" name="message" rows="5" placeholder="Describa su queja" required></textarea>
-                <button type="submit">Enviar 🚀</button>
-            </form>
-        </div>
-    </div>
-    <footer>
-        <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
-    </footer>
+    <h1>Formulario de Quejas</h1>
+    <form id="quejasForm">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="message">Describa su queja:</label><br>
+        <textarea id="message" name="message" rows="5" required></textarea><br>
+        <button type="button" onclick="sendEmail()">Enviar 🚀</button>
+    </form>
+
+    <script>
+        function sendEmail() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var message = document.getElementById('message').value;
+
+            var fullMessage = "Nombre: " + name + "\nCorreo electrónico: " + email + "\nQueja: " + message;
+
+            var emailLink = "mailto:tu-correo@gmail.com" + "?subject=Nueva queja de AnimeGalaxy" + "&body=" + encodeURIComponent(fullMessage);
+
+            window.location.href = emailLink;
+        }
+    </script>
 </body>
 </html>
