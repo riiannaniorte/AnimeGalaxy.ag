@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 $mensajeExito = "";
 $mensajeError = "";
 
@@ -7,29 +12,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['name'];
     $queja = $_POST['message'];
 
-    // Tu dirección de correo electrónico
-    $para = "aniorteadrian@gmail.com";
+    // Configuración de PHPMailer
+    $mail = new PHPMailer(true);
 
-    // Asunto del correo electrónico
-    $asunto = "Nueva queja de AnimeGalaxy";
+    try {
+        // Configuración del servidor
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP de Gmail
+        $mail->SMTPAuth = true;
+        $mail->Username = 'aniorteadrian@gmail.com'; // Tu correo de Gmail
+        $mail->Password = 'zjcohedfrjmwxsvt'; // Tu contraseña de aplicación de Gmail
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
-    // Cuerpo del correo electrónico
-    $mensaje = "Nombre: $nombre \n";
-    $mensaje .= "Queja: $queja \n";
+        // Configuración del correo electrónico
+        $mail->setFrom('noreply@animegalaxy.com', 'AnimeGalaxy');
+        $mail->addAddress('aniorteadrian@gmail.com'); // Cambia esto por tu dirección de correo
+        $mail->Subject = 'Nueva queja de AnimeGalaxy';
+        $mail->Body = "Nombre: $nombre\nQueja: $queja";
 
-    // Cabeceras del correo electrónico
-    $headers = "From: noreply@animegalaxy.com";
-
-    // Envía el correo electrónico
-    if (mail($para, $asunto, $mensaje, $headers)) {
-        // Muestra un mensaje de confirmación
+        // Envía el correo
+        $mail->send();
         $mensajeExito = "¡Queja enviada con éxito! Agradecemos tu retroalimentación. Nos pondremos en contacto contigo pronto.";
-    } else {
-        // Si hay un error al enviar el correo, muestra un mensaje de error
-        $mensajeError = "Hubo un error al enviar la queja. Por favor, inténtalo de nuevo más tarde.";
+    } catch (Exception $e) {
+        $mensajeError = "Hubo un error al enviar la queja. Por favor, inténtalo de nuevo más tarde. Error: {$mail->ErrorInfo}";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
