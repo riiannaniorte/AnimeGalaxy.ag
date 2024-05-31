@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro Anime</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para iconos -->
+    <style>
+        /* Estilos CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #2c3e50; /* Cambiamos el color de fondo a uno más oscuro */
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: #e74c3c; /* Cambiamos el color de fondo de la barra de navegación */
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center; /* Centramos el contenido horizontalmente */
+            align-items: center; /* Centramos el contenido verticalmente */
+            border-bottom: 2px solid #c0392b; /* Cambiamos el color de la línea inferior */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Ajustamos la sombra */
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+            cursor: pointer; /* Cambiamos el cursor a pointer */
+            transition: transform 0.3s ease; /* Añadimos una transición al hacer hover */
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.1); /* Efecto de escala al hacer hover */
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar-menu li {
+            margin-right: 20px;
+            position: relative; /* Para posicionar el submenú */
+        }
+
+        .navbar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            position: relative;
+            transition: transform 0.3s ease; /* Efecto de transformación */
+        }
+
+        .navbar-menu li a:hover {
+            transform: translateY(-3px); /* Efecto de levantamiento */
+        }
+
+        .navbar-menu li .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #e74c3c; /* Cambiamos el color de fondo del submenú */
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Ajustamos la sombra */
+            padding: 10px 0;
+            min-width: 150px;
+            border-radius: 4px;
+            transform: translateY(-10px); /* Desplazamiento hacia arriba */
+            opacity: 0; /* Ocultar inicialmente */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Efecto de transición */
+        }
+
+        .navbar-menu li:hover .sub-menu {
+            display: block;
+            transform: translateY(0);
+            opacity: 1; /* Mostrar */
+        }
+
+        .navbar-menu li .sub-menu li {
+            margin: 0; /* Ajuste del margen en el submenú */
+            text-align: center; /* Centrado del texto en el submenú */
+        }
+
+        .navbar-menu li .sub-menu li a {
+            padding: 8px 0; /* Ajuste del relleno en el submenú */
+            font-size: 16px; /* Tamaño de fuente en el submenú */
+            transition: transform 0.3s ease; /* Efecto de transformación */
+        }
+
+        .navbar-menu li .sub-menu li a:hover {
+            transform: scale(1.1); /* Efecto de escala al hacer hover en el submenú */
+        }
+
+        .navbar-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #e74c3c; /* Cambiamos el color de fondo de la barra de navegación en dispositivos móviles */
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+            }
+
+            .navbar-menu.active {
+                display: flex;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-menu li {
+                margin: 0;
+            }
+
+            .navbar-menu li:hover .sub-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy 🌟</div>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="index.html">🏠 Inicio</a></li>
+            <li><a href="ventas.html">🎬 Directorio Anime</a></li>
+            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
+            <li class="sub-menu-toggle"><a href="#">💬 Foro</a>
+                <ul class="sub-menu">
+                    <li><a href="anime.php">📺 Anime</a></li>
+                    <li><a href="manga.php">📚 Manga</a></li>
+                    <li><a href="crear_publicacion.php">📝 Crear Publicación</a></li>
+                </ul>
+            </li>
+            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
+            <li><a href="contacto.html">✉️ Contacto</a></li>
+        </ul>
+        <div class="navbar-toggle" id="navbarToggle">&#9776;</div>
+    </div>
+
+    <script>
+        // JavaScript para mostrar/ocultar el menú de navegación en dispositivos móviles
+        document.getElementById('navbarToggle').addEventListener('click', function() {
+            var navbarMenu = document.getElementById('navbarMenu');
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
+
