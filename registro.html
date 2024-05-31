@@ -32,6 +32,11 @@
             font-size: 1.5em;
             margin-left: 20px;
             color: #ffcc00; /* Color amarillo para resaltar */
+            text-decoration: none; /* Quitamos el subrayado */
+        }
+
+        .navbar-brand:hover {
+            color: #fff; /* Cambiamos el color al pasar el mouse */
         }
 
         .navbar-menu {
@@ -45,10 +50,29 @@
             text-decoration: none;
             margin: 0 10px;
             font-size: 1.2em;
+            position: relative; /* Necesario para los pseudo-elementos */
         }
 
         .navbar-menu a:hover {
             color: #ffcc00;
+        }
+
+        .navbar-menu a::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ffcc00;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar-menu a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
         }
 
         .container {
@@ -106,7 +130,7 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="navbar-brand">AnimeGalaxy</div>
+        <a class="navbar-brand" href="index.html">AnimeGalaxy</a>
         <div class="navbar-menu">
             <a href="index.html">🏠 Inicio</a>
             <a href="ventas.html">🎬 Directorio Anime</a>
