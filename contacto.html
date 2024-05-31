@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $queja = $_POST['message'];
 
     // Tu dirección de correo electrónico
-    $para = "aniorteadrian@gmail.com"; // Cambia esta dirección de correo electrónico por la tuya
+    $para = "aniorteadrian@gmail.com";
 
     // Asunto del correo electrónico
     $asunto = "Nueva queja de AnimeGalaxy";
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mensaje .= "Queja: $queja \n";
 
     // Cabeceras del correo electrónico
-    $headers = "From: $nombre <noreply@animegalaxy.com>"; // Cambia noreply@animegalaxy.com por tu dirección de correo si deseas
+    $headers = "From: $nombre <noreply@animegalaxy.com>";
 
     // Envía el correo electrónico
     if (mail($para, $asunto, $mensaje, $headers)) {
@@ -40,20 +40,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 </head>
 <body>
-    <!-- Navbar y contenido del formulario -->
-    
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy 🌟</div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">🏠 Inicio</a></li>
+            <li><a href="ventas.html">🛒 Productos</a></li>
+            <li><a href="foro.html"><i class="fas fa-comments"></i> 💬 Foro</a></li>
+            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
+            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
+            <li><a href="contacto.html">✉️ Contacto</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <div class="section">
             <h1>Quejas</h1>
             <form id="quejasForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="text" id="name" name="name" placeholder="Nombre">
-                <textarea id="message" name="message" rows="5" placeholder="Describa su queja"></textarea>
+                <input type="text" id="name" name="name" placeholder="Nombre" required>
+                <textarea id="message" name="message" rows="5" placeholder="Describa su queja" required></textarea>
                 <button type="submit">Enviar 🚀</button>
             </form>
         </div>
     </div>
-
-    <!-- Footer -->
 
     <footer>
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
