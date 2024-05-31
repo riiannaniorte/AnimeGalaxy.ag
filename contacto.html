@@ -25,9 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <head>
             <meta charset='UTF-8'>
             <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-            <title>Confirmación de Queja - AnimeGalaxy</title>
+            <title>Quejas - AnimeGalaxy</title>
             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'>
             <style>
+                /* Estilos CSS aquí */
                 body {
                     margin: 0;
                     padding: 0;
@@ -59,10 +60,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </style>
         </head>
         <body>
-            <div class='message'>
-                <h1>¡Queja enviada con éxito!</h1>
-                <p>Agradecemos tu retroalimentación. Nos pondremos en contacto contigo pronto.</p>
+            <div class='navbar'>
+                <div class='navbar-brand'>AnimeGalaxy 🌟</div>
+                <ul class='navbar-menu'>
+                    <li><a href='index.html'>🏠 Inicio</a></li>
+                    <li><a href='ventas.html'>🛒 Productos</a></li>
+                    <li><a href='foro.html'><i class='fas fa-comments'></i> 💬 Foro</a></li>
+                    <li><a href='pre-registro.html'>🔐 Pre-registro</a></li>
+                    <li><a href='quienes_somos.html'>👥 Quiénes Somos</a></li>
+                    <li><a href='contacto.html'>✉️ Contacto</a></li>
+                </ul>
             </div>
+
+            <div class='container'>
+                <div class='section'>
+                    <div class='message'>
+                        <h1>¡Queja enviada con éxito!</h1>
+                        <p>Agradecemos tu retroalimentación. Nos pondremos en contacto contigo pronto.</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+            </footer>
         </body>
         </html>";
         exit;
