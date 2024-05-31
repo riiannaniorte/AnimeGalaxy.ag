@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $queja = $_POST['message'];
 
     // Tu dirección de correo electrónico
-    $para = "tucorreo@example.com"; // Reemplaza tucorreo@example.com con tu dirección de correo electrónico
+    $para = "aniorteadrian@gmail.com"; // Cambia esta dirección de correo electrónico por la tuya
 
     // Asunto del correo electrónico
     $asunto = "Nueva queja de AnimeGalaxy";
@@ -14,12 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mensaje = "Nombre: $nombre \n";
     $mensaje .= "Queja: $queja \n";
 
-    // Envía el correo electrónico
-    mail($para, $asunto, $mensaje);
+    // Cabeceras del correo electrónico
+    $headers = "From: $nombre <noreply@animegalaxy.com>"; // Cambia noreply@animegalaxy.com por tu dirección de correo si deseas
 
-    // Redirecciona a una página de confirmación
-    header("Location: confirmacion_queja.html");
-    exit;
+    // Envía el correo electrónico
+    if (mail($para, $asunto, $mensaje, $headers)) {
+        // Redirecciona a una página de confirmación si el correo se envió correctamente
+        header("Location: confirmacion_queja.html");
+        exit;
+    } else {
+        // Si hay un error al enviar el correo, muestra un mensaje de error
+        echo "Hubo un error al enviar la queja. Por favor, inténtalo de nuevo más tarde.";
+    }
 }
 ?>
 <!DOCTYPE html>
