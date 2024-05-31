@@ -6,12 +6,131 @@
     <title>Quejas - AnimeGalaxy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Estilos CSS aquí */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #0F0A16;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; 
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 2em;
+            font-weight: bold;
+            color: #D90429;
+            margin-right: 20px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .navbar-menu li {
+            margin: 0 10px;
+        }
+
+        .navbar-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        .navbar-menu a:hover {
+            color: #FFBA08;
+        }
+
+        .container {
+            margin-top: 80px; 
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .section {
+            padding: 50px;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #D90429;
+        }
+
+        input, textarea {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(100% - 20px);
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #D90429;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FFBA08;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar y contenido del formulario -->
-    
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy 🌟</div>
+        <ul class="navbar-menu">
+            <li><a href="index.html">🏠 Inicio</a></li>
+            <li><a href="ventas.html">🛒 Productos</a></li>
+            <li><a href="foro.html"><i class="fas fa-comments"></i> 💬 Foro</a></li>
+            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
+            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
+            <li><a href="contacto.html">✉️ Contacto</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <div class="section">
             <h1>Quejas</h1>
@@ -23,35 +142,8 @@
         </div>
     </div>
 
-    <!-- Footer -->
-
     <footer>
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
     </footer>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Recibe los datos del formulario
-        $nombre = $_POST['name'];
-        $queja = $_POST['message'];
-
-        // Tu dirección de correo electrónico
-        $para = "tu_correo@example.com";
-
-        // Asunto del correo electrónico
-        $asunto = "Nueva queja de AnimeGalaxy";
-
-        // Cuerpo del correo electrónico
-        $mensaje = "Nombre: $nombre \n";
-        $mensaje .= "Queja: $queja \n";
-
-        // Envía el correo electrónico
-        mail($para, $asunto, $mensaje);
-
-        // Redirecciona a una página de confirmación
-        header("Location: confirmacion_queja.html");
-        exit;
-    }
-    ?>
 </body>
 </html>
