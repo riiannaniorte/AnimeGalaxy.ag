@@ -1,18 +1,25 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Recibe los datos del formulario
     $nombre = $_POST['name'];
     $queja = $_POST['message'];
 
-    $para = "tu_correo@example.com";
+    // Tu dirección de correo electrónico
+    $para = "tucorreo@example.com"; // Reemplaza tucorreo@example.com con tu dirección de correo electrónico
+
+    // Asunto del correo electrónico
     $asunto = "Nueva queja de AnimeGalaxy";
+
+    // Cuerpo del correo electrónico
     $mensaje = "Nombre: $nombre \n";
     $mensaje .= "Queja: $queja \n";
 
-    if (mail($para, $asunto, $mensaje)) {
-        echo "<script>alert('¡Queja enviada con éxito!');</script>";
-    } else {
-        echo "<script>alert('Error al enviar la queja. Por favor, inténtalo de nuevo más tarde.');</script>";
-    }
+    // Envía el correo electrónico
+    mail($para, $asunto, $mensaje);
+
+    // Redirecciona a una página de confirmación
+    header("Location: confirmacion_queja.html");
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -29,18 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <!-- Navbar y contenido del formulario -->
     
-    <div class="navbar">
-        <div class="navbar-brand">AnimeGalaxy 🌟</div>
-        <ul class="navbar-menu">
-            <li><a href="index.html">🏠 Inicio</a></li>
-            <li><a href="ventas.html">🛒 Productos</a></li>
-            <li><a href="foro.html"><i class="fas fa-comments"></i> 💬 Foro</a></li>
-            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
-            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
-            <li><a href="contacto.html">✉️ Contacto</a></li>
-        </ul>
-    </div>
-
     <div class="container">
         <div class="section">
             <h1>Quejas</h1>
@@ -51,6 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
+
+    <!-- Footer -->
 
     <footer>
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
