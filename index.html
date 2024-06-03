@@ -130,6 +130,7 @@
             border-top: 3px solid #00ffcc;
             flex-shrink: 0;
             width: 100%;
+            margin-top: auto; /* Mueve el footer al fondo */
         }
 
         .content-wrapper {
@@ -187,7 +188,8 @@
                     <button id="explore-button-2" class="explore-button">Explorar</button>
                 </div>
             </div>
-           <div class="additional-section">
+           <div
+ class="additional-section">
     <h2>Lo Mejor del Anime</h2>
     <p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
     <div class="card-container">
@@ -206,28 +208,29 @@
             <h2>Anime Popular 3</h2>
             <p>Una breve descripción del anime popular 3.</p>
         </div>
-        </div>
-        <footer>
-            <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
-        </footer>
     </div>
-    <script>
-        function search() {
-            var input, filter, list, listItem, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            list = document.getElementsByClassName("list-item");
+</div>
+<footer>
+    <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+</footer>
+</div>
+<script>
+    function search() {
+        var input, filter, list, listItem, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        list = document.getElementsByClassName("list-item");
 
-            for (i = 0; i < list.length; i++) {
-                listItem = list[i].getElementsByTagName("span")[0];
-                txtValue = listItem.textContent || listItem.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    list[i].style.display = "";
-                } else {
-                    list[i].style.display = "none";
-                }
+        for (i = 0; i < list.length; i++) {
+            listItem = list[i].getElementsByTagName("span")[0];
+            txtValue = listItem.textContent || listItem.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                list[i].style.display = "";
+            } else {
+                list[i].style.display = "none";
             }
         }
-    </script>
+    }
+</script>
 </body>
 </html>
