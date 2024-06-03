@@ -58,6 +58,9 @@
         }
 
         .section {
+            display: flex; /* Display flex para alinear las cajas lado a lado */
+            justify-content: center; /* Centra las cajas horizontalmente */
+            gap: 20px; /* Espacio entre las cajas */
             padding: 50px 20px;
             margin: 20px;
             background: rgba(255, 255, 255, 0.1);
@@ -88,7 +91,6 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             transition: transform 0.5s;
             perspective: 1000px;
-            margin: 20px;
             max-width: 350px;
         }
 
@@ -144,6 +146,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            max-width: 400px; /* Ancho máximo para la sección adicional */
         }
 
         .card-container {
@@ -180,55 +183,54 @@
                     <button id="explore-button" class="explore-button">Explorar</button>
                 </div>
                 <div class="card">
-            <img src="anime_image2.jpg" alt="Anime Image 2">
-            <h2>¡Novedades 2!</h2>
-            <p>Descubre nuevas emociones con nuestros últimos lanzamientos.</p>
-            <button id="explore-button-2" class="explore-button">Explorar</button>
-        </div>
-            </div>
-            <div class="additional-section">
-                <h2>Lo Mejor del Anime</h2>
-                <p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
-                <div class="card-container">
-                    <div class="card">
-                        <img src="https://i3.wp.com/animeflv.cfd/wp-content/uploads/2024/04/1712510002-3102-138005.jpg?resize=246,350" alt="Mushoku Tensei II: Isekai Ittara Honki Dasu">
-                        <h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank" style="color: #ffcc00; text-decoration: none;">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
-                        <p>Segunda temporada de Mushoku Tensei: Isekai Ittara Honki Dasu</p>
-                    </div>
-                    <div class="card">
-                        <img src="anime_image2.jpg" alt="Anime 2">
-                        <h2>Anime Popular 2</h2>
-                        <p>Una breve descripción del anime popular 2.</p>
-                    </div>
-                    <div class="card">
-                        <img src="anime_image3.jpg" alt="Anime 3">
-                        <h2>Anime Popular 3</h2>
-                        <p>Una breve descripción del anime popular 3.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <footer>
-            <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
-        </footer>
-    </div>
-    <script>
-        function search() {
-            var input, filter, list, listItem, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            list = document.getElementsByClassName("list-item");
-
-            for (i = 0; i < list.length; i++) {
-                listItem = list[i].getElementsByTagName("span")[0];
-                txtValue = listItem.textContent || listItem.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    list[i].style.display = "";
-                } else {
-                    list[i].style.display = "none";
-                }
+                    <img src="anime_image2.jpg" alt="Anime Image">
+                    <h2>¡Novedades 2!</h2>
+                    <p>Descubre las últimas novedades en el mundo del anime.</p>
+<button id="explore-button-2" class="explore-button">Explorar</button>
+</div>
+</div>
+<div class="additional-section">
+<h2>Lo Mejor del Anime</h2>
+<p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
+<div class="card-container">
+<div class="card">
+<img src="https://i3.wp.com/animeflv.cfd/wp-content/uploads/2024/04/1712510002-3102-138005.jpg?resize=246,350" alt="Mushoku Tensei II: Isekai Ittara Honki Dasu">
+<h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank" style="color: #ffcc00; text-decoration: none;">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
+<p>Segunda temporada de Mushoku Tensei: Isekai Ittara Honki Dasu</p>
+</div>
+<div class="card">
+<img src="anime_image2.jpg" alt="Anime 2">
+<h2>Anime Popular 2</h2>
+<p>Una breve descripción del anime popular 2.</p>
+</div>
+<div class="card">
+<img src="anime_image3.jpg" alt="Anime 3">
+<h2>Anime Popular 3</h2>
+<p>Una breve descripción del anime popular 3.</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<p>© 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+</footer>
+</div>
+<script>
+function search() {
+var input, filter, list, listItem, i, txtValue;
+input = document.getElementById("searchInput");
+filter = input.value.toUpperCase();
+list = document.getElementsByClassName("list-item");
+        for (i = 0; i < list.length; i++) {
+            listItem = list[i].getElementsByTagName("span")[0];
+            txtValue = listItem.textContent || listItem.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                list[i].style.display = "";
+            } else {
+                list[i].style.display = "none";
             }
         }
-    </script>
+    }
+</script>
 </body>
 </html>
