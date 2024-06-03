@@ -129,40 +129,41 @@
             text-align: center;
             border-top: 3px solid #00ffcc;
             flex-shrink: 0;
-width: 100%;
-}
-            .content-wrapper {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+            width: 100%;
+        }
 
-    .additional-section {
-        padding: 50px 20px;
-        margin: 20px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        max-width: 900px; /* Ajuste del ancho máximo */
-        margin: 0 auto; /* Centrar la sección adicional */
-    }
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    .card-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between; /* Alineación de los elementos al inicio */
-        margin-top: 20px; /* Espacio superior entre las tarjetas */
-    }
+        .additional-section {
+            padding: 50px 20px;
+            margin: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            max-width: 900px; /* Ajuste del ancho máximo */
+            margin: 0 auto; /* Centrar la sección adicional */
+        }
 
-    .card {
-        flex: 1; /* Ocupar todo el espacio disponible */
-        margin-bottom: 20px; /* Espacio inferior entre las tarjetas */
-    }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Alineación de los elementos al inicio */
+            margin-top: 20px; /* Espacio superior entre las tarjetas */
+        }
 
-    .card h2 {
-        margin-top: 15px;
-    }
-</style>
+        .card {
+            flex: 1; /* Ocupar todo el espacio disponible */
+            margin-bottom: 20px; /* Espacio inferior entre las tarjetas */
+        }
+
+        .card h2 {
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="content-wrapper">
@@ -187,53 +188,54 @@ width: 100%;
                 </div>
                 <div class="card">
                     <img src="anime_image.jpg" alt="Anime Image">
-                    <h2>¡Novedades 2!</h2>
-                    <p>Explora más novedades en el mundo del anime.</p>
-                    <button id="explore-button-2" class="explore-button">Explorar</button>
-                </div>
-            </div>
-            <div class="additional-section">
-                <h2>Lo Mejor del Anime</h2>
-                <p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
-                <div class="card-container">
-                    <div class="card">
-                        <img src="https://i3.wp.com/animeflv.cfd/wp-content/uploads/2024/04/1712510002-3102-138005.jpg?resize=246,350" alt="Mushoku Tensei II: Isekai Ittara Honki Dasu">
-                        <h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank" style="color: #ffcc00; text-decoration: none;">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
-                        <p>Segunda temporada de Mushoku Tensei: Isekai Ittara Honki Dasu</p>
-                    </div>
-                    <div class="card">
-                        <img src="https://www3.animeflv.net/uploads/animes/covers/3997.jpg" alt="Boku no Hero Academia 7th Season">
-                        <h2><a href="https://www3.animeflv.net/anime/boku-no-hero-academia-7th-season" target="_blank" style="color: #ffcc00; text-decoration: none;">Boku no Hero Academia 7th Season</a></h2>
-                        <p>Séptima temporada de Boku no Hero Academia</p>
-                    </div>
-                    <div class="card">
-                        <img src="anime_image3.jpg" alt="Anime 3">
-                        <h2>Anime Popular 3</h2>
-                        <p>Una breve descripción del anime popular 3.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <footer>
-            <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
-        </footer>
-    </div>
-    <script>
-        function search() {
-            var input, filter, list, listItem, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            list = document.getElementsByClassName("list-item");
-                    for (i = 0; i < list.length; i++) {
-            listItem = list[i].getElementsByTagName("span")[0];
-            txtValue = listItem.textContent || listItem.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                list[i].style.display = "";
-            } else {
-                list[i].style.display = "none";
-            }
-        }
-    }
+                    <h2¡Novedades 2!</h2>
+<p>Explora más novedades en el mundo del anime.</p>
+<button id="explore-button-2" class="explore-button">Explorar</button>
+</div>
+</div>
+<div class="additional-section">
+<h2>Lo Mejor del Anime</h2>
+<p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
+<div class="card-container">
+<div class="card">
+<img src="https://i3.wp.com/animeflv.cfd/wp-content/uploads/2024/04/1712510002-3102-138005.jpg?resize=246,350" alt="Mushoku Tensei II: Isekai Ittara Honki Dasu">
+<h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank" style="color: #ffcc00; text-decoration: none;">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
+<p>Segunda temporada de Mushoku Tensei: Isekai Ittara Honki Dasu</p>
+</div>
+<div class="card">
+<img src="https://www3.animeflv.net/uploads/animes/covers/3997.jpg" alt="Boku no Hero Academia 7th Season">
+<h2><a href="https://www3.animeflv.net/anime/boku-no-hero-academia-7th-season" target="_blank" style="color: #ffcc00; text-decoration: none;">Boku no Hero Academia 7th Season</a></h2>
+<p>Séptima temporada de Boku no Hero Academia</p>
+</div>
+<div class="card">
+<img src="https://www3.animeflv.net/uploads/animes/covers/3987.jpg" alt="Date A Live V">
+<h2><a href="https://www3.animeflv.net/anime/date-a-live-v" target="_blank" style="color: #ffcc00; text-decoration: none;">Date A Live V</a></h2>
+<p>Quinta temporada de Date A Live</p>
+</div>
+</div>
+</div>
+</div>
+<footer>
+<p>© 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+</footer>
+</div>
+<script>
+function search() {
+var input, filter, list, listItem, i, txtValue;
+input = document.getElementById("searchInput");
+filter = input.value.toUpperCase();
+list = document.getElementsByClassName("list-item");
+for (i = 0; i < list.length; i++) {
+listItem = list[i].getElementsByTagName("span")[0];
+txtValue = listItem.textContent || listItem.innerText;
+if (txtValue.toUpperCase().indexOf(filter) > -1) {
+list[i].style.display = "";
+} else {
+list[i].style.display = "none";
+}
+}
+}
 </script>
+
 </body>
 </html>
