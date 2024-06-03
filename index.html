@@ -182,7 +182,7 @@
             <h1>!NOTICIAS¡</h1>
             <div class="card-container">
                 <div class="card">
-                    <img src="https://a.storyblok.com/f/178900/1012x569/2e2e1c91d3/rising-impact.png/m/filters:quality(95)format(webp)" alt="Rising Impact">
+                    <img src="https://a.storyblok.com/f/178900/1012x569/2e2e1c91d3/rising-impact.png " alt="Rising Impact">
                     <h2>Rising Impact</h2>
                     <p>Descubre el emocionante mundo de RisingImpact.</p>
                     <button class="explore-button" onclick="window.location.href='https://www.crunchyroll.com/es/news/latest/2024/5/24/rising-impact-trailer-blue-encount'">Explorar</button>
@@ -198,6 +198,18 @@
                     <h2><a href="https://www.infobae.com/malditos-nerds/2023/11/14/netflix-revela-el-primer-adelanto-del-esperado-largometraje-animado-the-witcher-sirens-of-the-deep/" target="_blank" style="color: #ffcc00; text-decoration: none;">The Witcher: Sirenas de las profundidades</a></h2>
                     <p>Descubre las sirenas y los misterios del mundo de The Witcher.</p>
                     <button class="explore-button" onclick="window.location.href='https://www.infobae.com/malditos-nerds/2023/11/14/netflix-revela-el-primer-adelanto-del-esperado-largometraje-animado-the-witcher-sirens-of-the-deep/'">Explorar</button>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man temporada 3">
+                    <h2>One Punch Man temporada 3</h2>
+                    <p>Descubre la esperada tercera temporada de One Punch Man.</p>
+                    <button class="explore-button" onclick="window.location.href='https://atomix.vg/primer-trailer-de-la-tercera-temporada-de-one-punch-man/'">Explorar</button>
+                </div>
+                <div class="card">
+                    <img src="https://sm.ign.com/ign_latam/photo/t/the-bigges/the-biggest-anime-coming-in-2024_dajx.jpg" alt="Uzumaki">
+                    <h2>Uzumaki</h2>
+                    <p>Descubre el anime más importante que llegará en 2024.</p>
+                    <button class="explore-button" onclick="window.location.href='https://latam.ign.com/anime/99791/feature/el-anime-mas-importante-que-llegara-en-2024'">Explorar</button>
                 </div>
             </div>
         </div>
@@ -234,8 +246,7 @@
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase();
         list = document.getElementsByClassName("list-item");
-        for (i = 0; i < list.length
-; i++) {
+        for (i = 0; i < list.length; i++) {
             listItem = list[i].getElementsByTagName("span")[0];
             txtValue = listItem.textContent || listItem.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
