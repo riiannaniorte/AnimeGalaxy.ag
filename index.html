@@ -140,7 +140,8 @@
 
         .additional-section {
             padding: 50px 20px;
-            margin: 20px;
+            margin:
+20px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
@@ -187,7 +188,8 @@
                     <button id="explore-button" class="explore-button">Explorar</button>
                 </div>
                 <div class="card">
-                    <imgsrc="anime_image.jpg" alt="Anime Image">
+                    <img src="anime_image.jpg" alt="Anime
+Image">
                     <h2>Novedades 2</h2>
                     <p>Explora más novedades en el mundo del anime.</p>
                     <button id="explore-button-2" class="explore-button">Explorar</button>
@@ -232,6 +234,7 @@
         </footer>
     </div>
     <script>
+        // Función para buscar anime
         function search() {
             var input, filter, list, listItem, i, txtValue;
             input = document.getElementById("searchInput");
@@ -247,7 +250,27 @@
                 }
             }
         }
+
+        // Función para mostrar/ocultar tarjetas de anime
+        function toggleCards() {
+            var cards = document.querySelectorAll(".card");
+            cards.forEach(card => {
+                card.classList.toggle("hidden");
+            });
+        }
+
+        // Función para contar visitas
+        function countVisits() {
+            if (localStorage.getItem('visits')) {
+                var visits = parseInt(localStorage.getItem('visits'));
+                visits++;
+                localStorage.setItem('visits', visits);
+                console.log('¡¡Bienvenido de nuevo! Has visitado esta página ' + visits + ' veces.');
+            } else {
+                localStorage.setItem('visits', 1);
+                console.log('¡Bienvenido! Esta es tu primera visita a esta página.');
+            }
+        }
     </script>
 </body>
 </html>
-
