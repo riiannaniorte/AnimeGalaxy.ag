@@ -5,24 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnimeGalaxy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para iconos -->
-    <link rel="stylesheet" href="styles.css"> <!-- Archivo CSS separado para los estilos -->
     <style>
-        /* Estilos específicos */
-        .card-container {
-            justify-content: space-between;
+        /* Estilos generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        .section {
-            min-height: 100vh;
-        }
-        .card h2 {
-            margin-top: 15px;
-            color: #ffcc00;
-            text-decoration: none;
-        }
-        .card p {
+
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #333333, #444444);
             color: white;
+            overflow-x: hidden;
         }
-    </style>
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+            border-bottom: 3px solid #00ffcc;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffcc00;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 100px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .section {
+            padding: 50px 20px;
+            margin: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #ffcc00;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s;
+            perspective: 1000px;
+            margin: 20px;
+            max-width: 350px;
+        }
+
+        .card:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .explore-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #00ffcc;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; /* Agregado para la animación */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .explore-button:hover {
+            background-color: #33ffcc;
+            transform: translateY(-5px); /* Agregado para la animación */
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top: 3px solid #00ffcc;
+            flex-shrink: 0;
+width: 100%;
+}
+            .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .additional-section {
+        padding: 50px 20px;
+        margin: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        max-width: 900px; /* Ajuste del ancho máximo */
+        margin: 0 auto; /* Centrar la sección adicional */
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Alineación de los elementos al inicio */
+        margin-top: 20px; /* Espacio superior entre las tarjetas */
+    }
+
+    .card {
+        flex: 1; /* Ocupar todo el espacio disponible */
+        margin-bottom: 20px; /* Espacio inferior entre las tarjetas */
+    }
+
+    .card h2 {
+        margin-top: 15px;
+    }
+</style>
 </head>
 <body>
     <div class="content-wrapper">
@@ -58,12 +198,12 @@
                 <div class="card-container">
                     <div class="card">
                         <img src="https://i3.wp.com/animeflv.cfd/wp-content/uploads/2024/04/1712510002-3102-138005.jpg?resize=246,350" alt="Mushoku Tensei II: Isekai Ittara Honki Dasu">
-                        <h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
+                        <h2><a href="https://es.wikipedia.org/wiki/Mushoku_Tensei" target="_blank" style="color: #ffcc00; text-decoration: none;">Mushoku Tensei II: Isekai Ittara Honki Dasu</a></h2>
                         <p>Segunda temporada de Mushoku Tensei: Isekai Ittara Honki Dasu</p>
                     </div>
                     <div class="card">
                         <img src="https://www3.animeflv.net/uploads/animes/covers/3997.jpg" alt="Boku no Hero Academia 7th Season">
-                        <h2><a href="https://www3.animeflv.net/anime/boku-no-hero-academia-7th-season" target="_blank">Boku no Hero Academia 7th Season</a></h2>
+                        <h2><a href="https://www3.animeflv.net/anime/boku-no-hero-academia-7th-season" target="_blank" style="color: #ffcc00; text-decoration: none;">Boku no Hero Academia 7th Season</a></h2>
                         <p>Séptima temporada de Boku no Hero Academia</p>
                     </div>
                     <div class="card">
@@ -78,5 +218,22 @@
             <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
         </footer>
     </div>
+    <script>
+        function search() {
+            var input, filter, list, listItem, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            list = document.getElementsByClassName("list-item");
+                    for (i = 0; i < list.length; i++) {
+            listItem = list[i].getElementsByTagName("span")[0];
+            txtValue = listItem.textContent || listItem.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                list[i].style.display = "";
+            } else {
+                list[i].style.display = "none";
+            }
+        }
+    }
+</script>
 </body>
 </html>
