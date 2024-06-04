@@ -15,9 +15,92 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
         }
+
+        .navbar {
+            width: 100%;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 2px solid #c0392b;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar-menu li {
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .navbar-menu li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-menu li a:hover {
+            transform: translateY(-3px);
+        }
+
+        .navbar-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+                flex-direction: column;
+                background-color: #e74c3c;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+            }
+
+            .navbar-menu.active {
+                display: flex;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-menu li {
+                margin: 0;
+            }
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
         .card {
             background-color: #34495e;
             padding: 20px;
@@ -27,29 +110,95 @@
             transition: transform 0.5s;
             width: 300px;
             text-align: center;
+            margin: 20px auto;
         }
+
         .card:hover {
             transform: perspective(500px) rotateY(10deg);
         }
-        .navbar-brand {
-            font-size: 24px;
-            margin-bottom: 20px;
+
+        .anime-list {
+            margin-top: 20px;
         }
+
+        .anime-list li {
+            background-color: #34495e;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .anime-list li:hover {
+            transform: translateY(-3px);
+        }
+
         a {
             color: #e74c3c;
             text-decoration: none;
             transition: color 0.3s;
         }
+
         a:hover {
             color: #c0392b;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="navbar-brand">Anime</div>
-        <p>Bienvenido a la sección de Anime.</p>
-        <a href="manga.html">Ir a Manga</a> | <a href="crear_publicacion.html">Crear Publicación</a>
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy 🌟</div>
+        <ul class="navbar-menu" id="navbarMenu">
+            <li><a href="index.html">🏠 Inicio</a></li>
+            <li><a href="ventas.html">🎬 Directorio Anime</a></li>
+            <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
+            <li class="sub-menu-toggle"><a href="#">💬 Foro</a>
+                <ul class="sub-menu">
+                    <li><a href="anime.html">📺 Anime</a></li>
+                    <li><a href="manga.html">📚 Manga</a></li>
+                    <li><a href="crear_publicacion.html">📝 Crear Publicación</a></li>
+                </ul>
+            </li>
+            <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
+            <li><a href="contacto.html">✉️ Contacto</a></li>
+        </ul>
+        <div class="navbar-toggle" id="navbarToggle">&#9776;</div>
     </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="navbar-brand">Anime</div>
+            <p>Bienvenido a la sección de Anime.</p>
+            <a href="manga.html">Ir a Manga</a> | <a href="crear_publicacion.html">Crear Publicación</a>
+        </div>
+
+        <h2>Animes Populares</h2>
+        <ul class="anime-list">
+            <li>
+                <h3>Naruto</h3>
+                <p>Una historia sobre un joven ninja que sueña con convertirse en el Hokage.</p>
+            </li>
+            <li>
+                <h3>One Piece</h3>
+                <p>La aventura de Luffy y su tripulación para encontrar el tesoro One Piece.</p>
+            </li>
+            <li>
+                <h3>Attack on Titan</h3>
+                <p>La lucha de la humanidad contra los titanes que amenazan su existencia.</p>
+            </li>
+            <li>
+                <h3>My Hero Academia</h3>
+                <p>Un mundo donde la mayoría de la gente tiene superpoderes, y los héroes son comunes.</p>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript para mostrar/ocultar el menú de navegación en dispositivos móviles
+        document.getElementById('navbarToggle').addEventListener('click', function() {
+            var navbarMenu = document.getElementById('navbarMenu');
+            navbarMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
