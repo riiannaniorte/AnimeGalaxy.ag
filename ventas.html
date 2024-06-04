@@ -16,6 +16,19 @@
             min-height: 100vh;
         }
 
+        .led-effect {
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
+            }
+            100% {
+                box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
+            }
+        }
+
         .navbar {
             background: rgba(255, 255, 255, 0.9);
             padding: 10px;
@@ -46,6 +59,7 @@
             border-radius: 20px;
             padding: 8px 15px;
             transition: background-color 0.3s, box-shadow 0.3s;
+            animation: glow 2s infinite alternate;
         }
 
         .navbar-menu a:hover {
@@ -127,18 +141,18 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
+    <div class="navbar led-effect">
         <div class="navbar-menu">
-            <a href="index.html">🏠 Inicio</a>
-            <a href="ventas.html">🎬 Directorio Anime</a>
-            <a href="pre-registro.html">📝 Pre-registro</a>
-            <a href="foro.html">💬 Foro</a>
-            <a href="quienes_somos.html">💼 Quiénes Somos</a>
-            <a href="contacto.html">📧 Contacto</a>
+            <a href="index.html" class="led-effect">🏠 Inicio</a>
+            <a href="ventas.html" class="led-effect">🎬 Directorio Anime</a>
+            <a href="pre-registro.html" class="led-effect">📝 Pre-registro</a>
+            <a href="foro.html" class="led-effect">💬 Foro</a>
+            <a href="quienes_somos.html" class="led-effect">💼 Quiénes Somos</a>
+            <a href="contacto.html" class="led-effect">📧 Contacto</a>
         </div>
     </div>
 
-    <div class="section">
+    <div class="section led-effect">
         <h1>Lista de Animes</h1>
         <p>Explora nuestra selección de animes destacados, desde figuras coleccionables hasta ropa y accesorios inspirados en tus series favoritas.</p>
         <div class="anime-list">
@@ -177,7 +191,9 @@
         </div>
     </div>
     
-    <footer>
+    <footer class="led-effect">
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
     </footer>
 </body>
+</html>
+
