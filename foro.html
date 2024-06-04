@@ -130,6 +130,30 @@
                 display: none;
             }
         }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 60px auto; /* Añadimos margen superior para evitar solapamiento con la navbar */
+        }
+        .post {
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        .post h2 {
+            margin-top: 0;
+        }
+        a {
+            color: #e74c3c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #c0392b;
+        }
     </style>
 </head>
 <body>
@@ -141,9 +165,9 @@
             <li><a href="pre-registro.html">🔐 Pre-registro</a></li>
             <li class="sub-menu-toggle"><a href="#">💬 Foro</a>
                 <ul class="sub-menu">
-                    <li><a href="anime.php">📺 Anime</a></li>
-                    <li><a href="manga.php">📚 Manga</a></li>
-                    <li><a href="crear_publicacion.php">📝 Crear Publicación</a></li>
+                    <li><a href="anime.html">📺 Anime</a></li>
+                    <li><a href="manga.html">📚 Manga</a></li>
+                    <li><a href="crear_publicacion.html">📝 Crear Publicación</a></li>
                 </ul>
             </li>
             <li><a href="quienes_somos.html">👥 Quiénes Somos</a></li>
@@ -152,13 +176,34 @@
         <div class="navbar-toggle" id="navbarToggle">&#9776;</div>
     </div>
 
+    <div class="container">
+        <h1>Foro</h1>
+        <div id="posts"></div>
+        <a href="crear_publicacion.html">Crear Nueva Publicación</a>
+    </div>
+
     <script>
         // JavaScript para mostrar/ocultar el menú de navegación en dispositivos móviles
         document.getElementById('navbarToggle').addEventListener('click', function() {
             var navbarMenu = document.getElementById('navbarMenu');
             navbarMenu.classList.toggle('active');
         });
+
+        // JavaScript para cargar publicaciones desde localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const postsContainer = document.getElementById('posts');
+            const publicacion = JSON.parse(localStorage.getItem('publicacion'));
+
+            if (publicacion) {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `
+                    <h2>${publicacion.titulo}</h2>
+                    <p>${publicacion.contenido}</p>
+                `;
+                postsContainer.appendChild(postElement);
+            }
+        });
     </script>
 </body>
 </html>
-
