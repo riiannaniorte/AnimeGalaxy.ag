@@ -14,6 +14,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .navbar {
@@ -26,6 +27,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .navbar-brand {
@@ -44,22 +46,26 @@
             text-decoration: none;
             margin: 0 10px;
             font-size: 1.2em;
+            transition: color 0.3s, transform 0.3s;
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff, 0 0 25px #ff00ff;
         }
 
         .navbar-menu a:hover {
             color: #ffcc00;
+            transform: scale(1.1);
         }
 
         .content-wrapper {
             flex: 1;
             display: flex;
             flex-direction: column;
+            padding-top: 70px; /* Offset for fixed navbar */
         }
 
         .container {
-            padding-top: 80px; /* To offset the fixed navbar */
             text-align: center;
             flex: 1;
+            padding: 20px;
         }
 
         .section {
@@ -68,11 +74,14 @@
             max-width: 600px; /* Adjusted for better mobile view */
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         h1 {
             font-size: 3em;
             margin-bottom: 20px;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00, 0 0 25px #00ff00;
         }
 
         form {
@@ -87,6 +96,7 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             width: 80%;
+            box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
         }
 
         button {
@@ -98,11 +108,14 @@
             color: white;
             font-size: 1em;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px #0072ff, 0 0 10px #0072ff, 0 0 15px #0072ff, 0 0 20px #0072ff, 0 0 25px #0072ff;
         }
 
         button:hover {
             background-color: #005bb5;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #005bb5, 0 0 20px #005bb5, 0 0 30px #005bb5, 0 0 40px #005bb5;
         }
 
         footer {
@@ -110,8 +123,24 @@
             color: white;
             padding: 10px;
             text-align: center;
-            position: relative;
             width: 100%;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .navbar-menu a {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
