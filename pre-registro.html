@@ -4,37 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Registro - AnimeGalaxy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Fuente Roboto */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
         body {
             margin: 0;
             padding: 0;
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #ff8c00, #ff0080); /* Gradiente más vibrante */
+            background: linear-gradient(to right, #ff8c00, #ff0080);
             color: white;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            scroll-behavior: smooth;
         }
 
         .navbar {
             background: rgba(0, 0, 0, 0.9);
             padding: 15px 20px;
             display: flex;
-            justify-content: center; /* Centro el contenido del menú */
+            justify-content: center;
             align-items: center;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-brand {
-            font-size: 1.5em;
-            margin-right: 20px;
         }
 
         .navbar-menu {
@@ -82,18 +78,19 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            padding-top: 70px; /* Offset for fixed navbar */
         }
 
         .container {
-            padding-top: 100px; /* To offset the fixed navbar */
             text-align: center;
             flex: 1;
+            padding: 20px;
         }
 
         .section {
             padding: 50px 20px;
             margin: 20px auto;
-            max-width: 600px; /* Adjusted for better mobile view */
+            max-width: 600px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -148,29 +145,28 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
+    <nav class="navbar" role="navigation">
         <div class="navbar-menu">
-            <a href="index.html">🏠 Inicio</a>
-            <a href="ventas.html">🎬 Directorio Anime</a>
-            <a href="pre-registro.html">📝 Pre-registro</a>
-            <a href="foro.html">💬 Foro</a>
-            <a href="quienes_somos.html">💼 Quiénes Somos</a>
-            <a href="contacto.html">📧 Contacto</a>
+            <a href="index.html" aria-label="Inicio">🏠 Inicio</a>
+            <a href="ventas.html" aria-label="Directorio Anime">🎬 Directorio Anime</a>
+            <a href="pre-registro.html" aria-label="Pre-registro">📝 Pre-registro</a>
+            <a href="foro.html" aria-label="Foro">💬 Foro</a>
+            <a href="quienes_somos.html" aria-label="Quiénes Somos">💼 Quiénes Somos</a>
+            <a href="contacto.html" aria-label="Contacto">📧 Contacto</a>
         </div>
-    </div>
+    </nav>
 
     <div class="content-wrapper">
         <div class="container">
-            <div class="section">
+            <section class="section">
                 <h1>Pre-Registro</h1>
-                <!-- Botones de pre-registro -->
                 <button onclick="window.location.href='registro.html'">Registro</button>
                 <button onclick="window.location.href='iniciar_sesion.html'">Inicio de Sesión</button>
-            </div>
+            </section>
         </div>
     </div>
 
-    <footer>
+    <footer role="contentinfo">
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
     </footer>
 </body>
