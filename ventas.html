@@ -14,24 +14,12 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-
-        .led-effect {
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
-            }
-            100% {
-                box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
-            }
+            transition: background 2s;
         }
 
         .navbar {
             background: rgba(255, 255, 255, 0.9);
-            padding: 10px;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,7 +27,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-menu {
@@ -53,40 +41,40 @@
             color: #333;
             text-decoration: none;
             margin: 0 15px;
-            font-size: 1em;
+            font-size: 1.2em;
             display: flex;
             align-items: center;
             border-radius: 20px;
-            padding: 8px 15px;
+            padding: 8px 20px;
             transition: background-color 0.3s, box-shadow 0.3s;
             animation: glow 2s infinite alternate;
         }
 
         .navbar-menu a:hover {
             background-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .section {
-            padding: 30px;
-            max-width: 800px;
+            padding: 40px 20px;
+            max-width: 900px;
             margin: 150px auto 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin-bottom: 20px;
-            text-align: center;
             color: #333;
         }
 
         p {
-            font-size: 1.1em;
+            font-size: 1.2em;
             line-height: 1.6;
-            text-align: center;
+            margin-bottom: 40px;
         }
 
         .anime-list {
@@ -105,7 +93,7 @@
             margin-bottom: 20px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -117,7 +105,7 @@
         .anime-button {
             background-color: #f38181;
             color: white;
-            padding: 10px 30px;
+            padding: 10px 25px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
@@ -137,6 +125,15 @@
             text-align: center;
             margin-top: auto;
             width: 100%;
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
+            }
+            100% {
+                box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
+            }
         }
     </style>
 </head>
@@ -190,10 +187,9 @@
             </div>
         </div>
     </div>
-    
+
     <footer class="led-effect">
         <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
-
