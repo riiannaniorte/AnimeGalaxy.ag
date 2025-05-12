@@ -9,8 +9,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #fa709a, #fee140);
-            color: #333;
+            background: linear-gradient(to right, #2c3e50, #34495e); /* Colores oscuros y sobrios */
+            color: #ecf0f1; /* Texto en blanco para contraste */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -18,7 +18,7 @@
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(44, 62, 80, 0.9); /* Fondo oscuro para la navbar */
             padding: 15px;
             display: flex;
             justify-content: center;
@@ -27,7 +27,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .navbar-menu {
@@ -38,7 +38,7 @@
         }
 
         .navbar-menu a {
-            color: #333;
+            color: #ecf0f1;
             text-decoration: none;
             margin: 0 15px;
             font-size: 1.2em;
@@ -47,11 +47,10 @@
             border-radius: 20px;
             padding: 8px 20px;
             transition: background-color 0.3s, box-shadow 0.3s;
-            animation: glow 2s infinite alternate;
         }
 
         .navbar-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.1);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
@@ -59,7 +58,7 @@
             padding: 40px 20px;
             max-width: 900px;
             margin: 150px auto 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(44, 62, 80, 0.9); /* Fondo oscuro en la sección */
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -68,13 +67,14 @@
         h1 {
             font-size: 2.8em;
             margin-bottom: 20px;
-            color: #333;
+            color: #ecf0f1;
         }
 
         p {
             font-size: 1.2em;
             line-height: 1.6;
             margin-bottom: 40px;
+            color: #bdc3c7; /* Color de texto gris claro */
         }
 
         .anime-list {
@@ -91,7 +91,7 @@
             max-width: 600px;
             padding: 15px 20px;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(52, 152, 219, 0.1); /* Fondo azul suave */
             border-radius: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -103,7 +103,7 @@
         }
 
         .anime-button {
-            background-color: #f38181;
+            background-color: #2980b9; /* Color azul oscuro */
             color: white;
             padding: 10px 25px;
             border: none;
@@ -114,13 +114,13 @@
         }
 
         .anime-button:hover {
-            background-color: #fc5c65;
+            background-color: #3498db; /* Azul brillante para el hover */
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
 
         footer {
-            background: #333;
-            color: #ddd;
+            background: #2c3e50; /* Fondo oscuro para el pie de página */
+            color: #bdc3c7; /* Color claro para el texto */
             padding: 15px 0;
             text-align: center;
             margin-top: auto;
@@ -129,10 +129,10 @@
 
         @keyframes glow {
             0% {
-                box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
+                box-shadow: 0 0 10px 0px #3498db, 0 0 20px 5px #2980b9;
             }
             100% {
-                box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
+                box-shadow: 0 0 20px 0px #3498db, 0 0 30px 5px #2980b9;
             }
         }
     </style>
@@ -189,7 +189,8 @@
     </div>
 
     <footer class="led-effect">
-        <p>&copy; 2024 AnimeGalaxy. Todos los derechos reservados.</p>
+        <p>&copy; 2025 AnimeGalaxy. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
+
