@@ -9,16 +9,15 @@
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      background: linear-gradient(to right, #2c3e50, #4ca1af); /* fondo azul */
       color: #333;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      transition: background 2s;
     }
 
     .navbar {
-      background: rgba(255, 255, 255, 0.9);
+      background: #e0e0e0;
       padding: 15px;
       display: flex;
       justify-content: center;
@@ -44,7 +43,6 @@
       border-radius: 20px;
       padding: 8px 20px;
       transition: background-color 0.3s, color 0.3s;
-      animation: glow 2s infinite alternate;
     }
 
     .navbar-menu a:hover {
@@ -55,7 +53,7 @@
     .search-input {
       padding: 8px 15px;
       border-radius: 20px;
-      border: 1px solid #ccc;
+      border: 1px solid #aaa;
       font-size: 1em;
       outline: none;
       transition: box-shadow 0.3s, border-color 0.3s;
@@ -70,7 +68,7 @@
       padding: 40px 20px;
       max-width: 900px;
       margin: 150px auto 20px;
-      background: rgba(255, 255, 255, 0.9);
+      background: #e0e0e0;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -102,7 +100,7 @@
       max-width: 600px;
       padding: 15px 20px;
       margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.9);
+      background: #e0e0e0;
       border-radius: 20px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s, box-shadow 0.3s;
@@ -110,7 +108,7 @@
 
     .list-item:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .anime-button {
@@ -137,31 +135,22 @@
       margin-top: auto;
       width: 100%;
     }
-
-    @keyframes glow {
-      0% {
-        box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
-      }
-      100% {
-        box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="navbar led-effect">
+  <div class="navbar">
     <div class="navbar-menu">
-      <a href="index.html" class="led-effect">🏠 Inicio</a>
-      <a href="ventas.html" class="led-effect">🎬 Directorio Anime</a>
-      <a href="pre-registro.html" class="led-effect">📝 Pre-registro</a>
-      <a href="foro.html" class="led-effect">💬 Foro</a>
-      <a href="quienes_somos.html" class="led-effect">💼 Quiénes Somos</a>
-      <a href="contacto.html" class="led-effect">📧 Contacto</a>
+      <a href="index.html">🏠 Inicio</a>
+      <a href="ventas.html">🎬 Directorio Anime</a>
+      <a href="pre-registro.html">📝 Pre-registro</a>
+      <a href="foro.html">💬 Foro</a>
+      <a href="quienes_somos.html">💼 Quiénes Somos</a>
+      <a href="contacto.html">📧 Contacto</a>
       <input type="text" placeholder="Buscar..." class="search-input" />
     </div>
   </div>
 
-  <div class="section led-effect">
+  <div class="section">
     <h1>Lista de Animes</h1>
     <p>Explora nuestra selección de animes destacados, desde figuras coleccionables hasta ropa y accesorios inspirados en tus series favoritas.</p>
     <div class="anime-list">
@@ -176,9 +165,8 @@
     </div>
   </div>
 
-  <footer class="led-effect">
+  <footer>
     <p>&copy; 2025 AnimeGalaxy. Todos los derechos reservados.</p>
   </footer>
 </body>
 </html>
-
