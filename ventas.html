@@ -1,196 +1,184 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Animes - AnimeGalaxy</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #2c3e50, #34495e); /* Colores oscuros y sobrios */
-            color: #ecf0f1; /* Texto en blanco para contraste */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            transition: background 2s;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Animes - AnimeGalaxy</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background 2s;
+    }
 
-        .navbar {
-            background: rgba(44, 62, 80, 0.9); /* Fondo oscuro para la navbar */
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
+    .navbar {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        .navbar-menu {
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
 
-        .navbar-menu a {
-            color: #ecf0f1;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            border-radius: 20px;
-            padding: 8px 20px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
+    .navbar-menu a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2em;
+      border-radius: 20px;
+      padding: 8px 20px;
+      transition: background-color 0.3s, color 0.3s;
+      animation: glow 2s infinite alternate;
+    }
 
-        .navbar-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
+    .navbar-menu a:hover {
+      color: yellow;
+      background-color: transparent;
+    }
 
-        .section {
-            padding: 40px 20px;
-            max-width: 900px;
-            margin: 150px auto 20px;
-            background: rgba(44, 62, 80, 0.9); /* Fondo oscuro en la sección */
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+    .search-input {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      outline: none;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
 
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: #ecf0f1;
-        }
+    .search-input:focus {
+      border-color: #f1c40f;
+      box-shadow: 0 0 8px #f1c40f;
+    }
 
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #bdc3c7; /* Color de texto gris claro */
-        }
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 150px auto 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        .anime-list {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    h1 {
+      font-size: 2.8em;
+      margin-bottom: 20px;
+      color: #333;
+    }
 
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 600px;
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            background: rgba(52, 152, 219, 0.1); /* Fondo azul suave */
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
 
-        .list-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
+    .anime-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        .anime-button {
-            background-color: #2980b9; /* Color azul oscuro */
-            color: white;
-            padding: 10px 25px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
+    .list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-        .anime-button:hover {
-            background-color: #3498db; /* Azul brillante para el hover */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-        }
+    .list-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
 
-        footer {
-            background: #2c3e50; /* Fondo oscuro para el pie de página */
-            color: #bdc3c7; /* Color claro para el texto */
-            padding: 15px 0;
-            text-align: center;
-            margin-top: auto;
-            width: 100%;
-        }
+    .anime-button {
+      background-color: #f38181;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
 
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px 0px #3498db, 0 0 20px 5px #2980b9;
-            }
-            100% {
-                box-shadow: 0 0 20px 0px #3498db, 0 0 30px 5px #2980b9;
-            }
-        }
-    </style>
+    .anime-button:hover {
+      background-color: #fc5c65;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+      background: #333;
+      color: #ddd;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 10px 0px #ffdd59, 0 0 20px 5px #f38181, 0 0 30px 10px #fc5c65, 0 0 40px 15px #ff5e78;
+      }
+      100% {
+        box-shadow: 0 0 20px 0px #ffdd59, 0 0 30px 5px #f38181, 0 0 40px 10px #fc5c65, 0 0 50px 15px #ff5e78;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar led-effect">
-        <div class="navbar-menu">
-            <a href="index.html" class="led-effect">🏠 Inicio</a>
-            <a href="ventas.html" class="led-effect">🎬 Directorio Anime</a>
-            <a href="pre-registro.html" class="led-effect">📝 Pre-registro</a>
-            <a href="foro.html" class="led-effect">💬 Foro</a>
-            <a href="quienes_somos.html" class="led-effect">💼 Quiénes Somos</a>
-            <a href="contacto.html" class="led-effect">📧 Contacto</a>
-        </div>
+  <div class="navbar led-effect">
+    <div class="navbar-menu">
+      <a href="index.html" class="led-effect">🏠 Inicio</a>
+      <a href="ventas.html" class="led-effect">🎬 Directorio Anime</a>
+      <a href="pre-registro.html" class="led-effect">📝 Pre-registro</a>
+      <a href="foro.html" class="led-effect">💬 Foro</a>
+      <a href="quienes_somos.html" class="led-effect">💼 Quiénes Somos</a>
+      <a href="contacto.html" class="led-effect">📧 Contacto</a>
+      <input type="text" placeholder="Buscar..." class="search-input" />
     </div>
+  </div>
 
-    <div class="section led-effect">
-        <h1>Lista de Animes</h1>
-        <p>Explora nuestra selección de animes destacados, desde figuras coleccionables hasta ropa y accesorios inspirados en tus series favoritas.</p>
-        <div class="anime-list">
-            <div class="list-item">
-                <span>One Piece</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Haikyuu the Movie: Battle at the Garbage Dump</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Kaiju No. 8</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Re: Monster</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>The Fable</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Ultraman: Rising</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Jujutsu Kaisen</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-            <div class="list-item">
-                <span>Attack on Titan</span>
-                <button class="anime-button">ANIME</button>
-            </div>
-        </div>
+  <div class="section led-effect">
+    <h1>Lista de Animes</h1>
+    <p>Explora nuestra selección de animes destacados, desde figuras coleccionables hasta ropa y accesorios inspirados en tus series favoritas.</p>
+    <div class="anime-list">
+      <div class="list-item"><span>One Piece</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Haikyuu the Movie: Battle at the Garbage Dump</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Kaiju No. 8</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Re: Monster</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>The Fable</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Ultraman: Rising</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Jujutsu Kaisen</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Attack on Titan</span><button class="anime-button">ANIME</button></div>
     </div>
+  </div>
 
-    <footer class="led-effect">
-        <p>&copy; 2025 AnimeGalaxy. Todos los derechos reservados.</p>
-    </footer>
+  <footer class="led-effect">
+    <p>&copy; 2025 AnimeGalaxy. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
 
