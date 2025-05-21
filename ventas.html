@@ -10,149 +10,164 @@
       padding: 0;
       font-family: 'Arial', sans-serif;
       background: linear-gradient(to right, #2c3e50, #4ca1af); /* fondo azul */
-      color: #333;
+      color: #fff;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
+    /* Estilo del menú (barra superior negra con íconos) */
     .navbar {
-      background: #e0e0e0;
-      padding: 15px;
+      background-color: #111;
+      color: white;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      padding: 10px 20px;
       position: fixed;
       width: 100%;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .navbar-menu {
+    .navbar .navbar-menu {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar input[type="text"] {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      font-size: 0.9em;
+      outline: none;
+    }
+
+    .main-content {
+      display: flex;
+      margin-top: 80px;
+      padding: 20px;
+    }
+
+    /* Barra lateral izquierda */
+    .sidebar {
+      width: 250px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      margin-right: 20px;
+      color: white;
+    }
+
+    .sidebar h2 {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
+    .sidebar label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .sidebar select, .sidebar input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 0.9em;
+    }
+
+    .sidebar button {
+      width: 100%;
+      padding: 10px;
+      background-color: orange;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    /* Contenido principal */
+    .anime-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       gap: 15px;
     }
 
-    .navbar-menu a {
-      color: #333;
-      text-decoration: none;
-      font-size: 1.2em;
-      border-radius: 20px;
-      padding: 8px 20px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    .navbar-menu a:hover {
-      color: yellow;
-      background-color: transparent;
-    }
-
-    .search-input {
-      padding: 8px 15px;
-      border-radius: 20px;
-      border: 1px solid #aaa;
-      font-size: 1em;
-      outline: none;
-      transition: box-shadow 0.3s, border-color 0.3s;
-    }
-
-    .search-input:focus {
-      border-color: #f1c40f;
-      box-shadow: 0 0 8px #f1c40f;
-    }
-
-    .section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 150px auto 20px;
-      background: #e0e0e0;
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    p {
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-
-    .anime-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
     .list-item {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
-      max-width: 600px;
-      padding: 15px 20px;
-      margin-bottom: 20px;
-      background: #e0e0e0;
-      border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .list-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     }
 
     .anime-button {
       background-color: #f38181;
       color: white;
-      padding: 10px 25px;
+      padding: 10px 20px;
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, box-shadow 0.3s;
-    }
-
-    .anime-button:hover {
-      background-color: #fc5c65;
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     }
 
     footer {
-      background: #333;
-      color: #ddd;
+      background: #111;
+      color: #ccc;
       padding: 15px 0;
       text-align: center;
       margin-top: auto;
-      width: 100%;
     }
   </style>
 </head>
 <body>
+  <!-- Menú superior -->
   <div class="navbar">
     <div class="navbar-menu">
-      <a href="index.html">🏠 Inicio</a>
-      <a href="ventas.html">🎬 Directorio Anime</a>
-      <a href="pre-registro.html">📝 Pre-registro</a>
-      <a href="foro.html">💬 Foro</a>
-      <a href="quienes_somos.html">💼 Quiénes Somos</a>
-      <a href="contacto.html">📧 Contacto</a>
-      <input type="text" placeholder="Buscar..." class="search-input" />
+      <a href="#">🏠 Inicio</a>
+      <a href="#">🎬 Directorio Anime</a>
+      <a href="#">📝 Pre-registro</a>
+      <a href="#">💬 Foro</a>
+      <a href="#">💼 Quiénes Somos</a>
+      <a href="#">📧 Contacto</a>
     </div>
+    <input type="text" placeholder="Buscar anime..." />
   </div>
 
-  <div class="section">
-    <h1>Lista de Animes</h1>
-    <p>Explora nuestra selección de animes destacados, desde figuras coleccionables hasta ropa y accesorios inspirados en tus series favoritas.</p>
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <h2>Filtros</h2>
+      <label>Estados</label>
+      <select><option>En emisión</option></select>
+      <label>Tipos</label>
+      <select><option>Seleccionar</option></select>
+      <label>Géneros</label>
+      <select><option>Seleccionar</option></select>
+      <label>Estreno</label>
+      <select><option>Seleccionar</option></select>
+      <label>Idioma</label>
+      <select><option>Seleccionar</option></select>
+      <input type="text" placeholder="Busca algo..." />
+      <button>Buscar</button>
+    </div>
+
+    <!-- Lista de animes -->
     <div class="anime-list">
       <div class="list-item"><span>One Piece</span><button class="anime-button">ANIME</button></div>
       <div class="list-item"><span>Haikyuu the Movie: Battle at the Garbage Dump</span><button class="anime-button">ANIME</button></div>
