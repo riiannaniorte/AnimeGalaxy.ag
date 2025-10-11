@@ -87,8 +87,11 @@
       color: orange;
     }
 
-    .sub-menu-toggle:hover .sub-menu {
-      display: flex;
+    /* Mostrar submenú al pasar el mouse en PC */
+    @media (min-width: 901px) {
+      .sub-menu-toggle:hover .sub-menu {
+        display: flex;
+      }
     }
 
     /* ===== MENU HAMBURGUESA ===== */
@@ -123,6 +126,7 @@
         background-color: #111;
         border-top: 1px solid #333;
         margin-top: 10px;
+        transition: all 0.3s ease;
       }
 
       .navbar-menu.active {
@@ -130,19 +134,30 @@
       }
 
       .navbar-menu li {
-        text-align: left;
+        width: 100%;
       }
 
+      .navbar-menu a {
+        padding: 12px 20px;
+        width: 100%;
+      }
+
+      /* Submenú móvil */
       .sub-menu {
         position: static;
-        display: none;
-        box-shadow: none;
         background: #1a1a1a;
-        margin-left: 20px;
+        display: none;
+        flex-direction: column;
+        box-shadow: none;
       }
 
       .sub-menu-toggle.active .sub-menu {
         display: flex;
+      }
+
+      .sub-menu-toggle > a::after {
+        content: " ▼";
+        font-size: 0.8em;
       }
     }
   </style>
@@ -180,23 +195,33 @@
   </nav>
 
   <script>
-    // ===== SCRIPT PARA MENÚ HAMBURGUESA =====
+    // ===== MENÚ HAMBURGUESA =====
     const menuToggle = document.getElementById('menu-toggle');
     const navbarMenu = document.getElementById('navbarMenu');
     const subMenuToggles = document.querySelectorAll('.sub-menu-toggle');
 
+    // Mostrar / ocultar menú principal
     menuToggle.addEventListener('click', () => {
       navbarMenu.classList.toggle('active');
     });
 
-    // Submenú funcional en móvil
+    // Submenús (solo móviles)
     subMenuToggles.forEach(toggle => {
       toggle.addEventListener('click', (e) => {
         if (window.innerWidth <= 900) {
-          e.preventDefault();
+          e.preventDefault(); // Evita que el enlace recargue
+          e.stopPropagation(); // No cierre otros menús
           toggle.classList.toggle('active');
         }
       });
+    });
+
+    // Cierra menú al hacer clic fuera (móvil)
+    document.addEventListener('click', (e) => {
+      if (!navbarMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        navbarMenu.classList.remove('active');
+        subMenuToggles.forEach(t => t.classList.remove('active'));
+      }
     });
   </script>
 
