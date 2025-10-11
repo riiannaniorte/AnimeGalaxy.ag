@@ -1,55 +1,286 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #2c3e50;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .card {
-            background-color: #34495e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            transform: perspective(500px) rotateX(0deg);
-            transition: transform 0.5s;
-            width: 300px;
-            text-align: center;
-        }
-        .card:hover {
-            transform: perspective(500px) rotateX(10deg);
-        }
-        .navbar-brand {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        a {
-            color: #e74c3c;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: #c0392b;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Animes - AnimeGalaxy</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #2c3e50, #4ca1af); /* fondo azul */
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ======= NAVBAR ======= */
+    .navbar {
+      background-color: #111;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-size: 1.3em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: orange;
+    }
+
+    .navbar input[type="text"] {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      font-size: 0.9em;
+      outline: none;
+    }
+
+    /* Menú hamburguesa para móvil */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+    }
+
+    /* ======= CONTENIDO PRINCIPAL ======= */
+    .main-content {
+      display: flex;
+      margin-top: 80px;
+      padding: 20px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Barra lateral */
+    .sidebar {
+      flex: 0 0 250px;
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      height: fit-content;
+    }
+
+    .sidebar h2 {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
+    .sidebar label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .sidebar select, 
+    .sidebar input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 0.9em;
+    }
+
+    .sidebar button {
+      width: 100%;
+      padding: 10px;
+      background-color: orange;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .sidebar button:hover {
+      background-color: #ffb347;
+    }
+
+    /* Lista de animes */
+    .anime-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .list-item {
+      background-color: #e0e0e0;
+      color: #333;
+      padding: 15px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .list-item span {
+      font-weight: bold;
+      font-size: 1.05em;
+    }
+
+    .anime-button {
+      background-color: #f38181;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .anime-button:hover {
+      background-color: #f06d6d;
+    }
+
+    footer {
+      background: #111;
+      color: #ccc;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 900px) {
+      .main-content {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        background: #111;
+        width: 100%;
+        position: absolute;
+        top: 55px;
+        left: 0;
+        padding: 10px 0;
+      }
+
+      .navbar-menu.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .navbar input[type="text"] {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="navbar-brand">Manga</div>
-        <p>Bienvenido a la sección de Manga.</p>
-        <a href="anime.html">Ir a Anime</a> | <a href="crear_publicacion.html">Crear Publicación</a>
+  <!-- Menú superior -->
+  <nav class="navbar">
+    <div class="logo">🌌 AnimeGalaxy</div>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
+
+    <div class="navbar-menu" id="navbar-menu">
+      <a href="#">🏠 Inicio</a>
+      <a href="#">🎬 Directorio Anime</a>
+      <a href="#">📝 Pre-registro</a>
+      <a href="#">💬 Foro</a>
+      <a href="#">💼 Quiénes Somos</a>
+      <a href="#">📧 Contacto</a>
+    </div>
+
+    <input type="text" placeholder="Buscar anime..." />
+  </nav>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+      <h2>Filtros</h2>
+      <label>Estados</label>
+      <select><option>En emisión</option></select>
+      <label>Tipos</label>
+      <select><option>Seleccionar</option></select>
+      <label>Géneros</label>
+      <select><option>Seleccionar</option></select>
+      <label>Estreno</label>
+      <select><option>Seleccionar</option></select>
+      <label>Idioma</label>
+      <select><option>Seleccionar</option></select>
+      <input type="text" placeholder="Busca algo..." />
+      <button>Buscar</button>
+    </aside>
+
+    <!-- Lista de animes -->
+    <section class="anime-list">
+      <div class="list-item"><span>One Piece</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Haikyuu the Movie: Battle at the Garbage Dump</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Kaiju No. 8</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Re: Monster</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>The Fable</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Ultraman: Rising</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Jujutsu Kaisen</span><button class="anime-button">ANIME</button></div>
+      <div class="list-item"><span>Attack on Titan</span><button class="anime-button">ANIME</button></div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AnimeGalaxy. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    // Script del menú responsive
+    const menuToggle = document.getElementById('menu-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+
+    menuToggle.addEventListener('click', () => {
+      navbarMenu.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
