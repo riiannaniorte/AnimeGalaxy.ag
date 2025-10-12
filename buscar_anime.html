@@ -3,15 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buscar Anime</title>
+<title>Buscar Anime - AnimeGalaxy</title>
 <link rel="stylesheet" href="styless.css">
 <link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+/* Grid estilo AnimeFLV */
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.anime-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.anime-card {
+  background: #2a2a2a;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.anime-card h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.anime-card p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #ddd;
+}
+
+.anime-card button {
+  margin-top: 5px;
+  padding: 5px;
+  border: none;
+  background: #ff3c3c;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.anime-card button:hover {
+  background: #e63232;
+}
+
+.tick {
+  background: #4CAF50 !important;
+  cursor: default !important;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background: #ff3c3c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #4CAF50;
+}
+</style>
 </head>
 <body>
 
 <div class="content-wrapper">
 
-  <!-- Navbar actualizado -->
+  <!-- Navbar -->
   <div class="navbar">
     <div class="navbar-brand">
       <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -20,7 +99,6 @@
     <div class="navbar-menu">
       <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
       <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar</a>
       <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
       <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
       <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
@@ -38,19 +116,21 @@
   <div class="container">
     <h1>Buscar Anime</h1>
     <input type="text" id="searchInput" placeholder="Buscar anime..." class="search-input">
-    <div class="card-container" id="anime-container"></div>
+    <div id="anime-grid" class="anime-grid"></div>
+    <div id="pagination" class="pagination"></div>
   </div>
 
 </div>
 
 <script>
 const animes = [
-  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man"},
-  {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball"},
-  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa"},
-  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan"},
-  {id:5,name:"My Hero Academia",image:"https://www3.animeflv.net/uploads/animes/covers/3582.jpg",synopsis:"El camino de Deku para convertirse en héroe"},
-  {id:6,name:"Jujutsu Kaisen",image:"https://www3.animeflv.net/uploads/animes/covers/3814.jpg",synopsis:"La lucha contra maldiciones y hechicería"},
+  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man",year:"2024",genre:"Acción, Comedia",episodes:"12"},
+  {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball",year:"2025",genre:"Aventura, Acción",episodes:"24"},
+  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa",year:"2020",genre:"Acción, Fantasía",episodes:"26"},
+  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan",year:"2023",genre:"Acción, Drama",episodes:"16"},
+  {id:5,name:"My Hero Academia",image:"https://www3.animeflv.net/uploads/animes/covers/3582.jpg",synopsis:"El camino de Deku para convertirse en héroe",year:"2022",genre:"Acción, Superpoderes",episodes:"25"},
+  
+ {id:6,name:"Jujutsu Kaisen",image:"https://www3.animeflv.net/uploads/animes/covers/3814.jpg",synopsis:"La lucha contra maldiciones y hechicería"},
   {id:7,name:"Black Clover",image:"https://www3.animeflv.net/uploads/animes/covers/3131.jpg",synopsis:"Asta busca convertirse en el Rey Mago"},
   {id:8,name:"Bleach",image:"https://www3.animeflv.net/uploads/animes/covers/1111.jpg",synopsis:"Ichigo y los Shinigami enfrentan amenazas"},
   {id:9,name:"Naruto",image:"https://www3.animeflv.net/uploads/animes/covers/22.jpg",synopsis:"Naruto y su camino ninja"},
@@ -89,49 +169,79 @@ const animes = [
   {id:42,name:"Code Geass",image:"https://www3.animeflv.net/uploads/animes/covers/421.jpg",synopsis:"Lelouch lucha contra un imperio"},
   {id:43,name:"Cowboy Bebop",image:"https://www3.animeflv.net/uploads/animes/covers/422.jpg",synopsis:"Cazarrecompensas en el espacio"},
   {id:44,name:"Neon Genesis Evangelion",image:"https://www3.animeflv.net/uploads/animes/covers/423.jpg",synopsis:"Mechas y drama psicológico"}
-];
-let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
+]; 
 
-function marcarTick(id, btn){
+let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
+const itemsPerPage = 12;
+let currentPage = 1;
+
+function marcarTick(btn) {
   btn.textContent = '✅ Guardado';
   btn.classList.add('tick');
   btn.disabled = true;
 }
 
-function renderAnimes(filter=""){
-  const container = document.getElementById('anime-container');
+function renderAnimesPage(filteredAnimes, page=1) {
+  const container = document.getElementById('anime-grid');
   container.innerHTML = '';
-  for(const anime of animes){
-    if(anime.name.toLowerCase().includes(filter.toLowerCase())){
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${anime.image}" alt="${anime.name}">
-        <h2>${anime.name}</h2>
-        <p>${anime.synopsis}</p>
-        <button data-id="${anime.id}">Guardar</button>
-      `;
-      container.appendChild(card);
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageItems = filteredAnimes.slice(start, end);
 
-      const btn = card.querySelector('button');
-      if(guardados.some(a => a.id === anime.id)){
-        marcarTick(anime.id, btn);
-      } else {
-        btn.addEventListener('click', ()=>{
-          guardados.push(anime);
-          localStorage.setItem('miLista', JSON.stringify(guardados));
-          marcarTick(anime.id, btn);
-        });
-      }
-    }
+  pageItems.forEach(anime => {
+    const card = document.createElement('div');
+    card.className = 'anime-card';
+    card.innerHTML = `
+      <img src="${anime.image}" alt="${anime.name}">
+      <h2>${anime.name}</h2>
+      <p><strong>Año:</strong> ${anime.year}</p>
+      <p><strong>Género:</strong> ${anime.genre}</p>
+      <p><strong>Episodios:</strong> ${anime.episodes}</p>
+      <p>${anime.synopsis}</p>
+      <button>Guardar</button>
+    `;
+    const btn = card.querySelector('button');
+    if(guardados.some(a => a.id === anime.id)) marcarTick(btn);
+    else btn.addEventListener('click', ()=>{
+      guardados.push(anime);
+      localStorage.setItem('miLista', JSON.stringify(guardados));
+      marcarTick(btn);
+    });
+    container.appendChild(card);
+  });
+
+  renderPagination(filteredAnimes.length, page);
+}
+
+function renderPagination(totalItems, page) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const container = document.getElementById('pagination');
+  container.innerHTML = '';
+  for(let i=1;i<=totalPages;i++){
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    if(i===page) btn.classList.add('active');
+    btn.addEventListener('click', ()=> {
+      currentPage = i;
+      filterAndRender();
+    });
+    container.appendChild(btn);
   }
 }
 
-document.getElementById('searchInput').addEventListener('input', e=>{
-  renderAnimes(e.target.value);
+function filterAndRender() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = animes.filter(a => a.name.toLowerCase().includes(query));
+  renderAnimesPage(filtered, currentPage);
+}
+
+document.getElementById('searchInput').addEventListener('input', ()=>{
+  currentPage = 1;
+  filterAndRender();
 });
 
-renderAnimes();
+// inicial render
+filterAndRender();
 </script>
 
 </body>
