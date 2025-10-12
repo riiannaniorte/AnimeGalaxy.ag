@@ -11,7 +11,7 @@
 
 <div class="content-wrapper">
 
-  <!-- Navbar actualizado -->
+  <!-- Navbar -->
   <div class="navbar">
     <div class="navbar-brand">
       <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -34,29 +34,53 @@
     </div>
   </div>
 
-  <!-- Contenido: solo mostrar lista -->
+  <!-- Contenedor de tarjetas -->
   <div id="mi-lista" class="card-container" style="padding:20px;"></div>
 
 </div>
 
 <script>
+// Cargar lista desde localStorage
 let miLista = JSON.parse(localStorage.getItem('miLista')) || [];
 const container = document.getElementById('mi-lista');
 
-if(miLista.length === 0){
-  container.innerHTML = '<p style="color:white;">No tienes animes guardados.</p>';
-} else {
-  for(const anime of miLista){
+function renderMiLista() {
+  container.innerHTML = '';
+  if(miLista.length === 0){
+    container.innerHTML = '<p style="color:white;">No tienes animes guardados.</p>';
+    return;
+  }
+
+  miLista.forEach(anime => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <img src="${anime.image}" alt="${anime.name}">
+      <img src="${anime.image}" alt="${anime.name}" class="clickable-img">
       <h2>${anime.name}</h2>
       <p>${anime.synopsis}</p>
+      <button class="delete-btn">Eliminar</button>
     `;
     container.appendChild(card);
-  }
+
+    // Click en imagen -> ir a anime_detalle.html?id=ID
+    const img = card.querySelector('.clickable-img');
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      window.location.href = `anime_detalle.html?id=${anime.id}`;
+    });
+
+    // Botón eliminar
+    const btnDelete = card.querySelector('.delete-btn');
+    btnDelete.addEventListener('click', () => {
+      miLista = miLista.filter(a => a.id !== anime.id);
+      localStorage.setItem('miLista', JSON.stringify(miLista));
+      renderMiLista();
+    });
+  });
 }
+
+// Inicializar render
+renderMiLista();
 </script>
 
 </body>
