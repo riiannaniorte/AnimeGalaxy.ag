@@ -6,14 +6,17 @@
  <title>AnimeGalaxy - Noticias y Novedades de Anime</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
  <link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
- <link rel="stylesheet" href="styless.css"> <!-- Aquí va tu CSS separado -->
+ <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<!-- Loading Spinner -->
 <div class="loading">
  <div class="spinner"></div>
 </div>
 
 <div class="content-wrapper">
+
  <div class="navbar">
    <div class="navbar-brand">
      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -26,15 +29,15 @@
      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
-     <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar Anime</a>
-    <div class="dropdown">
-  <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
-  <div class="dropdown-content">
-    <a href="iniciar_sesion.html">Iniciar Sesión</a> <!-- Nuevo enlace arriba -->
-    <a href="mi_lista.html">Mi Lista</a>
-  </div>
-</div>
+     <div class="dropdown">
+       <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+       <div class="dropdown-content">
+         <a href="iniciar_sesion.html">Iniciar Sesión</a>
+         <a href="mi_lista.html">Mi Lista</a>
+       </div>
+     </div>
    </div>
+ 
  </div>
 
  <div class="container">
@@ -67,7 +70,7 @@
          <button class="explore-button" onclick="window.location.href='https://atomix.vg/primer-trailer-de-la-tercera-temporada-de-one-punch-man/'">Explorar</button>
        </div>
        <div class="card">
-         <img src="https://a.storyblok.com/f/178900/1064x1596/7394dd442d/fire-force-season-3-key-art.png/m/filters:quality(95)format(webp)" alt="Fire Force - Temporada 3">
+         <img src="https://a.storyblok.com/f/178900/1064x1596/7394dd442d/fire-force-season-3-key-art.png/m/filters:quality(95)format(webp" alt="Fire Force - Temporada 3">
          <h2>Fire Force - Temporada 3</h2>
          <p>En abril de 2025 se podrá ver en animeflv</p>
          <button class="explore-button" onclick="window.location.href='https://www3.animeflv.net/anime/enen-no-shouboutai-san-no-shou'">Explorar</button>
@@ -123,11 +126,36 @@
 </div>
 
 <script>
- // (todo tu JavaScript original sin cambios)
+ // Loading fade-out
+window.addEventListener("load", () => {
+  const loader = document.querySelector(".loading");
+  loader.style.opacity = "0";
+  setTimeout(() => loader.style.display = "none", 500);
+});
+
+// Scroll fade-in de tarjetas
+const cards = document.querySelectorAll(".card");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
+    }
+  });
+}, { threshold: 0.1 });
+
+cards.forEach(card => {
+  card.style.opacity = "0";
+  card.style.transform = "translateY(50px)";
+  card.style.transition = "all 0.6s ease";
+  observer.observe(card);
+});
+
+// Función de búsqueda (placeholder)
+function search() {
+  const input = document.getElementById("searchInput").value;
+  alert("Buscando: " + input);
+}
 </script>
 </body>
 </html>
-
-
-
-
