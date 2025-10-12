@@ -1,140 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión - AnimeGalaxy</title>
-  <link rel="stylesheet" href="styless.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="styless.css"> <!-- Usa el mismo CSS del index -->
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #1a002a, #34004d, #590078);
-      font-family: "Poppins", sans-serif;
-    }
-
-    .login-box {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
-      width: 320px;
-      text-align: center;
-      backdrop-filter: blur(8px);
-    }
-
-    .login-box h2 {
-      color: #fff;
-      margin-bottom: 20px;
-      font-weight: 600;
-      text-shadow: 0 0 8px #ff00ff;
-    }
-
-    .input-group {
-      position: relative;
-      margin-bottom: 15px;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 10px 40px 10px 15px;
-      border: none;
-      border-radius: 6px;
-      outline: none;
-      font-size: 14px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    .input-group i {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #ccc;
-    }
-
-    .btn-login {
-      width: 100%;
-      padding: 10px;
-      background: linear-gradient(90deg, #007bff, #00e0ff);
-      border: none;
-      border-radius: 6px;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-
-    .btn-login:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #00e0ff;
-    }
-
-    .btn-alt {
-      background: #3b5998;
-      margin-top: 10px;
-    }
-
-    .links {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      font-size: 13px;
-    }
-
-    .links a {
-      color: #00e0ff;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .links a:hover {
-      color: #fff;
-    }
-
-    .register-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .register-link a {
-      color: #ff00ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .register-link a:hover {
-      color: #fff;
-    }
+    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #222; color: #fff; }
+    .box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 10px; text-align: center; }
+    input { display: block; margin: 10px 0; padding: 10px; width: 100%; border-radius: 5px; border: none; }
+    button { padding: 10px; width: 100%; border: none; border-radius: 5px; background: #00e0ff; color: #fff; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="login-box">
+  <div class="box">
     <h2>Iniciar Sesión</h2>
-    <form action="index.html" method="POST">
-      <div class="input-group">
-        <input type="email" placeholder="Correo electrónico" required />
-        <i class="fas fa-envelope"></i>
-      </div>
-      <div class="input-group">
-        <input type="password" placeholder="Contraseña" required />
-        <i class="fas fa-lock"></i>
-      </div>
-      <button type="submit" class="btn-login">Iniciar Sesión</button>
-      <button type="button" class="btn-login btn-alt">
-        <i class="fab fa-google"></i> Iniciar con Google
-      </button>
-      <div class="links">
-        <a href="#">¿Olvidaste tu contraseña?</a>
-        <a href="registro.html">Registrarte</a>
-      </div>
-    </form>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <button onclick="login()">Iniciar Sesión</button>
+    <p>¿No tienes cuenta? <a href="registro.html">Registrarte</a></p>
   </div>
+
+  <script>
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+      if(usuario && usuario.email === email && usuario.password === password){
+        alert('Inicio de sesión exitoso');
+        // Aquí puedes redirigir a tu página principal
+        window.location.href = 'index.html';
+      } else {
+        alert('Usuario o contraseña incorrectos');
+      }
+    }
+  </script>
 </body>
 </html>
