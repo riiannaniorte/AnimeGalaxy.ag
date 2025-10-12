@@ -122,14 +122,21 @@
 }
 
 /* Cards horizontal tipo AnimeFLV */
+.scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .card-container {
   display: flex;
   flex-wrap: nowrap; /* fila única para scroll horizontal */
   gap: 10px;
-  overflow-x: auto; /* scroll horizontal */
+  overflow-x: hidden; /* ocultamos scroll default */
   padding: 10px 0;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #ff3c3c #1a1a1a; /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #ff3c3c #1a1a1a;
+  transition: 0.3s;
 }
 
 .card-container::-webkit-scrollbar {
@@ -144,6 +151,40 @@
 .card-container::-webkit-scrollbar-thumb {
   background-color: #ff3c3c;
   border-radius: 4px;
+}
+
+/* Flechas laterales */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255,60,60,0.8);
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s, background-color 0.3s;
+  z-index: 10;
+}
+
+.scroll-btn:hover {
+  background-color: #ff3c3c;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
+
+/* Mostrar flechas solo al pasar el mouse */
+.scroll-wrapper:hover .scroll-btn {
+  opacity: 1;
 }
 
 /* Cards */
