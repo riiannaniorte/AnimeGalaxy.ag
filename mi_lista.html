@@ -38,7 +38,14 @@ h1 { text-align:center; margin-top:100px; }
 <div class="anime-list" id="animeList"></div>
 
 <script>
-let animes = JSON.parse(localStorage.getItem('animesVistos')) || [];
+const API_BACKEND = 'http://localhost:3000';
+let animes = [];
+
+async function cargarLista() {
+    const res = await fetch(`${API_BACKEND}/animes`);
+    animes = await res.json();
+    renderList();
+}
 
 function renderList(filtro='') {
     const div = document.getElementById('animeList');
@@ -58,9 +65,10 @@ function renderList(filtro='') {
     });
 }
 
-function eliminarAnime(index) {
+async function eliminarAnime(index) {
+    const anime = animes[index];
+    await fetch(`${API_BACKEND}/animes/${anime.mal_id}`, {method:'DELETE'});
     animes.splice(index,1);
-    localStorage.setItem('animesVistos',JSON.stringify(animes));
     renderList();
 }
 
@@ -69,14 +77,11 @@ function filtrarLista() {
     renderList(filtro);
 }
 
-// Escuchar cambios en localStorage para sincronizar lista en tiempo real
-window.addEventListener('storage', () => {
-    animes = JSON.parse(localStorage.getItem('animesVistos')) || [];
-    renderList(document.getElementById('searchInput').value);
-});
+// Escuchar cambios en otra pestaña
+window.addEventListener('storage', cargarLista);
 
-// Renderizar inicialmente
-renderList();
+// Cargar lista inicialmente
+cargarLista();
 </script>
 
 </body>
