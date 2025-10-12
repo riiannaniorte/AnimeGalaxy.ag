@@ -3,95 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buscar Animes</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<title>Buscar Anime</title>
 <style>
-:root { --primary-color:#00ffcc; --secondary-color:#ffcc00; --navbar-bg: rgba(0,0,0,0.8); --text-color:white; }
-body { margin:0; font-family:Arial, sans-serif; background: linear-gradient(to right,#333,#444); color:var(--text-color);}
-.navbar { background: var(--navbar-bg); padding:10px 20px; display:flex; justify-content: space-between; align-items:center; position:fixed; width:100%; top:0; z-index:1000; border-bottom:3px solid var(--primary-color);}
-.navbar a { color: var(--text-color); text-decoration:none; margin:0 10px;}
-h1 { text-align:center; margin-top:100px;}
-.search-container { text-align:center; margin-top:20px;}
-.search-container input { width:60%; padding:10px; border-radius:5px; border:none;}
-.anime-list { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:20px;}
-.anime-card { background: rgba(0,0,0,0.3); border-radius:10px; padding:10px; width:200px; text-align:center;}
-.anime-card img { width:100%; border-radius:10px; height:250px; object-fit:cover; cursor:pointer;}
-.anime-card h4 { margin:10px 0 5px; color: var(--secondary-color); cursor:pointer;}
-.anime-card p { font-size:0.9em; color:#ddd; }
-.anime-card button { margin-top:5px; padding:5px 10px; border:none; border-radius:5px; background: var(--primary-color); color:white; cursor:pointer;}
-.anime-card button.added { background:green; }
-.anime-card button.added:hover { background:darkgreen; }
+  body { font-family: Arial, sans-serif; background: #222; color: white; }
+  .card { display: inline-block; margin: 10px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; width: 200px; text-align:center; }
+  img { width: 100%; border-radius: 10px; }
+  button { margin-top: 5px; padding: 5px 10px; cursor: pointer; border-radius:5px; border:none; background:#00ffcc; color:#000; }
+  button.tick { background:#4CAF50; color:white; cursor: default; }
 </style>
 </head>
 <body>
-
-<div class="navbar">
-    <a href="buscar_anime.html">Buscar Anime</a>
-    <a href="mi_lista.html">Mi Lista</a>
-</div>
-
-<h1>Buscar Animes</h1>
-
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="Escribe el nombre del anime...">
-    <button onclick="buscarAnime()">Buscar</button>
-</div>
-
-<div class="anime-list" id="animeList"></div>
+<h1>Buscar Anime</h1>
+<input type="text" id="searchInput" placeholder="Buscar anime...">
+<div id="anime-container"></div>
 
 <script>
-const API_BACKEND = 'http://localhost:3000';
+const API_BACKEND = 'http://85.85.109.92:3000';
 
-async function buscarAnime() {
-    const nombre = document.getElementById('searchInput').value.trim();
-    const listDiv = document.getElementById('animeList');
-    listDiv.innerHTML = '';
-    if (!nombre) return;
-    try {
-        const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(nombre)}&limit=10`);
-        const data = await res.json();
-        const animes = data.data;
+// Buscar anime en la API (simulado, podrías integrar MyAnimeList API)
+const animes = [
+  {mal_id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",score:"9.0",synopsis:"Tercera temporada de One Punch Man"},
+  {mal_id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",score:"8.5",synopsis:"Nueva serie Dragon Ball"}
+];
 
-        // Obtener lista guardada desde backend
-        const savedRes = await fetch(`${API_BACKEND}/animes`);
-        const savedAnimes = await savedRes.json();
+let guardados = [];
 
-        animes.forEach(anime => {
-            const yaGuardado = savedAnimes.some(a => a.mal_id === anime.mal_id);
-            const card = document.createElement('div');
-            card.className = 'anime-card';
-            card.innerHTML = `
-                <img src="${anime.images.jpg.large_image_url}" alt="${anime.title}" onclick="window.open('https://myanimelist.net/anime/${anime.mal_id}','_blank')">
-                <h4 onclick="window.open('https://myanimelist.net/anime/${anime.mal_id}','_blank')">${anime.title}</h4>
-                <p>Puntaje: ${anime.score || 'N/A'}</p>
-                <p>${anime.synopsis ? anime.synopsis.substring(0,100)+'...' : 'Sin descripción.'}</p>
-                <button class="${yaGuardado?'added':''}" onclick='agregarALaLista(${JSON.stringify({mal_id:anime.mal_id, name: anime.title, image: anime.images.jpg.large_image_url, score: anime.score || "N/A", synopsis: anime.synopsis || "Sin descripción."})}, this)'>${yaGuardado?'✔ Añadido':'Añadir a mi lista'}</button>
-            `;
-            listDiv.appendChild(card);
-        });
-    } catch (e) { console.error(e); }
+async function cargarGuardados(){
+  guardados = await fetch(`${API_BACKEND}/animes`).then(r=>r.json());
 }
 
-async function agregarALaLista(anime, boton){
-    try {
-        const res = await fetch(`${API_BACKEND}/animes`, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
+function marcarTick(id){
+  const btn = document.querySelector(`button[data-id='${id}']`);
+  if(btn){
+    btn.textContent = '✅ Guardado';
+    btn.classList.add('tick');
+    btn.disabled = true;
+  }
+}
+
+async function renderAnimes(filter=""){
+  const container = document.getElementById('anime-container');
+  container.innerHTML = '';
+  for(const anime of animes){
+    if(anime.name.toLowerCase().includes(filter.toLowerCase())){
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${anime.image}" alt="${anime.name}">
+        <h2>${anime.name}</h2>
+        <p>${anime.synopsis}</p>
+        <button data-id="${anime.mal_id}">Guardar</button>
+      `;
+      container.appendChild(card);
+
+      const btn = card.querySelector('button');
+      if(guardados.some(a => a.mal_id === anime.mal_id)){
+        marcarTick(anime.mal_id);
+      } else {
+        btn.addEventListener('click', async ()=>{
+          await fetch(`${API_BACKEND}/animes`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
             body: JSON.stringify(anime)
+          });
+          marcarTick(anime.mal_id);
+          guardados.push(anime);
         });
-        const data = await res.json();
-        if(data.success){
-            boton.classList.add('added');
-            boton.innerText = '✔ Añadido';
-        }
-    } catch(err){
-        console.error(err);
+      }
     }
+  }
 }
 
-// Escuchar cambios en otra pestaña
-window.addEventListener('storage', () => buscarAnime());
-</script>
+// Buscar en tiempo real
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  renderAnimes(e.target.value);
+});
 
+// Inicializar
+(async()=>{
+  await cargarGuardados();
+  renderAnimes();
+})();
+</script>
 </body>
 </html>
