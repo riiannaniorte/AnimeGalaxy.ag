@@ -3,60 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detalle Anime</title>
+<title>Anime Detalle</title>
 <link rel="stylesheet" href="styless.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-<div class="content-wrapper">
-
-  <div class="navbar">
-    <div class="navbar-brand">
-      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
-      <span>AnimeGalaxy</span>
-    </div>
-    <div class="navbar-menu">
-      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
-      <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar Anime</a>
-      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
-      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
-      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
-      <div class="dropdown">
-        <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
-        <div class="dropdown-content">
-          <a href="iniciar_sesion.html">Iniciar Sesión</a>
-          <a href="mi_lista.html">Mi Lista</a>
-        </div>
+<!-- Navbar (igual que index.html) -->
+<div class="navbar">
+  <div class="navbar-brand">
+    <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
+    <span>AnimeGalaxy</span>
+  </div>
+  <div class="navbar-menu">
+    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+    <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
+    <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar</a>
+    <div class="dropdown">
+      <a><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+      <div class="dropdown-content">
+        <a href="iniciar_sesion.html">Iniciar Sesión</a>
+        <a href="mi_lista.html">Mi Lista</a>
       </div>
     </div>
   </div>
-
-  <div class="container" id="detalle-container">
-    <!-- Aquí se cargará el detalle del anime -->
-  </div>
-
 </div>
 
+<!-- Contenido principal -->
+<div class="container">
+  <div class="section">
+    <h1>One Punch Man - Temporada 3</h1>
+    <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man" style="width:100%; max-width:400px; border-radius:10px; margin-bottom:10px;">
+    <p>La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.</p>
+  </div>
+
+  <!-- Sección de capítulos con scroll horizontal -->
+  <div class="section">
+    <h1>Capítulos</h1>
+    <div class="scroll-wrapper">
+      <button class="scroll-btn left">&lt;</button>
+      <div class="capitulo-container">
+        <div class="capitulo-card">
+          <span>Capítulo 1</span>
+          <button onclick="window.location.href='capitulo1.html'">Ver</button>
+        </div>
+        <div class="capitulo-card">
+          <span>Capítulo 2</span>
+          <button onclick="window.location.href='capitulo2.html'">Ver</button>
+        </div>
+        <div class="capitulo-card">
+          <span>Capítulo 3</span>
+          <button onclick="window.location.href='capitulo3.html'">Ver</button>
+        </div>
+        <div class="capitulo-card">
+          <span>Capítulo 4</span>
+          <button onclick="window.location.href='capitulo4.html'">Ver</button>
+        </div>
+        <!-- Añade más capítulos según sea necesario -->
+      </div>
+      <button class="scroll-btn right">&gt;</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 AnimeGalaxy. Todos los derechos reservados.</p>
+  <div class="social-links">
+    <a href="#"><i class="fab fa-facebook"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-youtube"></i></a>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- JS para scroll con flechas -->
 <script>
-// Obtener ID del query string
-const params = new URLSearchParams(window.location.search);
-const id = parseInt(params.get('id'));
+const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
 
-// Buscar anime en localStorage
-const miLista = JSON.parse(localStorage.getItem('miLista')) || [];
-const anime = miLista.find(a => a.id === id);
+scrollWrappers.forEach(wrapper => {
+  const container = wrapper.querySelector('.capitulo-container');
+  const btnLeft = wrapper.querySelector('.scroll-btn.left');
+  const btnRight = wrapper.querySelector('.scroll-btn.right');
 
-const container = document.getElementById('detalle-container');
-if(anime){
-  container.innerHTML = `
-    <h1>${anime.name}</h1>
-    <img src="${anime.image}" alt="${anime.name}" style="max-width:300px; border-radius:10px;">
-    <p>${anime.synopsis}</p>
-  `;
-} else {
-  container.innerHTML = '<p style="color:white;">Anime no encontrado.</p>';
-}
+  btnLeft.addEventListener('click', () => {
+    container.scrollBy({ left: -300, behavior: 'smooth' });
+  });
+
+  btnRight.addEventListener('click', () => {
+    container.scrollBy({ left: 300, behavior: 'smooth' });
+  });
+});
 </script>
 
 </body>
