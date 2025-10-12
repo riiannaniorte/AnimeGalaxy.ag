@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Punch Man - Temporada 3</title>
+<title>Anime Detalle</title>
 <link rel="stylesheet" href="styless.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
@@ -198,18 +198,46 @@
 </div>
 
 <script>
-const anime = {
-  title: "One Punch Man - Temporada 3",
-  image: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",
-  sinopsis: "La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.",
-  capitulos: Array.from({length: 12}, (_, i) => ({
-    numero: i+1,
-    imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",
-    link: `opm_cap${i+1}.html`
-  }))
+// ========================
+// Datos de todos los animes
+// ========================
+const animesData = {
+  "onepunch": {
+    title: "One Punch Man - Temporada 3",
+    image: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",
+    sinopsis: "La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos...",
+    capitulos: Array.from({length: 12}, (_, i) => ({
+      numero: i+1,
+      imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",
+      link: `opm_cap${i+1}.html`
+    }))
+  },
+  "dragonball": {
+    title: "Dragon Ball Daima",
+    image: "https://www3.animeflv.net/uploads/animes/covers/4081.jpg",
+    sinopsis: "Nueva serie de Dragon Ball que promete revolucionar la franquicia con una historia completamente nueva.",
+    capitulos: Array.from({length: 10}, (_, i) => ({
+      numero: i+1,
+      imagen: "https://www3.animeflv.net/uploads/animes/covers/4081.jpg",
+      link: `dbd_cap${i+1}.html`
+    }))
+  }
 };
 
-/* Renderizar anime */
+// ========================
+// Detectar anime desde URL
+// ========================
+function getAnimeFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("anime") || "onepunch";
+}
+
+const selectedAnimeKey = getAnimeFromURL();
+const anime = animesData[selectedAnimeKey];
+
+// ========================
+// Renderizar anime
+// ========================
 document.getElementById("anime-title").textContent = anime.title;
 document.getElementById("anime-img").src = anime.image;
 document.getElementById("anime-img").alt = anime.title;
@@ -227,7 +255,9 @@ anime.capitulos.forEach(c => {
   container.appendChild(card);
 });
 
-/* Scroll horizontal */
+// ========================
+// Scroll horizontal
+// ========================
 const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
 scrollWrappers.forEach(wrapper => {
   const container = wrapper.querySelector('.capitulo-container');
@@ -235,6 +265,5 @@ scrollWrappers.forEach(wrapper => {
   wrapper.querySelector('.scroll-btn.right').addEventListener('click', ()=>{ container.scrollBy({left:250, behavior:'smooth'}); });
 });
 </script>
-
 </body>
 </html>
