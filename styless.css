@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a1a; /* color de fondo del menú */
+  background-color: #1a1a1a;
   padding: 10px 20px;
   color: #fff;
   font-family: Arial, sans-serif;
@@ -14,21 +14,18 @@
   z-index: 1000;
 }
 
-/* Logo */
 .navbar-logo {
   width: 50px;
   height: 50px;
   margin-right: 10px;
 }
 
-/* Menú principal */
 .navbar-menu {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-/* Links del menú */
 .navbar-menu a {
   color: #fff;
   text-decoration: none;
@@ -38,11 +35,10 @@
 }
 
 .navbar-menu a:hover {
-  background-color: #ff3c3c; /* hover menú */
+  background-color: #ff3c3c;
   color: #fff;
 }
 
-/* Dropdown */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -58,7 +54,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #2a2a2a; /* fondo del submenú */
+  background-color: #2a2a2a;
   min-width: 150px;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
@@ -73,8 +69,12 @@
   transition: 0.3s;
 }
 
+.dropdown-content a:first-child {
+  border-bottom: 1px solid #444;
+}
+
 .dropdown-content a:hover {
-  background-color: #ff3c3c; /* hover submenú */
+  background-color: #ff3c3c;
 }
 
 .dropdown:hover .dropdown-content {
@@ -135,7 +135,7 @@
   flex: 1 1 calc(25% - 20px);
   box-sizing: border-box;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
 }
 
 .card img {
@@ -146,7 +146,7 @@
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0px 10px 20px rgba(255,60,60,0.4);
 }
 
 .explore-button {
@@ -161,7 +161,8 @@
 }
 
 .explore-button:hover {
-  background-color: #e63232;
+  background: linear-gradient(45deg, #ff3c3c, #ff9a3c);
+  color: #fff;
 }
 
 /* ========================
@@ -178,11 +179,12 @@ footer {
   color: #fff;
   margin: 0 10px;
   font-size: 20px;
-  transition: 0.3s;
+  transition: transform 0.3s, color 0.3s;
 }
 
 .social-links a:hover {
   color: #ff3c3c;
+  transform: scale(1.2);
 }
 
 /* ========================
@@ -205,6 +207,37 @@ footer {
 
 .back-to-top:hover {
   background-color: #e63232;
+}
+
+/* ========================
+   Loading Spinner
+======================== */
+.loading {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#1a1a1a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:10000;
+  transition: opacity 0.5s ease;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #ff3c3c;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* ========================
