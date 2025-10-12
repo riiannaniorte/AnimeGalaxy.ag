@@ -1,0 +1,232 @@
+/* ========================
+   Navbar general
+======================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a1a; /* color de fondo del menú */
+  padding: 10px 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo */
+.navbar-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+/* Menú principal */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Links del menú */
+.navbar-menu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.navbar-menu a:hover {
+  background-color: #ff3c3c; /* hover menú */
+  color: #fff;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown > a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2a2a2a; /* fondo del submenú */
+  min-width: 150px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  transition: 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #ff3c3c; /* hover submenú */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* ========================
+   Contenedor de búsqueda
+======================== */
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 5px 10px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+
+.search-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #ff3c3c;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background-color: #e63232;
+}
+
+/* ========================
+   Card y secciones
+======================== */
+.container {
+  padding: 20px;
+}
+
+.section h1 {
+  margin-bottom: 15px;
+  color: #ff3c3c;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: #2a2a2a;
+  color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  flex: 1 1 calc(25% - 20px);
+  box-sizing: border-box;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+}
+
+.explore-button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #ff3c3c;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.explore-button:hover {
+  background-color: #e63232;
+}
+
+/* ========================
+   Footer
+======================== */
+footer {
+  background-color: #1a1a1a;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.social-links a {
+  color: #fff;
+  margin: 0 10px;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: #ff3c3c;
+}
+
+/* ========================
+   Back to top
+======================== */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff3c3c;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.back-to-top:hover {
+  background-color: #e63232;
+}
+
+/* ========================
+   Responsive básico
+======================== */
+@media screen and (max-width: 1024px) {
+  .card {
+    flex: 1 1 calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+  }
+  .card {
+    flex: 1 1 100%;
+  }
+}
