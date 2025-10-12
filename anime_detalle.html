@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anime Detalle</title>
+<title>One Punch Man - Temporada 3</title>
 <link rel="stylesheet" href="styless.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-<!-- Navbar (igual que index.html) -->
+<!-- Navbar -->
 <div class="navbar">
   <div class="navbar-brand">
     <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -18,7 +18,7 @@
   <div class="navbar-menu">
     <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
     <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-    <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar</a>
+    <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar Anime</a>
     <div class="dropdown">
       <a><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
       <div class="dropdown-content">
@@ -31,41 +31,50 @@
 
 <!-- Contenido principal -->
 <div class="container">
-  <div class="section">
-    <h1>One Punch Man - Temporada 3</h1>
-    <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man" style="width:100%; max-width:400px; border-radius:10px; margin-bottom:10px;">
-    <p>La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.</p>
+
+  <!-- Encabezado del anime -->
+  <div class="anime-header">
+    <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man" class="anime-img">
+    <div class="anime-info">
+      <h1>One Punch Man - Temporada 3</h1>
+      <p>La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.</p>
+    </div>
   </div>
 
-  <!-- Sección de capítulos con scroll horizontal -->
+  <!-- Sección de capítulos -->
   <div class="section">
-    <h1>Capítulos</h1>
+    <h2>Capítulos</h2>
     <div class="scroll-wrapper">
       <button class="scroll-btn left">&lt;</button>
       <div class="capitulo-container">
         <div class="capitulo-card">
+          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 1">
           <span>Capítulo 1</span>
-          <button onclick="window.location.href='capitulo1.html'">Ver</button>
+          <button onclick="window.location.href='opm_cap1.html'">Ver</button>
         </div>
         <div class="capitulo-card">
+          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 2">
           <span>Capítulo 2</span>
-          <button onclick="window.location.href='capitulo2.html'">Ver</button>
+          <button onclick="window.location.href='opm_cap2.html'">Ver</button>
         </div>
         <div class="capitulo-card">
+          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 3">
           <span>Capítulo 3</span>
-          <button onclick="window.location.href='capitulo3.html'">Ver</button>
+          <button onclick="window.location.href='opm_cap3.html'">Ver</button>
         </div>
         <div class="capitulo-card">
+          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 4">
           <span>Capítulo 4</span>
-          <button onclick="window.location.href='capitulo4.html'">Ver</button>
+          <button onclick="window.location.href='opm_cap4.html'">Ver</button>
         </div>
-        <!-- Añade más capítulos según sea necesario -->
       </div>
       <button class="scroll-btn right">&gt;</button>
     </div>
   </div>
+
 </div>
 
+<!-- Footer -->
 <footer>
   <p>© 2025 AnimeGalaxy. Todos los derechos reservados.</p>
   <div class="social-links">
@@ -81,7 +90,7 @@
   <i class="fas fa-arrow-up"></i>
 </div>
 
-<!-- JS para scroll con flechas -->
+<!-- JS para scroll de capítulos -->
 <script>
 const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
 
@@ -91,11 +100,11 @@ scrollWrappers.forEach(wrapper => {
   const btnRight = wrapper.querySelector('.scroll-btn.right');
 
   btnLeft.addEventListener('click', () => {
-    container.scrollBy({ left: -300, behavior: 'smooth' });
+    container.scrollBy({ left: -250, behavior: 'smooth' });
   });
 
   btnRight.addEventListener('click', () => {
-    container.scrollBy({ left: 300, behavior: 'smooth' });
+    container.scrollBy({ left: 250, behavior: 'smooth' });
   });
 });
 </script>
