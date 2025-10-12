@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle Anime</title>
+<link rel="stylesheet" href="styless.css">
+</head>
+<body>
+
+<div class="content-wrapper">
+
+  <div class="navbar">
+    <div class="navbar-brand">
+      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
+      <span>AnimeGalaxy</span>
+    </div>
+    <div class="navbar-menu">
+      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
+      <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar Anime</a>
+      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
+      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
+      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
+      <div class="dropdown">
+        <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+          <a href="iniciar_sesion.html">Iniciar Sesión</a>
+          <a href="mi_lista.html">Mi Lista</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="detalle-container">
+    <!-- Aquí se cargará el detalle del anime -->
+  </div>
+
+</div>
+
+<script>
+// Obtener ID del query string
+const params = new URLSearchParams(window.location.search);
+const id = parseInt(params.get('id'));
+
+// Buscar anime en localStorage
+const miLista = JSON.parse(localStorage.getItem('miLista')) || [];
+const anime = miLista.find(a => a.id === id);
+
+const container = document.getElementById('detalle-container');
+if(anime){
+  container.innerHTML = `
+    <h1>${anime.name}</h1>
+    <img src="${anime.image}" alt="${anime.name}" style="max-width:300px; border-radius:10px;">
+    <p>${anime.synopsis}</p>
+  `;
+} else {
+  container.innerHTML = '<p style="color:white;">Anime no encontrado.</p>';
+}
+</script>
+
+</body>
+</html>
