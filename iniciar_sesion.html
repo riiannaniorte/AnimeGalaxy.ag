@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión - AnimeGalaxy</title>
-  <link rel="stylesheet" href="styless.css"> <!-- Usa el mismo CSS del index -->
   <style>
     body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #222; color: #fff; }
     .box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 10px; text-align: center; }
@@ -29,7 +28,7 @@
       const usuario = JSON.parse(localStorage.getItem('usuario'));
 
       if(usuario && usuario.email === email && usuario.password === password){
-        alert('Inicio de sesión exitoso');
+        alert(`Inicio de sesión exitoso. ¡Bienvenido, ${usuario.username}!`);
         // Aquí puedes redirigir a tu página principal
         window.location.href = 'index.html';
       } else {
