@@ -38,11 +38,18 @@
      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
      <div class="dropdown">
-       <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
-       <div class="dropdown-content">
-         <a href="iniciar_sesion.html">Iniciar Sesión</a>
-         <a href="mi_lista.html">Mi Lista</a>
+      <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+       <div class="dropdown-content perfil-content">
+         <div class="perfil-info">
+          <img src="https://via.placeholder.com/80" alt="Foto de usuario" class="perfil-foto">
+          <h3 class="perfil-nombre">NombreUsuario</h3>
        </div>
+       <a href="editar_perfil.html">Editar Perfil</a>
+       <a href="mi_lista.html">Mi Lista</a>
+       <a href="iniciar_sesion.html">Cerrar Sesión</a>
+  </div>
+</div>
+
      </div>
    </div>
  </div>
@@ -186,3 +193,4 @@ document.querySelectorAll('.navbar-menu a').forEach(link => {
 </script>
 </body>
 </html>
+
