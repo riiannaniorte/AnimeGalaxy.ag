@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lista de Animes - AnimeGalaxy</title>
+
+  <!-- Font Awesome (para los iconos usados en el menú) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pbVdX0xv+N5y3k6b2q2mH6Y5Q2+q2e1g5qj1PpK7q+Rj1Y2kKq3q1XQ2k1q3q2x" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       margin: 0;
@@ -35,17 +39,13 @@
       font-size: 1.3em;
     }
 
+    /* ahora .navbar-menu es un contenedor de enlaces */
     .navbar-menu {
-      list-style: none;
       display: flex;
       align-items: center;
       gap: 20px;
       margin: 0;
       padding: 0;
-    }
-
-    .navbar-menu li {
-      position: relative;
     }
 
     .navbar-menu a {
@@ -54,44 +54,53 @@
       font-size: 1em;
       padding: 8px 10px;
       transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .navbar-menu a:hover {
       color: orange;
     }
 
-    /* Submenú */
-    .sub-menu {
-      list-style: none;
+    /* Dropdown (Perfil) */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown > a {
+      cursor: pointer;
+    }
+
+    .dropdown-content {
       position: absolute;
-      top: 40px;
-      left: 0;
+      top: calc(100% + 6px);
+      right: 0;
       background-color: #222;
-      padding: 0;
-      margin: 0;
-      display: none;
+      min-width: 160px;
       border-radius: 6px;
-      min-width: 180px;
       box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+      display: none;
+      flex-direction: column;
+      padding: 6px 0;
+      z-index: 1100;
     }
 
-    .sub-menu li a {
-      display: block;
-      padding: 10px;
-      font-size: 0.95em;
+    .dropdown-content a {
+      padding: 10px 14px;
       color: white;
+      display: block;
+      text-decoration: none;
+      font-size: 0.95em;
     }
 
-    .sub-menu li a:hover {
+    .dropdown-content a:hover {
       background-color: #333;
       color: orange;
     }
 
-    /* Mostrar submenú en escritorio */
-    @media (min-width: 901px) {
-      .sub-menu-toggle:hover .sub-menu {
-        display: block;
-      }
+    .dropdown.open .dropdown-content {
+      display: flex;
     }
 
     /* Input búsqueda */
@@ -220,6 +229,7 @@
         display: flex;
       }
 
+      /* en móvil .navbar-menu se convertirá en columna y se ocultará por defecto */
       .navbar-menu {
         display: none;
         flex-direction: column;
@@ -227,14 +237,12 @@
         width: 100%;
         margin-top: 10px;
         border-top: 1px solid #333;
+        padding: 10px 0;
+        gap: 0;
       }
 
       .navbar-menu.active {
         display: flex;
-      }
-
-      .navbar-menu li {
-        width: 100%;
       }
 
       .navbar-menu a {
@@ -242,21 +250,23 @@
         padding: 12px 20px;
       }
 
-      .sub-menu {
+      .dropdown-content {
         position: static;
+        box-shadow: none;
         background: #1a1a1a;
         display: none;
-        box-shadow: none;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 6px;
       }
 
-      .sub-menu-toggle.active .sub-menu {
+      .dropdown.open .dropdown-content {
         display: flex;
-        flex-direction: column;
       }
 
-      .sub-menu-toggle > a::after {
-        content: " ▼";
-        font-size: 0.8em;
+      .navbar input[type="text"] {
+        margin-top: 10px;
+        width: calc(100% - 40px);
       }
     }
   </style>
@@ -266,30 +276,29 @@
   <nav class="navbar">
     <div class="navbar-brand">AnimeGalaxy 🌟</div>
 
-    <div class="menu-toggle" id="menu-toggle">
+    <div class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
       <span></span>
       <span></span>
       <span></span>
     </div>
 
-    <ul class="navbar-menu" id="navbarMenu">
-      <li><a href="#">🏠 Inicio</a></li>
-      <li><a href="#">🎬 Directorio Anime</a></li>
-      <li><a href="#">✅ Animes Vistos</a></li>
-      <li><a href="#">🔐 Pre-registro</a></li>
+    <!-- MENU REEMPLAZADO SEGÚN TU PETICIÓN (mantengo id para JS) -->
+    <div class="navbar-menu" id="navbarMenu">
+      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
+      <a href="buscar_anime.html"><i class="fas fa-film"></i> Buscar</a>
+      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
+      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
+      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
 
-      <li class="sub-menu-toggle">
-        <a href="#">💬 Foro</a>
-        <ul class="sub-menu">
-          <li><a href="#">📺 Anime</a></li>
-          <li><a href="#">📚 Manga</a></li>
-          <li><a href="#">📝 Crear Publicación</a></li>
-        </ul>
-      </li>
-
-      <li><a href="#">👥 Quiénes Somos</a></li>
-      <li><a href="#">📧 Contacto</a></li>
-    </ul>
+      <div class="dropdown" id="profileDropdown">
+        <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content" aria-hidden="true">
+          <a href="iniciar_sesion.html">Iniciar Sesión</a>
+          <a href="mi_lista.html">Mi Lista</a>
+        </div>
+      </div>
+    </div>
 
     <input type="text" placeholder="Buscar anime..." />
   </nav>
@@ -332,20 +341,46 @@
     // ==== MENÚ HAMBURGUESA ====
     const menuToggle = document.getElementById('menu-toggle');
     const navbarMenu = document.getElementById('navbarMenu');
-    const subMenuToggles = document.querySelectorAll('.sub-menu-toggle');
 
     menuToggle.addEventListener('click', () => {
       navbarMenu.classList.toggle('active');
     });
 
-    // Submenú (solo en móvil)
-    subMenuToggles.forEach(toggle => {
-      toggle.addEventListener('click', (e) => {
-        if (window.innerWidth <= 900) {
-          e.preventDefault();
-          toggle.classList.toggle('active');
-        }
-      });
+    // Dropdown perfil
+    const profileDropdown = document.getElementById('profileDropdown');
+    const dropdownToggleLink = profileDropdown.querySelector('a');
+    const dropdownContent = profileDropdown.querySelector('.dropdown-content');
+
+    // abrir/cerrar dropdown en clic (funciona en móvil y escritorio)
+    dropdownToggleLink.addEventListener('click', (e) => {
+      // si estamos en móvil, queremos expandir el dropdown dentro del menú
+      if (window.innerWidth <= 900) {
+        e.preventDefault();
+        profileDropdown.classList.toggle('open');
+        const isOpen = profileDropdown.classList.contains('open');
+        dropdownContent.setAttribute('aria-hidden', !isOpen);
+      } else {
+        // en escritorio, prevenimos navegación y mostramos el dropdown
+        e.preventDefault();
+        profileDropdown.classList.toggle('open');
+        const isOpen = profileDropdown.classList.contains('open');
+        dropdownContent.setAttribute('aria-hidden', !isOpen);
+      }
+    });
+
+    // cerrar dropdown al hacer clic fuera (útil en escritorio)
+    document.addEventListener('click', (e) => {
+      if (!profileDropdown.contains(e.target)) {
+        profileDropdown.classList.remove('open');
+        dropdownContent.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // cerrar menu móvil al cambiar tamaño de ventana a escritorio
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        navbarMenu.classList.remove('active');
+      }
     });
   </script>
 </body>
