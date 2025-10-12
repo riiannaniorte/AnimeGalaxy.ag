@@ -11,7 +11,6 @@
 
 <div class="content-wrapper">
 
-  <!-- Navbar -->
   <div class="navbar">
     <div class="navbar-brand">
       <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -34,7 +33,6 @@
     </div>
   </div>
 
-  <!-- Contenedor de tarjetas -->
   <div id="mi-lista" class="card-container" style="padding:20px;"></div>
 
 </div>
@@ -44,42 +42,119 @@
 let miLista = JSON.parse(localStorage.getItem('miLista')) || [];
 const container = document.getElementById('mi-lista');
 
-function renderMiLista() {
-  container.innerHTML = '';
-  if(miLista.length === 0){
-    container.innerHTML = '<p style="color:white;">No tienes animes guardados.</p>';
-    return;
-  }
+// --- Variables de Paginación ---
+const ANIME_PER_PAGE = 10;
+let currentPage = 1;
+// ------------------------------
 
-  miLista.forEach(anime => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${anime.image}" alt="${anime.name}" class="clickable-img">
-      <h2>${anime.name}</h2>
-      <p>${anime.synopsis}</p>
-      <button class="delete-btn">Eliminar</button>
-    `;
-    container.appendChild(card);
+/**
+ * Genera el HTML para los botones de paginación.
+ * Nota: Los estilos están en línea para asegurar que se muestren correctamente, aunque lo ideal es que estén en styless.css.
+ */
+function renderPaginacionControls(totalItems, itemsPerPage, currentPage) {
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    if (totalPages <= 1) return '';
 
-    // Click en imagen -> ir a anime_detalle.html?id=ID
-    const img = card.querySelector('.clickable-img');
-    img.style.cursor = 'pointer';
-    img.addEventListener('click', () => {
-      window.location.href = `anime_detalle.html?id=${anime.id}`;
-    });
+    let controlsHTML = '<div class="pagination-controls" style="margin-top: 20px; text-align: center; color: white; width: 100%;">';
 
-    // Botón eliminar
-    const btnDelete = card.querySelector('.delete-btn');
-    btnDelete.addEventListener('click', () => {
-      miLista = miLista.filter(a => a.id !== anime.id);
-      localStorage.setItem('miLista', JSON.stringify(miLista));
-      renderMiLista();
-    });
-  });
+    // Botón Anterior
+    controlsHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} style="padding: 10px; margin: 0 5px; cursor: pointer; background-color: #333; color: white; border: 1px solid #555; border-radius: 5px; transition: background-color 0.3s;">&laquo; Anterior</button>`;
+
+    // Números de Página
+    // Se limita el número de páginas mostradas para evitar desbordamiento.
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    if (endPage - startPage + 1 < maxPagesToShow) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const isActive = currentPage === i;
+        controlsHTML += `<button onclick="changePage(${i})" ${isActive ? 'style="background-color: #f7931e; color: white; border-color: #f7931e;"' : 'style="background-color: #333; color: white; border-color: #555;"'} class="pagination-btn" style="padding: 10px 15px; margin: 0 5px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s;">${i}</button>`;
+    }
+
+    // Botón Siguiente
+    controlsHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} style="padding: 10px; margin: 0 5px; cursor: pointer; background-color: #333; color: white; border: 1px solid #555; border-radius: 5px; transition: background-color 0.3s;">Siguiente &raquo;</button>`;
+
+    controlsHTML += '</div>';
+    return controlsHTML;
 }
 
-// Inicializar render
+function renderMiLista() {
+    container.innerHTML = '';
+
+    if (miLista.length === 0) {
+        container.innerHTML = '<p style="color:white; text-align: center; width: 100%;">No tienes animes guardados.</p>';
+        return;
+    }
+
+    // Calcular el rango de animes a mostrar
+    const startIndex = (currentPage - 1) * ANIME_PER_PAGE;
+    const endIndex = startIndex + ANIME_PER_PAGE;
+    const itemsToShow = miLista.slice(startIndex, endIndex);
+
+    // Renderizar tarjetas
+    itemsToShow.forEach(anime => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <img src="${anime.image}" alt="${anime.name}" class="clickable-img">
+            <h2>${anime.name}</h2>
+            <p>${anime.synopsis}</p>
+            <button class="delete-btn">Eliminar</button>
+        `;
+        container.appendChild(card);
+
+        // Click en imagen -> ir a anime_detalle.html?id=ID
+        const img = card.querySelector('.clickable-img');
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+            window.location.href = `anime_detalle.html?id=${anime.id}`;
+        });
+
+        // Botón eliminar
+        const btnDelete = card.querySelector('.delete-btn');
+        btnDelete.addEventListener('click', () => {
+            // Eliminar de la lista y actualizar localStorage
+            miLista = miLista.filter(a => a.id !== anime.id);
+            localStorage.setItem('miLista', JSON.stringify(miLista));
+            
+            // Ajustar la página actual si es necesario (ej: si se vacía la última página)
+            const totalPagesAfterDeletion = Math.ceil(miLista.length / ANIME_PER_PAGE);
+            if (currentPage > totalPagesAfterDeletion && totalPagesAfterDeletion >= 1) {
+                currentPage = totalPagesAfterDeletion;
+            } else if (miLista.length === 0) {
+                 currentPage = 1;
+            }
+
+            renderMiLista();
+        });
+    });
+
+    // Añadir controles de paginación después de las tarjetas
+    const paginationControlsHTML = renderPaginacionControls(miLista.length, ANIME_PER_PAGE, currentPage);
+    if (paginationControlsHTML) {
+        container.insertAdjacentHTML('beforeend', paginationControlsHTML);
+    }
+}
+
+/**
+ * Función global para cambiar la página.
+ */
+window.changePage = (newPage) => {
+    const totalPages = Math.ceil(miLista.length / ANIME_PER_PAGE);
+
+    if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        renderMiLista();
+        // Mueve el foco al contenedor para ver los nuevos elementos
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+    }
+};
+
+// Inicializar render al cargar la página
 renderMiLista();
 </script>
 
