@@ -11,7 +11,7 @@
 
 <div class="content-wrapper">
 
-  <!-- Navbar igual que index.html -->
+  <!-- Navbar actualizado -->
   <div class="navbar">
     <div class="navbar-brand">
       <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -20,7 +20,7 @@
     <div class="navbar-menu">
       <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
       <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="buscar_anime.html"><i class="fas fa-film"></i> Buscar</a>
+      <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar</a>
       <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
       <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
       <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
@@ -34,13 +34,21 @@
     </div>
   </div>
 
+  <!-- Contenido -->
+  <div class="container">
+    <h1>Buscar Anime</h1>
+    <input type="text" id="searchInput" placeholder="Buscar anime..." class="search-input">
+    <div class="card-container" id="anime-container"></div>
+  </div>
+
 </div>
 
 <script>
 const animes = [
   {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man"},
   {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball"},
-  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa"}
+  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa"},
+  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan"}
 ];
 
 let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
@@ -80,7 +88,7 @@ function renderAnimes(filter=""){
   }
 }
 
-document.getElementById('searchInput').addEventListener('input', (e)=>{
+document.getElementById('searchInput').addEventListener('input', e=>{
   renderAnimes(e.target.value);
 });
 
