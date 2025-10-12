@@ -514,3 +514,85 @@ footer {
     font-size: 1rem;
   }
 }
+/* =============================
+   🔹 Menú responsive hamburguesa
+============================= */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.menu-toggle div {
+  width: 28px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animación al abrir */
+.menu-toggle.active div:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.menu-toggle.active div:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active div:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Animación de deslizamiento del menú */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos móviles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
+    text-align: left;
+    padding: 10px 0;
+    animation: slideDown 0.4s ease forwards;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .navbar-menu a {
+    padding: 10px 20px;
+    border-bottom: 1px solid #333;
+  }
+
+  .dropdown-content {
+    position: static;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
