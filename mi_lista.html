@@ -16,7 +16,7 @@
 <div id="lista-animes"></div>
 
 <script>
-const API_BACKEND = 'http://172.20.160.96:3000'; // Cambia por tu IP
+const API_BACKEND = 'http://172.20.160.96:3000';
 
 async function cargarLista(){
   const animes = await fetch(`${API_BACKEND}/animes`).then(r=>r.json());
