@@ -40,6 +40,8 @@ h1 { text-align:center; margin-top:100px;}
 <div class="anime-list" id="animeList"></div>
 
 <script>
+const API_BACKEND = 'http://localhost:3000';
+
 async function buscarAnime() {
     const nombre = document.getElementById('searchInput').value.trim();
     const listDiv = document.getElementById('animeList');
@@ -49,10 +51,13 @@ async function buscarAnime() {
         const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(nombre)}&limit=10`);
         const data = await res.json();
         const animes = data.data;
-        let listaGuardada = JSON.parse(localStorage.getItem('animesVistos')) || [];
+
+        // Obtener lista guardada desde backend
+        const savedRes = await fetch(`${API_BACKEND}/animes`);
+        const savedAnimes = await savedRes.json();
 
         animes.forEach(anime => {
-            const yaGuardado = listaGuardada.some(a => a.mal_id === anime.mal_id);
+            const yaGuardado = savedAnimes.some(a => a.mal_id === anime.mal_id);
             const card = document.createElement('div');
             card.className = 'anime-card';
             card.innerHTML = `
@@ -67,34 +72,25 @@ async function buscarAnime() {
     } catch (e) { console.error(e); }
 }
 
-// Añadir anime a la lista y actualizar tick
-function agregarALaLista(anime, boton) {
-    let lista = JSON.parse(localStorage.getItem('animesVistos')) || [];
-    if (!lista.some(a => a.mal_id === anime.mal_id)) {
-        lista.push(anime);
-        localStorage.setItem('animesVistos', JSON.stringify(lista));
-        boton.classList.add('added');
-        boton.innerText = '✔ Añadido';
+async function agregarALaLista(anime, boton){
+    try {
+        const res = await fetch(`${API_BACKEND}/animes`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(anime)
+        });
+        const data = await res.json();
+        if(data.success){
+            boton.classList.add('added');
+            boton.innerText = '✔ Añadido';
+        }
+    } catch(err){
+        console.error(err);
     }
 }
 
-// Escuchar cambios en localStorage para actualizar ticks en tiempo real
-window.addEventListener('storage', () => {
-    // Si la lista cambia en otra pestaña o en mi_lista.html, refrescar ticks
-    const botones = document.querySelectorAll('.anime-card button');
-    let listaGuardada = JSON.parse(localStorage.getItem('animesVistos')) || [];
-    botones.forEach(btn => {
-        const animeNombre = btn.parentElement.querySelector('h4').innerText;
-        const animeGuardado = listaGuardada.some(a => a.name === animeNombre);
-        if (animeGuardado) {
-            btn.classList.add('added');
-            btn.innerText = '✔ Añadido';
-        } else {
-            btn.classList.remove('added');
-            btn.innerText = 'Añadir a mi lista';
-        }
-    });
-});
+// Escuchar cambios en otra pestaña
+window.addEventListener('storage', () => buscarAnime());
 </script>
 
 </body>
