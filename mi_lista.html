@@ -11,7 +11,7 @@
 
 <div class="content-wrapper">
 
-  <!-- Navbar igual que index.html -->
+  <!-- Navbar actualizado -->
   <div class="navbar">
     <div class="navbar-brand">
       <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
@@ -20,7 +20,7 @@
     <div class="navbar-menu">
       <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
       <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="buscar_anime.html"><i class="fas fa-film"></i> Buscar</a>
+      <a href="buscar_anime.html"><i class="fas fa-search"></i> Buscar</a>
       <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
       <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
       <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
@@ -34,6 +34,9 @@
     </div>
   </div>
 
+  <!-- Contenido: solo mostrar lista -->
+  <div id="mi-lista" class="card-container" style="padding:20px;"></div>
+
 </div>
 
 <script>
@@ -41,7 +44,7 @@ let miLista = JSON.parse(localStorage.getItem('miLista')) || [];
 const container = document.getElementById('mi-lista');
 
 if(miLista.length === 0){
-  container.innerHTML = '<p>No tienes animes guardados.</p>';
+  container.innerHTML = '<p style="color:white;">No tienes animes guardados.</p>';
 } else {
   for(const anime of miLista){
     const card = document.createElement('div');
