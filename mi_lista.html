@@ -5,18 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mi Lista</title>
 <link rel="stylesheet" href="styless.css">
+<link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
 </head>
 <body>
 
 <div class="content-wrapper">
-<h1>Mi Lista de Anime</h1>
-<div class="card-container" id="mi-lista"></div>
+
+  <!-- Navbar igual que index.html -->
+  <div class="navbar">
+    <div class="navbar-brand">
+      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
+      <span>AnimeGalaxy</span>
+    </div>
+    <div class="navbar-menu">
+      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+      <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
+      <a href="buscar_anime.html"><i class="fas fa-film"></i> Buscar</a>
+      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
+      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
+      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
+      <div class="dropdown">
+        <a href="#"><i class="fas fa-user"></i> Perfil <i class="fas fa-caret-down"></i></a>
+        <div class="dropdown-content">
+          <a href="iniciar_sesion.html">Iniciar Sesión</a>
+          <a href="mi_lista.html">Mi Lista</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
 let miLista = JSON.parse(localStorage.getItem('miLista')) || [];
-
 const container = document.getElementById('mi-lista');
+
 if(miLista.length === 0){
   container.innerHTML = '<p>No tienes animes guardados.</p>';
 } else {
