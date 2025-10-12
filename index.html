@@ -189,8 +189,27 @@ document.querySelectorAll('.navbar-menu a').forEach(link => {
     }
   });
 });
+// Mostrar nombre de usuario en el perfil
+const perfilNombre = document.getElementById('perfil-nombre');
+const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+if(usuario && perfilNombre){
+  perfilNombre.textContent = usuario.username; // nombre guardado al registrarse
+}
+
+// Función de cerrar sesión
+const btnCerrarSesion = document.getElementById('cerrar-sesion');
+if(btnCerrarSesion){
+  btnCerrarSesion.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('usuario'); // borra el usuario
+    window.location.href = 'iniciar_sesion.html'; // redirige al login
+  });
+}
+
 </script>
 </body>
 </html>
+
 
 
