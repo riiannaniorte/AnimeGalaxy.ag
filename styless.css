@@ -425,3 +425,92 @@ footer {
   }
 }
 
+/* =============================
+   🔹 Ajustes de responsividad mejorada 🔹
+   (para pantallas pequeñas, tablets y desktop)
+============================= */
+
+@media screen and (max-width: 992px) {
+  .navbar-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .card-container {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-menu a {
+    display: block;
+    width: 100%;
+  }
+
+  .card-container {
+    gap: 12px;
+    overflow-x: auto;
+  }
+
+  .card {
+    flex: 0 0 180px;
+  }
+
+  .section h1 {
+    font-size: 1.3rem;
+  }
+
+  footer {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .navbar-menu a {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+
+  .card {
+    flex: 0 0 150px;
+    font-size: 0.8rem;
+  }
+
+  .card img {
+    height: 160px;
+  }
+
+  .explore-button {
+    font-size: 0.75rem;
+  }
+
+  footer p {
+    font-size: 0.75rem;
+  }
+
+  .social-links a {
+    font-size: 1rem;
+  }
+}
