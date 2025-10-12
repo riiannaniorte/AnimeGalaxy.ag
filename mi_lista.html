@@ -3,46 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Lista de Animes</title>
-<style>
-  body { font-family: Arial, sans-serif; background:#222; color:white; }
-  .card { display:inline-block; margin:10px; padding:10px; background:rgba(255,255,255,0.1); border-radius:10px; width:200px; text-align:center; }
-  img { width:100%; border-radius:10px; }
-  button { margin-top:5px; padding:5px 10px; cursor:pointer; border-radius:5px; border:none; background:#ff4444; color:white; }
-</style>
+<title>Mi Lista</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>Mi Lista de Animes</h1>
-<div id="lista-animes"></div>
+
+<div class="content-wrapper">
+<h1>Mi Lista de Anime</h1>
+<div class="card-container" id="mi-lista"></div>
+</div>
 
 <script>
-const API_BACKEND = 'http://85.85.109.92:3000';
+let miLista = JSON.parse(localStorage.getItem('miLista')) || [];
 
-async function cargarLista(){
-  const animes = await fetch(`${API_BACKEND}/animes`).then(r=>r.json());
-  const cont = document.getElementById('lista-animes');
-  cont.innerHTML = '';
-  animes.forEach(a=>{
+const container = document.getElementById('mi-lista');
+if(miLista.length === 0){
+  container.innerHTML = '<p>No tienes animes guardados.</p>';
+} else {
+  for(const anime of miLista){
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
-      <img src="${a.image}" alt="${a.name}">
-      <h2>${a.name}</h2>
-      <p>${a.synopsis}</p>
-      <button data-id="${a.mal_id}">Eliminar</button>
+      <img src="${anime.image}" alt="${anime.name}">
+      <h2>${anime.name}</h2>
+      <p>${anime.synopsis}</p>
     `;
-    cont.appendChild(card);
-
-    const btn = card.querySelector('button');
-    btn.addEventListener('click', async ()=>{
-      await fetch(`${API_BACKEND}/animes/${a.mal_id}`, { method:'DELETE' });
-      cargarLista();
-    });
-  });
+    container.appendChild(card);
+  }
 }
-
-// Inicializar
-cargarLista();
 </script>
+
 </body>
 </html>
