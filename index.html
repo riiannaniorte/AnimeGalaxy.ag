@@ -17,11 +17,20 @@
 
 <div class="content-wrapper">
 
+ <!-- 🔹 Navbar -->
  <div class="navbar">
    <div class="navbar-brand">
      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
      <span>AnimeGalaxy</span>
    </div>
+
+   <!-- 🔹 Botón menú hamburguesa -->
+   <div class="menu-toggle" onclick="toggleMenu()">
+     <div></div>
+     <div></div>
+     <div></div>
+   </div>
+
    <div class="navbar-menu">
      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
      <a href="buscar_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
@@ -36,9 +45,9 @@
        </div>
      </div>
    </div>
- 
  </div>
 
+ <!-- 🔹 Contenido principal -->
  <div class="container">
 
    <div class="card">
@@ -125,7 +134,7 @@
 </div>
 
 <script>
- // Loading fade-out
+// Loading fade-out
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loading");
   loader.style.opacity = "0";
@@ -155,9 +164,25 @@ function search() {
   const input = document.getElementById("searchInput").value;
   alert("Buscando: " + input);
 }
+
+// 🔹 Menú hamburguesa responsive con cierre automático
+function toggleMenu() {
+  const menu = document.querySelector('.navbar-menu');
+  const toggle = document.querySelector('.menu-toggle');
+  menu.classList.toggle('active');
+  toggle.classList.toggle('active');
+}
+
+document.querySelectorAll('.navbar-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    const menu = document.querySelector('.navbar-menu');
+    const toggle = document.querySelector('.menu-toggle');
+    if (menu.classList.contains('active')) {
+      menu.classList.remove('active');
+      toggle.classList.remove('active');
+    }
+  });
+});
 </script>
 </body>
 </html>
-
-
-
