@@ -62,7 +62,7 @@
 
 .tick {
   background: #4CAF50 !important;
-  cursor: default !important;
+  cursor: not-allowed !important;
 }
 
 .pagination {
@@ -83,6 +83,31 @@
 
 .pagination button.active {
   background: #4CAF50;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.filters select, .filters button {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.filters button {
+  background: #ff3c3c;
+}
+
+.filters button:hover {
+  background: #e63232;
 }
 </style>
 </head>
@@ -116,6 +141,52 @@
   <div class="container">
     <h1>Buscar Anime</h1>
     <input type="text" id="searchInput" placeholder="Buscar anime..." class="search-input">
+
+    <!-- Filtros -->
+    <div class="filters">
+      <select id="filterGenero">
+        <option value="Todos">Género: Todos</option>
+        <option value="Acción">Acción</option>
+        <option value="Comedia">Comedia</option>
+        <option value="Fantasía">Fantasía</option>
+        <option value="Drama">Drama</option>
+        <option value="Aventura">Aventura</option>
+        <option value="Superpoderes">Superpoderes</option>
+      </select>
+
+      <select id="filterYear">
+        <option value="Todos">Año: Todos</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2020">2020</option>
+      </select>
+
+      <select id="filterTipo">
+        <option value="Todos">Tipo: Todos</option>
+        <option value="TV">TV</option>
+        <option value="Movie">Movie</option>
+        <option value="OVA">OVA</option>
+      </select>
+
+      <select id="filterEstado">
+        <option value="Todos">Estado: Todos</option>
+        <option value="Emisión">Emisión</option>
+        <option value="Finalizado">Finalizado</option>
+      </select>
+
+      <select id="filterOrden">
+        <option value="Por Defecto">Orden: Por Defecto</option>
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+        <option value="Más Recientes">Más Recientes</option>
+        <option value="Más Antiguos">Más Antiguos</option>
+      </select>
+
+      <button id="btnFiltrar">FILTRAR</button>
+    </div>
+
     <div id="anime-grid" class="anime-grid"></div>
     <div id="pagination" class="pagination"></div>
   </div>
@@ -124,13 +195,12 @@
 
 <script>
 const animes = [
-  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man",year:"2024",genre:"Acción, Comedia",episodes:"12"},
-  {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball",year:"2025",genre:"Aventura, Acción",episodes:"24"},
-  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa",year:"2020",genre:"Acción, Fantasía",episodes:"26"},
-  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan",year:"2023",genre:"Acción, Drama",episodes:"16"},
-  {id:5,name:"My Hero Academia",image:"https://www3.animeflv.net/uploads/animes/covers/3582.jpg",synopsis:"El camino de Deku para convertirse en héroe",year:"2022",genre:"Acción, Superpoderes",episodes:"25"},
-  
- {id:6,name:"Jujutsu Kaisen",image:"https://www3.animeflv.net/uploads/animes/covers/3814.jpg",synopsis:"La lucha contra maldiciones y hechicería"},
+  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man",year:"2024",genre:"Acción, Comedia",episodes:"12",type:"TV",status:"Finalizado"},
+  {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball",year:"2025",genre:"Aventura, Acción",episodes:"24",type:"TV",status:"Emisión"},
+  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa",year:"2020",genre:"Acción, Fantasía",episodes:"26",type:"TV",status:"Finalizado"},
+  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan",year:"2023",genre:"Acción, Drama",episodes:"16",type:"TV",status:"Finalizado"},
+  {id:5,name:"My Hero Academia",image:"https://www3.animeflv.net/uploads/animes/covers/3582.jpg",synopsis:"El camino de Deku para convertirse en héroe",year:"2022",genre:"Acción, Superpoderes",episodes:"25",type:"TV",status:"Emisión"},
+  {id:6,name:"Jujutsu Kaisen",image:"https://www3.animeflv.net/uploads/animes/covers/3814.jpg",synopsis:"La lucha contra maldiciones y hechicería"},
   {id:7,name:"Black Clover",image:"https://www3.animeflv.net/uploads/animes/covers/3131.jpg",synopsis:"Asta busca convertirse en el Rey Mago"},
   {id:8,name:"Bleach",image:"https://www3.animeflv.net/uploads/animes/covers/1111.jpg",synopsis:"Ichigo y los Shinigami enfrentan amenazas"},
   {id:9,name:"Naruto",image:"https://www3.animeflv.net/uploads/animes/covers/22.jpg",synopsis:"Naruto y su camino ninja"},
@@ -175,12 +245,19 @@ let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
 const itemsPerPage = 12;
 let currentPage = 1;
 
+// Función para marcar el botón como guardado
 function marcarTick(btn) {
   btn.textContent = '✅ Guardado';
   btn.classList.add('tick');
   btn.disabled = true;
+  btn.animate([
+    { transform: 'scale(1)' },
+    { transform: 'scale(1.2)' },
+    { transform: 'scale(1)' }
+  ], { duration: 300 });
 }
 
+// Render de animes
 function renderAnimesPage(filteredAnimes, page=1) {
   const container = document.getElementById('anime-grid');
   container.innerHTML = '';
@@ -188,15 +265,23 @@ function renderAnimesPage(filteredAnimes, page=1) {
   const end = start + itemsPerPage;
   const pageItems = filteredAnimes.slice(start, end);
 
+  if(pageItems.length === 0) {
+    container.innerHTML = '<p>No se encontraron resultados.</p>';
+    document.getElementById('pagination').innerHTML = '';
+    return;
+  }
+
   pageItems.forEach(anime => {
     const card = document.createElement('div');
     card.className = 'anime-card';
     card.innerHTML = `
       <img src="${anime.image}" alt="${anime.name}">
       <h2>${anime.name}</h2>
-      <p><strong>Año:</strong> ${anime.year}</p>
-      <p><strong>Género:</strong> ${anime.genre}</p>
-      <p><strong>Episodios:</strong> ${anime.episodes}</p>
+      <p><strong>Año:</strong> ${anime.year || 'N/A'}</p>
+      <p><strong>Género:</strong> ${anime.genre || 'N/A'}</p>
+      <p><strong>Tipo:</strong> ${anime.type || 'N/A'}</p>
+      <p><strong>Estado:</strong> ${anime.status || 'N/A'}</p>
+      <p><strong>Episodios:</strong> ${anime.episodes || 'N/A'}</p>
       <p>${anime.synopsis}</p>
       <button>Guardar</button>
     `;
@@ -213,6 +298,7 @@ function renderAnimesPage(filteredAnimes, page=1) {
   renderPagination(filteredAnimes.length, page);
 }
 
+// Paginación
 function renderPagination(totalItems, page) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const container = document.getElementById('pagination');
@@ -229,18 +315,43 @@ function renderPagination(totalItems, page) {
   }
 }
 
+// Filtrado por búsqueda
 function filterAndRender() {
   const query = document.getElementById('searchInput').value.toLowerCase();
-  const filtered = animes.filter(a => a.name.toLowerCase().includes(query));
+  const genero = document.getElementById('filterGenero').value;
+  const year = document.getElementById('filterYear').value;
+  const tipo = document.getElementById('filterTipo').value;
+  const estado = document.getElementById('filterEstado').value;
+  const orden = document.getElementById('filterOrden').value;
+
+  let filtered = animes.filter(a => a.name.toLowerCase().includes(query));
+
+  if(genero !== "Todos") filtered = filtered.filter(a => a.genre && a.genre.includes(genero));
+  if(year !== "Todos") filtered = filtered.filter(a => a.year === year);
+  if(tipo !== "Todos") filtered = filtered.filter(a => a.type === tipo);
+  if(estado !== "Todos") filtered = filtered.filter(a => a.status === estado);
+
+  // Orden
+  if(orden === "A-Z") filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(orden === "Z-A") filtered.sort((a,b)=>b.name.localeCompare(a.name));
+  else if(orden === "Más Recientes") filtered.sort((a,b)=>Number(b.year)-Number(a.year));
+  else if(orden === "Más Antiguos") filtered.sort((a,b)=>Number(a.year)-Number(b.year));
+
   renderAnimesPage(filtered, currentPage);
 }
 
+// Eventos
 document.getElementById('searchInput').addEventListener('input', ()=>{
   currentPage = 1;
   filterAndRender();
 });
 
-// inicial render
+document.getElementById('btnFiltrar').addEventListener('click', ()=>{
+  currentPage = 1;
+  filterAndRender();
+});
+
+// Inicial render
 filterAndRender();
 </script>
 
