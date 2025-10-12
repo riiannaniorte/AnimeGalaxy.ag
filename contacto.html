@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Quejas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #191919;
+            color: white;
+        }
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .navbar-menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .navbar-menu a {
+            margin-right: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        .navbar-menu a:hover {
+            color: #D90429;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 36px;
+        }
+        #quejasForm {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #555;
+            color: white;
+        }
+        textarea {
+            resize: none;
+            height: 150px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #D90429;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #a5031f;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">AnimeGalaxy</div>
+        <div class="navbar-menu">
+            <a href="index.html">🏠 Inicio</a>
+            <a href="Directorio_anime.html">🎬 Directorio Anime</a>
+            <a href="pre-registro.html">📝 Pre-registro</a>
+            <a href="foro.html">💬 Foro</a>
+            <a href="quienes_somos.html">💼 Quiénes Somos</a>
+            <a href="contacto.html">📧 Contacto</a>
+        </div>
+    </div>
+    <h1>Formulario de Quejas</h1>
+    <form id="quejasForm">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Describa su queja:</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="button" onclick="sendEmail()">Enviar 🚀</button>
+    </form>
+
+    <script>
+        function sendEmail() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var message = document.getElementById('message').value;
+
+            var fullMessage = "Nombre: " + name + "\nCorreo electrónico: " + email + "\nQueja: " + message;
+
+            var emailLink = "mailto:tu-correo@gmail.com" + "?subject=Nueva queja de AnimeGalaxy" + "&body=" + encodeURIComponent(fullMessage);
+
+            window.location.href = emailLink;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>AnimeGalaxy - Noticias y Novedades de Anime</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+ <link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
+ <style>
+ /* (todo tu CSS original sin cambios) */
+ </style>
+</head>
+<body>
+<div class="loading">
+ <div class="spinner"></div>
+</div>
+
+<div class="content-wrapper">
+ <div class="navbar">
+   <div class="navbar-brand">
+     <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
+     <span>AnimeGalaxy</span>
+   </div>
+   <div class="navbar-menu">
+     <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+     <a href="Directorio_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
+     <a href="Visto.html"><i class="fas fa-film"></i> Animes Vistos</a>
+     <a href="pre-registro.html"><i class="fas fa-clipboard-list"></i> Pre-registro</a>
+     <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
+     <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
+     <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
+   </div>
+   <div class="search-container">
+     <input type="text" id="searchInput" class="search-input" placeholder="Buscar anime...">
+     <button class="search-button" onclick="search()"><i class="fas fa-search"></i></button>
+   </div>
+ </div>
+
+ <div class="container">
+
+   <!-- 🔹 Bloque añadido según tu solicitud -->
+   <div class="card">
+       <div class="navbar-brand">Anime</div>
+       <p>Bienvenido a la sección de Anime.</p>
+       <a href="manga.html">Ir a Manga</a> | <a href="crear_publicacion.html">Crear Publicación</a>
+   </div>
+   <!-- 🔹 Fin del bloque añadido -->
+
+   <div class="section">
+     <h1>¡NOTICIAS!</h1>
+     <div class="card-container">
+       <div class="card">
+         <img src="https://m.media-amazon.com/images/M/MV5BNmYzZDE5MmEtZDNmMy00NGUxLTliZDYtMWY3NzJlZGFhZDk2XkEyXkFqcGc@._V1_.jpg" alt="Serie Temporada 1">
+         <h2>Serie Temporada 1</h2>
+         <p>Temporada 1 de la serie disponible en animeflv o Netflix.</p>
+         <button class="explore-button" onclick="window.location.href='https://www3.animeflv.net/anime/sakamoto-days'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://www.normaeditorial.com/upload/media/albumes/0001/27/2d481efb8d6a3fb29e16937d1cda019aec8f71da.jpeg" alt="Gachiakuta">
+         <h2>Gachiakuta</h2>
+         <p>Temporada 1 ya salío</p>
+         <button class="explore-button" onclick="window.location.href='https://www3.animeflv.net/anime/gachiakuta'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man temporada 3">
+         <h2>One Punch Man temporada 3</h2>
+         <p>Descubre la esperada tercera temporada de One Punch Man. Fecha de estreno: El anime debuta en Japón el 12 de octubre</p>
+         <button class="explore-button" onclick="window.location.href='https://atomix.vg/primer-trailer-de-la-tercera-temporada-de-one-punch-man/'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://a.storyblok.com/f/178900/1064x1596/7394dd442d/fire-force-season-3-key-art.png/m/filters:quality(95)format(webp)" alt="Fire Force - Temporada 3">
+         <h2>Fire Force - Temporada 3</h2>
+         <p>En abril de 2025 se puede ver en animeflv</p>
+         <button class="explore-button" onclick="window.location.href='https://www3.animeflv.net/anime/enen-no-shouboutai-san-no-shou'">Explorar</button>
+       </div>
+     </div>
+   </div>
+
+   <div class="section">
+     <h1>NOVEDADES</h1>
+     <p>Descubre los animes más populares y las últimas noticias del mundo del anime.</p>
+     <div class="card-container">
+       <div class="card">
+         <img src="https://www3.animeflv.net/uploads/animes/covers/4081.jpg" alt="Dragon Ball Daima">
+         <h2><a href="https://www3.animeflv.net/anime/dragon-ball-daima" target="_blank" style="color: var(--secondary-color); text-decoration: none;">Dragon Ball Daima</a></h2>
+         <p>Nueva serie de Dragon Ball que promete revolucionar la franquicia con una historia completamente nueva.</p>
+         <button class="explore-button" onclick="window.location.href='https://www3.animeflv.net/anime/dragon-ball-daima'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg" alt="Kimetsu no Yaiba: La Fortaleza Infinita">
+         <h2>Kimetsu no Yaiba: La Fortaleza Infinita</h2>
+         <p>La esperada película continúa la emocionante historia de Tanjiro y sus compañeros.</p>
+         <button class="explore-button" onclick="window.location.href='https://youtu.be/rQ_tVJhDRBA'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://www3.animeflv.net/uploads/animes/covers/3613.jpg" alt="Zenshu">
+         <h2>Zenshu</h2>
+         <p>Ya está disponible en Crunchyroll esta emocionante nueva serie.</p>
+         <button class="explore-button" onclick="window.location.href='https://youtu.be/12Rul9uV3Pg'">Explorar</button>
+       </div>
+       <div class="card">
+         <img src="https://www3.animeflv.net/uploads/animes/covers/3455.jpg" alt="Ataque a los titanes: The Last Attack">
+         <h2>Ataque a los titanes: The Last Attack</h2>
+         <p>La conclusión épica de una de las series más aclamadas de la década.</p>
+         <button class="explore-button" onclick="window.location.href='https://youtu.be/O5hzKGxTUno'">Explorar</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <footer>
+   <p>© 2025 AnimeGalaxy. Todos los derechos reservados.</p>
+   <div class="social-links">
+     <a href="#"><i class="fab fa-facebook"></i></a>
+     <a href="#"><i class="fab fa-twitter"></i></a>
+     <a href="#"><i class="fab fa-instagram"></i></a>
+     <a href="#"><i class="fab fa-youtube"></i></a>
+   </div>
+ </footer>
+
+ <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+   <i class="fas fa-arrow-up"></i>
+ </div>
+</div>
+
+<script>
+ // (todo tu JavaScript original sin cambios)
+</script>
+</body>
+</html>
