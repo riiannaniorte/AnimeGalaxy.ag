@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>One Punch Man - Temporada 3</title>
+<title>Anime Detalle</title>
 <link rel="stylesheet" href="styless.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -34,10 +34,10 @@
 
   <!-- Encabezado del anime -->
   <div class="anime-header">
-    <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="One Punch Man" class="anime-img">
+    <img id="anime-img" src="" alt="Anime" class="anime-img">
     <div class="anime-info">
-      <h1>One Punch Man - Temporada 3</h1>
-      <p>La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.</p>
+      <h1 id="anime-title"></h1>
+      <p id="anime-sinopsis"></p>
     </div>
   </div>
 
@@ -46,27 +46,8 @@
     <h2>Capítulos</h2>
     <div class="scroll-wrapper">
       <button class="scroll-btn left">&lt;</button>
-      <div class="capitulo-container">
-        <div class="capitulo-card">
-          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 1">
-          <span>Capítulo 1</span>
-          <button onclick="window.location.href='opm_cap1.html'">Ver</button>
-        </div>
-        <div class="capitulo-card">
-          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 2">
-          <span>Capítulo 2</span>
-          <button onclick="window.location.href='opm_cap2.html'">Ver</button>
-        </div>
-        <div class="capitulo-card">
-          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 3">
-          <span>Capítulo 3</span>
-          <button onclick="window.location.href='opm_cap3.html'">Ver</button>
-        </div>
-        <div class="capitulo-card">
-          <img src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png" alt="Capítulo 4">
-          <span>Capítulo 4</span>
-          <button onclick="window.location.href='opm_cap4.html'">Ver</button>
-        </div>
+      <div class="capitulo-container" id="capitulo-container">
+        <!-- Las cards se generarán con JS -->
       </div>
       <button class="scroll-btn right">&gt;</button>
     </div>
@@ -85,15 +66,50 @@
   </div>
 </footer>
 
-<!-- Back to top -->
 <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
   <i class="fas fa-arrow-up"></i>
 </div>
 
-<!-- JS para scroll de capítulos -->
 <script>
-const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
+/* ========================
+   Datos del anime
+======================== */
+const anime = {
+  title: "One Punch Man - Temporada 3",
+  image: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",
+  sinopsis: "La tercera temporada de One Punch Man continúa las aventuras de Saitama y Genos mientras enfrentan nuevos enemigos y desafíos. Fecha de estreno: 12 de octubre.",
+  capitulos: [
+    {numero: 1, imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png", link: "opm_cap1.html"},
+    {numero: 2, imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png", link: "opm_cap2.html"},
+    {numero: 3, imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png", link: "opm_cap3.html"},
+    {numero: 4, imagen: "https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png", link: "opm_cap4.html"}
+  ]
+};
 
+/* ========================
+   Renderizar Anime
+======================== */
+document.getElementById("anime-title").textContent = anime.title;
+document.getElementById("anime-img").src = anime.image;
+document.getElementById("anime-img").alt = anime.title;
+document.getElementById("anime-sinopsis").textContent = anime.sinopsis;
+
+const container = document.getElementById("capitulo-container");
+anime.capitulos.forEach(c => {
+  const card = document.createElement("div");
+  card.className = "capitulo-card";
+  card.innerHTML = `
+    <img src="${c.imagen}" alt="Capítulo ${c.numero}">
+    <span>Capítulo ${c.numero}</span>
+    <button onclick="window.location.href='${c.link}'">Ver</button>
+  `;
+  container.appendChild(card);
+});
+
+/* ========================
+   Scroll horizontal
+======================== */
+const scrollWrappers = document.querySelectorAll('.scroll-wrapper');
 scrollWrappers.forEach(wrapper => {
   const container = wrapper.querySelector('.capitulo-container');
   const btnLeft = wrapper.querySelector('.scroll-btn.left');
