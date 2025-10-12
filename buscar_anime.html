@@ -35,16 +35,8 @@
   gap: 5px;
 }
 
-.anime-card h2 {
-  font-size: 1rem;
-  margin: 0;
-}
-
-.anime-card p {
-  font-size: 0.8rem;
-  margin: 0;
-  color: #ddd;
-}
+.anime-card h2 { font-size: 1rem; margin: 0; }
+.anime-card p { font-size: 0.8rem; margin: 0; color: #ddd; }
 
 .anime-card button {
   margin-top: 5px;
@@ -55,64 +47,52 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.anime-card button:hover { background: #e63232; }
+.tick { background: #4CAF50 !important; cursor: not-allowed !important; }
 
-.anime-card button:hover {
-  background: #e63232;
-}
-
-.tick {
-  background: #4CAF50 !important;
-  cursor: not-allowed !important;
-}
-
-.pagination {
-  margin-top: 20px;
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-}
-
+.pagination { margin-top: 20px; display: flex; gap: 5px; justify-content: center; }
 .pagination button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background: #ff3c3c;
-  color: #fff;
-  cursor: pointer;
+  padding: 5px 10px; border: none; border-radius: 5px; background: #ff3c3c; color: #fff; cursor: pointer;
 }
+.pagination button.active { background: #4CAF50; }
 
-.pagination button.active {
-  background: #4CAF50;
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; }
+.filters select, .filters button { padding: 5px; border-radius: 5px; border: none; background: #333; color: #fff; cursor: pointer; }
+.filters button { background: #ff3c3c; }
+.filters button:hover { background: #e63232; }
+
+/* Dropdown checkboxes */
+.multi-select {
+  position: relative;
+  display: inline-block;
 }
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.filters select, .filters button {
+.multi-select .select-box {
   padding: 5px;
   border-radius: 5px;
-  border: none;
   background: #333;
   color: #fff;
   cursor: pointer;
+  min-width: 120px;
 }
-
-.filters button {
-  background: #ff3c3c;
+.multi-select .checkboxes {
+  display: none;
+  position: absolute;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  padding: 10px;
+  z-index: 100;
+  max-height: 200px;
+  overflow-y: auto;
 }
-
-.filters button:hover {
-  background: #e63232;
+.multi-select.active .checkboxes { display: block; }
+.multi-select .checkboxes label {
+  display: block;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 </style>
 </head>
 <body>
-
 <div class="content-wrapper">
 
   <!-- Navbar -->
@@ -144,22 +124,31 @@
 
     <!-- Filtros -->
     <div class="filters">
-      <select id="filterGenero" multiple size="5">
-        <option value="Acción">Acción</option>
-        <option value="Comedia">Comedia</option>
-        <option value="Fantasía">Fantasía</option>
-        <option value="Drama">Drama</option>
-        <option value="Aventura">Aventura</option>
-        <option value="Superpoderes">Superpoderes</option>
-      </select>
 
-      <select id="filterYear" multiple size="5">
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2020">2020</option>
-      </select>
+      <!-- Género multi-select -->
+      <div class="multi-select" id="multiGenero">
+        <div class="select-box">Género</div>
+        <div class="checkboxes">
+          <label><input type="checkbox" value="Acción"> Acción</label>
+          <label><input type="checkbox" value="Comedia"> Comedia</label>
+          <label><input type="checkbox" value="Fantasía"> Fantasía</label>
+          <label><input type="checkbox" value="Drama"> Drama</label>
+          <label><input type="checkbox" value="Aventura"> Aventura</label>
+          <label><input type="checkbox" value="Superpoderes"> Superpoderes</label>
+        </div>
+      </div>
+
+      <!-- Año multi-select -->
+      <div class="multi-select" id="multiYear">
+        <div class="select-box">Año</div>
+        <div class="checkboxes">
+          <label><input type="checkbox" value="2025"> 2025</label>
+          <label><input type="checkbox" value="2024"> 2024</label>
+          <label><input type="checkbox" value="2023"> 2023</label>
+          <label><input type="checkbox" value="2022"> 2022</label>
+          <label><input type="checkbox" value="2020"> 2020</label>
+        </div>
+      </div>
 
       <select id="filterTipo">
         <option value="Todos">Tipo: Todos</option>
@@ -192,85 +181,42 @@
 </div>
 
 <script>
+// Datos simplificados
 const animes = [
-  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man",year:"2024",genre:"Acción, Comedia",episodes:"12",type:"TV",status:"Finalizado"},
+  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada",year:"2024",genre:"Acción, Comedia",episodes:"12",type:"TV",status:"Finalizado"},
   {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball",year:"2025",genre:"Aventura, Acción",episodes:"24",type:"TV",status:"Emisión"},
-  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa",year:"2020",genre:"Acción, Fantasía",episodes:"26",type:"TV",status:"Finalizado"},
-  {id:4,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"La conclusión épica de Attack on Titan",year:"2023",genre:"Acción, Drama",episodes:"16",type:"TV",status:"Finalizado"},
-  {id:5,name:"My Hero Academia",image:"https://www3.animeflv.net/uploads/animes/covers/3582.jpg",synopsis:"El camino de Deku para convertirse en héroe",year:"2022",genre:"Acción, Superpoderes",episodes:"25",type:"TV",status:"Emisión"}
-  {id:6,name:"Jujutsu Kaisen",image:"https://www3.animeflv.net/uploads/animes/covers/3814.jpg",synopsis:"La lucha contra maldiciones y hechicería"},
-  {id:7,name:"Black Clover",image:"https://www3.animeflv.net/uploads/animes/covers/3131.jpg",synopsis:"Asta busca convertirse en el Rey Mago"},
-  {id:8,name:"Bleach",image:"https://www3.animeflv.net/uploads/animes/covers/1111.jpg",synopsis:"Ichigo y los Shinigami enfrentan amenazas"},
-  {id:9,name:"Naruto",image:"https://www3.animeflv.net/uploads/animes/covers/22.jpg",synopsis:"Naruto y su camino ninja"},
-  {id:10,name:"Naruto Shippuden",image:"https://www3.animeflv.net/uploads/animes/covers/23.jpg",synopsis:"Continuación de las aventuras de Naruto"},
-  {id:11,name:"Boruto",image:"https://www3.animeflv.net/uploads/animes/covers/3000.jpg",synopsis:"Las nuevas aventuras de Boruto y sus amigos"},
-  {id:12,name:"Dragon Ball Z",image:"https://www3.animeflv.net/uploads/animes/covers/14.jpg",synopsis:"Las épicas batallas de Goku y los Saiyans"},
-  {id:13,name:"Dragon Ball Super",image:"https://www3.animeflv.net/uploads/animes/covers/4001.jpg",synopsis:"Nuevas aventuras en el universo Dragon Ball"},
-  {id:14,name:"Fairy Tail",image:"https://www3.animeflv.net/uploads/animes/covers/111.jpg",synopsis:"Las aventuras del gremio de magos Fairy Tail"},
-  {id:15,name:"Tokyo Revengers",image:"https://www3.animeflv.net/uploads/animes/covers/4122.jpg",synopsis:"Viajes en el tiempo y pandillas"},
-  {id:16,name:"Demon Slayer",image:"https://www3.animeflv.net/uploads/animes/covers/3613.jpg",synopsis:"Tanjiro lucha contra demonios"},
-  {id:17,name:"Hunter x Hunter",image:"https://www3.animeflv.net/uploads/animes/covers/27.jpg",synopsis:"Gon busca convertirse en cazador"},
-  {id:18,name:"Death Note",image:"https://www3.animeflv.net/uploads/animes/covers/13.jpg",synopsis:"Light y su cuaderno mortal"},
-  {id:19,name:"Fullmetal Alchemist",image:"https://www3.animeflv.net/uploads/animes/covers/29.jpg",synopsis:"La búsqueda de los hermanos Elric"},
-  {id:20,name:"Fullmetal Alchemist: Brotherhood",image:"https://www3.animeflv.net/uploads/animes/covers/30.jpg",synopsis:"Historia completa de los hermanos Elric"},
-  {id:21,name:"Sword Art Online",image:"https://www3.animeflv.net/uploads/animes/covers/400.jpg",synopsis:"Jugadores atrapados en un videojuego"},
-  {id:22,name:"Re:Zero",image:"https://www3.animeflv.net/uploads/animes/covers/401.jpg",synopsis:"Viajes temporales y misterio"},
-  {id:23,name:"Steins;Gate",image:"https://www3.animeflv.net/uploads/animes/covers/402.jpg",synopsis:"Ciencia ficción y viajes en el tiempo"},
-  {id:24,name:"No Game No Life",image:"https://www3.animeflv.net/uploads/animes/covers/403.jpg",synopsis:"Hermanos gamers en un mundo alternativo"},
-  {id:25,name:"Overlord",image:"https://www3.animeflv.net/uploads/animes/covers/404.jpg",synopsis:"Un jugador atrapado en un juego como villano"},
-  {id:26,name:"The Seven Deadly Sins",image:"https://www3.animeflv.net/uploads/animes/covers/405.jpg",synopsis:"Caballeros legendarios luchan contra el mal"},
-  {id:27,name:"Black Butler",image:"https://www3.animeflv.net/uploads/animes/covers/406.jpg",synopsis:"El mayordomo demoníaco de Ciel"},
-  {id:28,name:"Blue Exorcist",image:"https://www3.animeflv.net/uploads/animes/covers/407.jpg",synopsis:"Hijos de demonios luchando contra su destino"},
-  {id:29,name:"Parasyte",image:"https://www3.animeflv.net/uploads/animes/covers/408.jpg",synopsis:"Invasión de parásitos alienígenas"},
-  {id:30,name:"Erased",image:"https://www3.animeflv.net/uploads/animes/covers/409.jpg",synopsis:"Viajes en el tiempo para resolver asesinatos"},
-  {id:31,name:"Akame ga Kill!",image:"https://www3.animeflv.net/uploads/animes/covers/410.jpg",synopsis:"Assassinos luchan contra la corrupción"},
-  {id:32,name:"Vivy: Fluorite Eye",image:"https://www3.animeflv.net/uploads/animes/covers/411.jpg",synopsis:"Una IA lucha por cambiar el destino"},
-  {id:33,name:"The Rising of the Shield Hero",image:"https://www3.animeflv.net/uploads/animes/covers/412.jpg",synopsis:"Héroes transportados a otro mundo"},
-  {id:34,name:"That Time I Got Reincarnated as a Slime",image:"https://www3.animeflv.net/uploads/animes/covers/413.jpg",synopsis:"Un hombre renace como slime"},
-  {id:35,name:"Dr. Stone",image:"https://www3.animeflv.net/uploads/animes/covers/414.jpg",synopsis:"Reconstrucción de la humanidad con ciencia"},
-  {id:36,name:"Made in Abyss",image:"https://www3.animeflv.net/uploads/animes/covers/415.jpg",synopsis:"Exploración de un abismo misterioso"},
-  {id:37,name:"Goblin Slayer",image:"https://www3.animeflv.net/uploads/animes/covers/416.jpg",synopsis:"Un aventurero caza goblins"},
-  {id:38,name:"Mob Psycho 100",image:"https://www3.animeflv.net/uploads/animes/covers/417.jpg",synopsis:"Un psíquico lucha por su paz"},
-  {id:39,name:"Tokyo Ghoul",image:"https://www3.animeflv.net/uploads/animes/covers/418.jpg",synopsis:"Ghouls y humanos coexistiendo"},
-  {id:40,name:"Akudama Drive",image:"https://www3.animeflv.net/uploads/animes/covers/419.jpg",synopsis:"Criminales en una ciudad futurista"},
-  {id:41,name:"Hellsing Ultimate",image:"https://www3.animeflv.net/uploads/animes/covers/420.jpg",synopsis:"Vampiros y operaciones secretas"},
-  {id:42,name:"Code Geass",image:"https://www3.animeflv.net/uploads/animes/covers/421.jpg",synopsis:"Lelouch lucha contra un imperio"},
-  {id:43,name:"Cowboy Bebop",image:"https://www3.animeflv.net/uploads/animes/covers/422.jpg",synopsis:"Cazarrecompensas en el espacio"},
-  {id:44,name:"Neon Genesis Evangelion",image:"https://www3.animeflv.net/uploads/animes/covers/423.jpg",synopsis:"Mechas y drama psicológico"}
+  {id:3,name:"Attack on Titan",image:"https://www3.animeflv.net/uploads/animes/covers/3455.jpg",synopsis:"Conclusión épica",year:"2023",genre:"Acción, Drama",episodes:"16",type:"TV",status:"Finalizado"}
 ];
 
 let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
 const itemsPerPage = 12;
 let currentPage = 1;
 
+// Tick guardado
 function marcarTick(btn) {
   btn.textContent = '✅ Guardado';
   btn.classList.add('tick');
   btn.disabled = true;
-  btn.animate([
-    { transform: 'scale(1)' },
-    { transform: 'scale(1.2)' },
-    { transform: 'scale(1)' }
-  ], { duration: 300 });
 }
 
+// Render Animes
 function renderAnimesPage(filteredAnimes, page=1) {
   const container = document.getElementById('anime-grid');
   container.innerHTML = '';
-  const start = (page - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const pageItems = filteredAnimes.slice(start, end);
+  const start = (page-1)*itemsPerPage;
+  const end = start+itemsPerPage;
+  const pageItems = filteredAnimes.slice(start,end);
 
-  if(pageItems.length === 0) {
-    container.innerHTML = '<p>No se encontraron resultados.</p>';
-    document.getElementById('pagination').innerHTML = '';
+  if(pageItems.length===0){
+    container.innerHTML='<p>No se encontraron resultados.</p>';
+    document.getElementById('pagination').innerHTML='';
     return;
   }
 
-  pageItems.forEach(anime => {
-    const card = document.createElement('div');
-    card.className = 'anime-card';
-    card.innerHTML = `
+  pageItems.forEach(anime=>{
+    const card=document.createElement('div');
+    card.className='anime-card';
+    card.innerHTML=`
       <img src="${anime.image}" alt="${anime.name}">
       <h2>${anime.name}</h2>
       <p><strong>Año:</strong> ${anime.year || 'N/A'}</p>
@@ -281,72 +227,67 @@ function renderAnimesPage(filteredAnimes, page=1) {
       <p>${anime.synopsis}</p>
       <button>Guardar</button>
     `;
-    const btn = card.querySelector('button');
-    if(guardados.some(a => a.id === anime.id)) marcarTick(btn);
-    else btn.addEventListener('click', ()=>{
+    const btn=card.querySelector('button');
+    if(guardados.some(a=>a.id===anime.id)) marcarTick(btn);
+    else btn.addEventListener('click',()=>{
       guardados.push(anime);
-      localStorage.setItem('miLista', JSON.stringify(guardados));
+      localStorage.setItem('miLista',JSON.stringify(guardados));
       marcarTick(btn);
     });
     container.appendChild(card);
   });
 
-  renderPagination(filteredAnimes.length, page);
+  renderPagination(filteredAnimes.length,page);
 }
 
-function renderPagination(totalItems, page) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const container = document.getElementById('pagination');
-  container.innerHTML = '';
+// Paginación
+function renderPagination(totalItems,page){
+  const totalPages=Math.ceil(totalItems/itemsPerPage);
+  const container=document.getElementById('pagination');
+  container.innerHTML='';
   for(let i=1;i<=totalPages;i++){
-    const btn = document.createElement('button');
-    btn.textContent = i;
+    const btn=document.createElement('button');
+    btn.textContent=i;
     if(i===page) btn.classList.add('active');
-    btn.addEventListener('click', ()=> {
-      currentPage = i;
-      filterAndRender();
-    });
+    btn.addEventListener('click',()=>{currentPage=i;filterAndRender();});
     container.appendChild(btn);
   }
 }
 
-function filterAndRender() {
-  const query = document.getElementById('searchInput').value.toLowerCase();
+// Filtrar y render
+function filterAndRender(){
+  const query=document.getElementById('searchInput').value.toLowerCase();
+  const generoSelected=Array.from(document.querySelectorAll('#multiGenero input:checked')).map(i=>i.value);
+  const yearSelected=Array.from(document.querySelectorAll('#multiYear input:checked')).map(i=>i.value);
+  const tipo=document.getElementById('filterTipo').value;
+  const estado=document.getElementById('filterEstado').value;
+  const orden=document.getElementById('filterOrden').value;
 
-  const generoSelected = Array.from(document.getElementById('filterGenero').selectedOptions).map(o => o.value);
-  const yearSelected = Array.from(document.getElementById('filterYear').selectedOptions).map(o => o.value);
-  const tipo = document.getElementById('filterTipo').value;
-  const estado = document.getElementById('filterEstado').value;
-  const orden = document.getElementById('filterOrden').value;
+  let filtered=animes.filter(a=>a.name.toLowerCase().includes(query));
 
-  let filtered = animes.filter(a => a.name.toLowerCase().includes(query));
+  if(generoSelected.length>0) filtered=filtered.filter(a=>a.genre && generoSelected.some(g=>a.genre.includes(g)));
+  if(yearSelected.length>0) filtered=filtered.filter(a=>yearSelected.includes(a.year));
+  if(tipo!=="Todos") filtered=filtered.filter(a=>a.type===tipo);
+  if(estado!=="Todos") filtered=filtered.filter(a=>a.status===estado);
 
-  if(generoSelected.length > 0) filtered = filtered.filter(a => a.genre && generoSelected.some(g => a.genre.includes(g)));
-  if(yearSelected.length > 0) filtered = filtered.filter(a => yearSelected.includes(a.year));
-  if(tipo !== "Todos") filtered = filtered.filter(a => a.type === tipo);
-  if(estado !== "Todos") filtered = filtered.filter(a => a.status === estado);
+  if(orden==="A-Z") filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(orden==="Z-A") filtered.sort((a,b)=>b.name.localeCompare(a.name));
+  else if(orden==="Más Recientes") filtered.sort((a,b)=>Number(b.year)-Number(a.year));
+  else if(orden==="Más Antiguos") filtered.sort((a,b)=>Number(a.year)-Number(b.year));
 
-  if(orden === "A-Z") filtered.sort((a,b)=>a.name.localeCompare(b.name));
-  else if(orden === "Z-A") filtered.sort((a,b)=>b.name.localeCompare(a.name));
-  else if(orden === "Más Recientes") filtered.sort((a,b)=>Number(b.year)-Number(a.year));
-  else if(orden === "Más Antiguos") filtered.sort((a,b)=>Number(a.year)-Number(b.year));
-
-  renderAnimesPage(filtered, currentPage);
+  renderAnimesPage(filtered,currentPage);
 }
 
-document.getElementById('searchInput').addEventListener('input', ()=>{
-  currentPage = 1;
-  filterAndRender();
+// Eventos
+document.getElementById('searchInput').addEventListener('input',()=>{currentPage=1;filterAndRender();});
+document.getElementById('btnFiltrar').addEventListener('click',()=>{currentPage=1;filterAndRender();});
+
+// Dropdown toggle
+document.querySelectorAll('.multi-select').forEach(ms=>{
+  ms.querySelector('.select-box').addEventListener('click',()=>ms.classList.toggle('active'));
 });
 
-document.getElementById('btnFiltrar').addEventListener('click', ()=>{
-  currentPage = 1;
-  filterAndRender();
-});
-
-// Inicial
 filterAndRender();
 </script>
-
 </body>
 </html>
