@@ -4,44 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buscar Anime</title>
-<style>
-  body { font-family: Arial, sans-serif; background: #222; color: white; }
-  .card { display: inline-block; margin: 10px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; width: 200px; text-align:center; }
-  img { width: 100%; border-radius: 10px; }
-  button { margin-top: 5px; padding: 5px 10px; cursor: pointer; border-radius:5px; border:none; background:#00ffcc; color:#000; }
-  button.tick { background:#4CAF50; color:white; cursor: default; }
-</style>
+<link rel="stylesheet" href="styless.css">
 </head>
 <body>
+
+<div class="content-wrapper">
 <h1>Buscar Anime</h1>
-<input type="text" id="searchInput" placeholder="Buscar anime...">
-<div id="anime-container"></div>
+<input type="text" id="searchInput" placeholder="Buscar anime..." class="search-input">
+
+<div class="card-container" id="anime-container"></div>
+
+</div>
 
 <script>
-const API_BACKEND = 'http://85.85.109.92:3000';
-
-// Buscar anime en la API (simulado, podrías integrar MyAnimeList API)
+// Array de animes (simulado)
 const animes = [
-  {mal_id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",score:"9.0",synopsis:"Tercera temporada de One Punch Man"},
-  {mal_id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",score:"8.5",synopsis:"Nueva serie Dragon Ball"}
+  {id:1,name:"One Punch Man",image:"https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png",synopsis:"Tercera temporada de One Punch Man"},
+  {id:2,name:"Dragon Ball Daima",image:"https://www3.animeflv.net/uploads/animes/covers/4081.jpg",synopsis:"Nueva serie Dragon Ball"},
+  {id:3,name:"Kimetsu no Yaiba",image:"https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg",synopsis:"La historia de Tanjiro continúa"}
 ];
 
-let guardados = [];
+// Cargar guardados de localStorage
+let guardados = JSON.parse(localStorage.getItem('miLista')) || [];
 
-async function cargarGuardados(){
-  guardados = await fetch(`${API_BACKEND}/animes`).then(r=>r.json());
+function marcarTick(id, btn){
+  btn.textContent = '✅ Guardado';
+  btn.classList.add('tick');
+  btn.disabled = true;
 }
 
-function marcarTick(id){
-  const btn = document.querySelector(`button[data-id='${id}']`);
-  if(btn){
-    btn.textContent = '✅ Guardado';
-    btn.classList.add('tick');
-    btn.disabled = true;
-  }
-}
-
-async function renderAnimes(filter=""){
+// Renderizar animes según filtro
+function renderAnimes(filter=""){
   const container = document.getElementById('anime-container');
   container.innerHTML = '';
   for(const anime of animes){
@@ -52,22 +45,18 @@ async function renderAnimes(filter=""){
         <img src="${anime.image}" alt="${anime.name}">
         <h2>${anime.name}</h2>
         <p>${anime.synopsis}</p>
-        <button data-id="${anime.mal_id}">Guardar</button>
+        <button data-id="${anime.id}">Guardar</button>
       `;
       container.appendChild(card);
 
       const btn = card.querySelector('button');
-      if(guardados.some(a => a.mal_id === anime.mal_id)){
-        marcarTick(anime.mal_id);
+      if(guardados.some(a => a.id === anime.id)){
+        marcarTick(anime.id, btn);
       } else {
-        btn.addEventListener('click', async ()=>{
-          await fetch(`${API_BACKEND}/animes`, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(anime)
-          });
-          marcarTick(anime.mal_id);
+        btn.addEventListener('click', ()=>{
           guardados.push(anime);
+          localStorage.setItem('miLista', JSON.stringify(guardados));
+          marcarTick(anime.id, btn);
         });
       }
     }
@@ -80,10 +69,8 @@ document.getElementById('searchInput').addEventListener('input', (e)=>{
 });
 
 // Inicializar
-(async()=>{
-  await cargarGuardados();
-  renderAnimes();
-})();
+renderAnimes();
 </script>
+
 </body>
 </html>
