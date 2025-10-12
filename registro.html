@@ -4,81 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro - AnimeGalaxy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
   <link rel="stylesheet" href="styless.css"> <!-- Usa el mismo CSS del index -->
+  <style>
+    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #222; color: #fff; }
+    .box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 10px; text-align: center; }
+    input { display: block; margin: 10px 0; padding: 10px; width: 100%; border-radius: 5px; border: none; }
+    button { padding: 10px; width: 100%; border: none; border-radius: 5px; background: #ff00ff; color: #fff; cursor: pointer; }
+  </style>
 </head>
 <body>
-
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="navbar-brand">
-      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
-      <span>AnimeGalaxy</span>
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-
-    <div class="navbar-menu">
-      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
-      <a href="buscar_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="visto.html"><i class="fas fa-check"></i> Animes Vistos</a>
-      <a href="pre-registro.html"><i class="fas fa-edit"></i> Pre-registro</a>
-      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
-      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
-      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
-    </div>
+  <div class="box">
+    <h2>Registrarse</h2>
+    <input type="email" id="email" placeholder="Correo electrónico" required>
+    <input type="password" id="password" placeholder="Contraseña" required>
+    <button onclick="registrar()">Registrarse</button>
+    <p>¿Ya tienes cuenta? <a href="iniciar_sesion.html">Iniciar sesión</a></p>
   </div>
 
-  <!-- Contenedor principal -->
-  <div class="container" style="text-align:center; max-width:600px; margin:50px auto; background:rgba(255,255,255,0.1); padding:30px; border-radius:10px;">
-    <h1 style="color:var(--secondary-color); margin-bottom:20px;">Registro</h1>
-    <form action="index.html" method="POST" style="display:flex; flex-direction:column; align-items:center;">
-      <input type="text" id="register-username" name="register-username" placeholder="Usuario" required>
-      <input type="email" id="register-email" name="register-email" placeholder="Correo Electrónico" required>
-      <input type="password" id="register-password" name="register-password" placeholder="Contraseña" required>
-      <button type="submit" class="explore-button">Registrarse</button>
-    </form>
-  </div>
-
-  <footer>
-    <p>© 2025 AnimeGalaxy. Todos los derechos reservados.</p>
-    <div class="social-links">
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-  </footer>
-
-  <!-- Botón volver arriba -->
-  <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- Script del menú hamburguesa -->
   <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.navbar-menu');
-      const toggle = document.querySelector('.menu-toggle');
-      menu.classList.toggle('active');
-      toggle.classList.toggle('active');
-    }
+    function registrar() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-    document.querySelectorAll('.navbar-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        const menu = document.querySelector('.navbar-menu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (menu.classList.contains('active')) {
-          menu.classList.remove('active');
-          toggle.classList.remove('active');
-        }
-      });
-    });
+      if(email && password){
+        // Guardar usuario en LocalStorage
+        localStorage.setItem('usuario', JSON.stringify({ email, password }));
+        alert('Registro exitoso');
+        window.location.href = 'iniciar_sesion.html';
+      } else {
+        alert('Por favor completa todos los campos');
+      }
+    }
   </script>
 </body>
 </html>
