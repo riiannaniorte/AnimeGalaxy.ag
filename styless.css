@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #1a1a1a;
+  background-color: #1a1a1a; /* color de fondo del menú */
   padding: 10px 20px;
   color: #fff;
   font-family: Arial, sans-serif;
@@ -14,18 +14,21 @@
   z-index: 1000;
 }
 
+/* Logo */
 .navbar-logo {
   width: 50px;
   height: 50px;
   margin-right: 10px;
 }
 
+/* Menú principal */
 .navbar-menu {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
+/* Links del menú */
 .navbar-menu a {
   color: #fff;
   text-decoration: none;
@@ -35,10 +38,11 @@
 }
 
 .navbar-menu a:hover {
-  background-color: #ff3c3c;
+  background-color: #ff3c3c; /* hover menú */
   color: #fff;
 }
 
+/* Dropdown */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -54,7 +58,7 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #2a2a2a;
+  background-color: #2a2a2a; /* fondo del submenú */
   min-width: 150px;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
@@ -69,12 +73,8 @@
   transition: 0.3s;
 }
 
-.dropdown-content a:first-child {
-  border-bottom: 1px solid #444;
-}
-
 .dropdown-content a:hover {
-  background-color: #ff3c3c;
+  background-color: #ff3c3c; /* hover submenú */
 }
 
 .dropdown:hover .dropdown-content {
@@ -121,48 +121,90 @@
   color: #ff3c3c;
 }
 
+/* Cards horizontal tipo AnimeFLV */
 .card-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-wrap: nowrap; /* fila única para scroll horizontal */
+  gap: 10px;
+  overflow-x: auto; /* scroll horizontal */
+  padding: 10px 0;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ff3c3c #1a1a1a; /* Firefox */
 }
 
+.card-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.card-container::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+  background-color: #ff3c3c;
+  border-radius: 4px;
+}
+
+/* Cards */
 .card {
+  flex: 0 0 150px; /* ancho fijo */
   background-color: #2a2a2a;
   color: #fff;
   border-radius: 10px;
-  padding: 15px;
-  flex: 1 1 calc(25% - 20px);
-  box-sizing: border-box;
+  padding: 8px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s;
+  font-size: 0.9rem;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card img {
   width: 100%;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 10px 20px rgba(255,60,60,0.4);
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
 }
 
-.explore-button {
-  margin-top: 10px;
-  padding: 8px 15px;
+.explore-button,
+.delete-btn {
+  margin-top: 5px;
+  padding: 5px 10px;
   background-color: #ff3c3c;
   border: none;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.8rem;
   transition: 0.3s;
 }
 
-.explore-button:hover {
-  background: linear-gradient(45deg, #ff3c3c, #ff9a3c);
-  color: #fff;
+.explore-button:hover,
+.delete-btn:hover {
+  background-color: #e63232;
+}
+
+.card button.tick {
+  background: #4CAF50;
+  color: white;
+  cursor: default;
+}
+
+.card h2 {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.card p {
+  font-size: 0.8rem;
+  margin: 5px 0;
+  color: #ddd;
 }
 
 /* ========================
@@ -179,12 +221,11 @@ footer {
   color: #fff;
   margin: 0 10px;
   font-size: 20px;
-  transition: transform 0.3s, color 0.3s;
+  transition: 0.3s;
 }
 
 .social-links a:hover {
   color: #ff3c3c;
-  transform: scale(1.2);
 }
 
 /* ========================
@@ -210,42 +251,11 @@ footer {
 }
 
 /* ========================
-   Loading Spinner
-======================== */
-.loading {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:#1a1a1a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:10000;
-  transition: opacity 0.5s ease;
-}
-
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #ff3c3c;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ========================
    Responsive básico
 ======================== */
 @media screen and (max-width: 1024px) {
   .card {
-    flex: 1 1 calc(50% - 20px);
+    flex: 0 0 120px; /* más pequeño en pantallas medianas */
   }
 }
 
@@ -260,6 +270,6 @@ footer {
     width: 100%;
   }
   .card {
-    flex: 1 1 100%;
+    flex: 0 0 140px;
   }
 }
