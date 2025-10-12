@@ -1,97 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acceso - AnimeGalaxy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="icon" href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
-  <link rel="stylesheet" href="styless.css"> <!-- Usa tu CSS principal -->
-</head>
-<body>
-
-  <!-- Navbar -->
-  <div class="navbar">
-    <div class="navbar-brand">
-      <img src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy" alt="AnimeGalaxy Logo" class="navbar-logo">
-      <span>AnimeGalaxy</span>
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-
-    <div class="navbar-menu">
-      <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
-      <a href="buscar_anime.html"><i class="fas fa-film"></i> Directorio Anime</a>
-      <a href="visto.html"><i class="fas fa-check"></i> Animes Vistos</a>
-      <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
-      <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
-      <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
-    </div>
-  </div>
-
-  <!-- Contenido principal -->
-  <div class="container" style="max-width:900px; margin:100px auto; display:flex; flex-wrap:wrap; justify-content:center; gap:40px;">
-
-    <!-- Sección Iniciar Sesión -->
-    <div class="card" style="flex:1; min-width:300px; background:rgba(255,255,255,0.08); padding:30px; border-radius:10px; text-align:center;">
-      <h2 style="color:var(--secondary-color); margin-bottom:20px;">Iniciar Sesión</h2>
-      <form action="index.html" method="POST" style="display:flex; flex-direction:column; align-items:center;">
-        <input type="text" id="login-username" name="login-username" placeholder="Usuario" required>
-        <input type="password" id="login-password" name="login-password" placeholder="Contraseña" required>
-        <button type="submit" class="explore-button" style="margin-top:15px;">Iniciar Sesión</button>
-      </form>
-    </div>
-
-    <!-- Sección Registro -->
-    <div class="card" style="flex:1; min-width:300px; background:rgba(255,255,255,0.08); padding:30px; border-radius:10px; text-align:center;">
-      <h2 style="color:var(--secondary-color); margin-bottom:20px;">Registrarse</h2>
-      <form action="index.html" method="POST" style="display:flex; flex-direction:column; align-items:center;">
-        <input type="text" id="register-username" name="register-username" placeholder="Usuario" required>
-        <input type="email" id="register-email" name="register-email" placeholder="Correo Electrónico" required>
-        <input type="password" id="register-password" name="register-password" placeholder="Contraseña" required>
-        <button type="submit" class="explore-button" style="margin-top:15px;">Registrarse</button>
-      </form>
-    </div>
-
-  </div>
-
-  <footer>
-    <p>© 2025 AnimeGalaxy. Todos los derechos reservados.</p>
-    <div class="social-links">
-      <a href="#"><i class="fab fa-facebook"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-  </footer>
-
-  <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- Script menú hamburguesa -->
-  <script>
-    function toggleMenu() {
-      const menu = document.querySelector('.navbar-menu');
-      const toggle = document.querySelector('.menu-toggle');
-      menu.classList.toggle('active');
-      toggle.classList.toggle('active');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesión - AnimeGalaxy</title>
+  <link rel="stylesheet" href="styless.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a002a, #34004d, #590078);
+      font-family: "Poppins", sans-serif;
     }
 
-    document.querySelectorAll('.navbar-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        const menu = document.querySelector('.navbar-menu');
-        const toggle = document.querySelector('.menu-toggle');
-        if (menu.classList.contains('active')) {
-          menu.classList.remove('active');
-          toggle.classList.remove('active');
-        }
-      });
-    });
-  </script>
+    .login-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
+      width: 320px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .login-box h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-shadow: 0 0 8px #ff00ff;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 40px 10px 15px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ccc;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(90deg, #007bff, #00e0ff);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .btn-login:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00e0ff;
+    }
+
+    .btn-alt {
+      background: #3b5998;
+      margin-top: 10px;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .links a {
+      color: #00e0ff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .links a:hover {
+      color: #fff;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-link a {
+      color: #ff00ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register-link a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Iniciar Sesión</h2>
+    <form action="index.html" method="POST">
+      <div class="input-group">
+        <input type="email" placeholder="Correo electrónico" required />
+        <i class="fas fa-envelope"></i>
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Contraseña" required />
+        <i class="fas fa-lock"></i>
+      </div>
+      <button type="submit" class="btn-login">Iniciar Sesión</button>
+      <button type="button" class="btn-login btn-alt">
+        <i class="fab fa-google"></i> Iniciar con Google
+      </button>
+      <div class="links">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+        <a href="registro.html">Registrarte</a>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
