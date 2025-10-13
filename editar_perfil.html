@@ -62,20 +62,78 @@
         </form>
     </div>
 
-    <script>
-        // Script para mostrar el nombre del archivo o una previsualización (opcional)
-        document.getElementById('nueva-foto').addEventListener('change', function(event) {
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formulario = document.querySelector('.formulario-perfil');
+        const fotoActualElemento = document.querySelector('.foto-actual');
+        const inputNuevaFoto = document.getElementById('nueva-foto');
+        const spanNombreMenu = document.getElementById('perfil-nombre');
+        const inputNombreUsuario = document.getElementById('nombre-usuario');
+        const inputCorreo = document.getElementById('correo');
+        const textareaBio = document.getElementById('bio');
+
+        // --- 1. FUNCIÓN PARA CARGAR DATOS AL INICIAR LA PÁGINA ---
+        function cargarDatos() {
+            // Cargar Nombre de Usuario
+            const nombreGuardado = localStorage.getItem('perfil_nombre') || 'NombreUsuario';
+            inputNombreUsuario.value = nombreGuardado;
+            spanNombreMenu.textContent = nombreGuardado;
+
+            // Cargar Correo
+            const correoGuardado = localStorage.getItem('perfil_correo') || 'correo@ejemplo.com';
+            inputCorreo.value = correoGuardado;
+
+            // Cargar Biografía
+            const bioGuardada = localStorage.getItem('perfil_bio') || '¡Fanático del anime de acción y fantasía!';
+            textareaBio.value = bioGuardada;
+            
+            // Cargar Foto de Perfil
+            const fotoGuardada = localStorage.getItem('perfil_foto_url') || 'https://via.placeholder.com/150';
+            fotoActualElemento.src = fotoGuardada;
+            
+            // Actualizar la foto en el menú (dropdown)
+            document.querySelector('.perfil-foto').src = fotoGuardada;
+        }
+
+        // --- 2. FUNCIÓN PARA PREVISUALIZAR Y PROCESAR LA NUEVA FOTO ---
+        inputNuevaFoto.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                // Previsualizar la imagen si se desea
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.querySelector('.foto-actual').src = e.target.result;
+                    // Previsualiza la imagen en el formulario
+                    fotoActualElemento.src = e.target.result; 
                 }
+                // Lee el archivo como una URL (string base64) para poder guardarlo
                 reader.readAsDataURL(file);
             }
         });
-    </script>
+
+        // --- 3. FUNCIÓN PARA GUARDAR DATOS LOCALMENTE AL ENVIAR EL FORMULARIO ---
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault(); // Detiene el envío del formulario (para que no recargue la página)
+            
+            // Guardar el Nombre de Usuario
+            const nuevoNombre = inputNombreUsuario.value;
+            localStorage.setItem('perfil_nombre', nuevoNombre);
+            spanNombreMenu.textContent = nuevoNombre; // Actualiza el menú al instante
+
+            // Guardar Correo y Biografía
+            localStorage.setItem('perfil_correo', inputCorreo.value);
+            localStorage.setItem('perfil_bio', textareaBio.value);
+
+            // Guardar la URL de la foto (ya sea la placeholder o la nueva base64)
+            const nuevaFotoURL = fotoActualElemento.src;
+            localStorage.setItem('perfil_foto_url', nuevaFotoURL);
+            document.querySelector('.perfil-foto').src = nuevaFotoURL; // Actualiza la foto del menú
+
+            alert('✅ ¡Perfil actualizado! Los cambios se han guardado en tu navegador.');
+        });
+
+        // Ejecutar la función de carga al inicio
+        cargarDatos();
+    });
+</script>
 
 </body>
 </html>
