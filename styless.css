@@ -1,796 +1,764 @@
-/* ========================
-   Navbar general
-======================== */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #1a1a1a; /* color de fondo del menú */
-  padding: 10px 20px;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* ====================================
+    🔹 Variables y Reset Global 🔹
+==================================== */
+:root {
+  /* Paleta de colores */
+  --primary-bg: #111111; /* Fondo principal más oscuro */
+  --secondary-bg: #1a1a1a; /* Navbar, Footer */
+  --card-bg: #2a2a2a; /* Fondo de tarjetas/contenedores */
+  --accent-color: #ff3c3c; /* Rojo de acento */
+  --text-color: #ffffff;
+  --light-text: #ddd;
+  --success-color: #4CAF50; /* Verde para guardar/éxito */
 }
- 
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg); /* Usando variable */
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif; /* Usando Inter por defecto */
+  line-height: 1.6;
+}
+
+/* --------------------
+    🔸 Loading Spinner
+-------------------- */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid var(--accent-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ====================================
+    🔹 Navbar general (Header)
+==================================== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--secondary-bg);
+  padding: 10px 20px;
+  color: var(--text-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 /* Logo */
 .navbar-logo {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  width: 45px; /* Ligeramente ajustado */
+  height: 45px;
+  border-radius: 50%; /* Borde circular */
+  margin-right: 10px;
 }
 
 /* Menú principal */
 .navbar-menu {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 /* Links del menú */
 .navbar-menu a {
-  color: #fff;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  transition: 0.3s;
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px; /* Esquinas más redondeadas */
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .navbar-menu a:hover {
-  background-color: #ff3c3c; /* hover menú */
-  color: #fff;
+  background-color: var(--accent-color);
+  color: var(--text-color);
 }
 
 /* Dropdown */
 .dropdown {
-  position: relative;
-  display: inline-block;
+  position: relative;
 }
 
 .dropdown > a {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  cursor: pointer;
 }
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #2a2a2a; /* fondo del submenú */
-  min-width: 150px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-  border-radius: 5px;
+  display: none;
+  position: absolute;
+  top: 100%; /* Posicionamiento debajo del botón */
+  right: 0;
+  background-color: var(--card-bg);
+  min-width: 180px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+  z-index: 1010;
+  border-radius: 8px;
+  margin-top: 5px;
 }
 
 .dropdown-content a {
-  color: #fff;
-  padding: 10px 15px;
-  text-decoration: none;
-  display: block;
-  transition: 0.3s;
+  color: var(--text-color);
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
+  border-radius: 0; /* Desactivar borde de link base */
 }
 
 .dropdown-content a:hover {
-  background-color: #ff3c3c; /* hover submenú */
+  background-color: var(--accent-color);
 }
+/* Asegurar que las esquinas del dropdown-content se mantengan redondeadas */
+.dropdown-content a:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.dropdown-content a:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+
 
 .dropdown:hover .dropdown-content {
-  display: block;
+  display: block;
 }
 
-/* ========================
-   Contenedor de búsqueda
-======================== */
+/* ====================================
+    🔹 Contenedor de búsqueda (oculto en HTML, pero manteniendo estilos)
+==================================== */
 .search-container {
-  display: flex;
-  align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .search-input {
-  padding: 5px 10px;
-  border-radius: 5px 0 0 5px;
-  border: none;
+  padding: 8px 12px; /* Aumentado padding */
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: var(--text-color);
 }
 
 .search-button {
-  padding: 5px 10px;
-  border: none;
-  background-color: #ff3c3c;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  transition: 0.3s;
+  padding: 8px 12px;
+  border: none;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-button:hover {
-  background-color: #e63232;
+  background-color: #e63232;
 }
 
-/* ========================
-   Card y secciones
-======================== */
+/* ====================================
+    🔹 Card y secciones
+==================================== */
 .container {
-  padding: 20px;
+  padding: 40px 20px; /* Más espacio vertical */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .section h1 {
-  margin-bottom: 15px;
-  color: #ff3c3c;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  font-size: 2rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
 }
 
-/* Cards horizontal tipo AnimeFLV */
-.scroll-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
+/* Contenedor principal de tarjetas */
 .card-container {
-  display: flex;
-  flex-wrap: nowrap; /* fila única para scroll horizontal */
-  gap: 10px;
-  overflow-x: hidden; /* ocultamos scroll default */
-  padding: 10px 0;
-  scrollbar-width: thin;
-  scrollbar-color: #ff3c3c #1a1a1a;
-  transition: 0.3s;
+  display: flex;
+  flex-wrap: wrap; /* Cambiado a wrap para el layout principal */
+  gap: 20px; /* Espacio uniforme entre tarjetas */
+  padding: 10px 0;
+  /* Eliminamos el scrollbar CSS ya que para el main content queremos wrap */
+  /* Si esto es una sección de scroll horizontal, usaremos 'flex-wrap: nowrap' y 'overflow-x: auto' */
+  justify-content: flex-start; /* Alinear al inicio */
+}
+/* Estilo específico para secciones que sí queremos forzar scroll horizontal */
+.section .card-container {
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Scroll visible si es necesario */
+  /* Mantenemos tus estilos de scrollbar para navegadores compatibles */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--secondary-bg);
+}
+.section .card-container::-webkit-scrollbar {
+  height: 8px;
+}
+.section .card-container::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+}
+.section .card-container::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
 }
 
-.card-container::-webkit-scrollbar {
-  height: 8px;
-}
 
-.card-container::-webkit-scrollbar-track {
-  background: #1a1a1a;
-  border-radius: 4px;
-}
-
-.card-container::-webkit-scrollbar-thumb {
-  background-color: #ff3c3c;
-  border-radius: 4px;
-}
-
-/* Flechas laterales */
-.scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255,60,60,0.8);
-  border: none;
-  color: white;
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.3s, background-color 0.3s;
-  z-index: 10;
-}
-
-.scroll-btn:hover {
-  background-color: #ff3c3c;
-}
-
-.scroll-btn.left {
-  left: 0;
-}
-
-.scroll-btn.right {
-  right: 0;
-}
-
-/* Mostrar flechas solo al pasar el mouse */
-.scroll-wrapper:hover .scroll-btn {
-  opacity: 1;
-}
-
-/* Cards */
+/* Tarjetas (Cards) */
 .card {
-  flex: 0 0 150px; /* ancho fijo */
-  background-color: #2a2a2a;
-  color: #fff;
-  border-radius: 10px;
-  padding: 8px;
-  text-align: center;
-  font-size: 0.9rem;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
+  /* Flex-basis más flexible para un layout responsive sin media queries excesivas */
+  flex: 0 0 calc(25% - 15px); /* 4 tarjetas por fila en escritorio con 20px de gap */
+  min-width: 150px; /* Mantenemos un mínimo */
 
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  cursor: pointer;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 12px; /* Más redondeado */
+  padding: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+  border: 1px solid transparent; /* Borde inicial transparente */
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-7px); /* Mayor elevación */
+  box-shadow: 0px 8px 25px rgba(0,0,0,0.5); /* Sombra más pronunciada */
+  border: 1px solid var(--accent-color); /* Borde al pasar el mouse */
+}
+
+.card img {
+  width: 100%;
+  height: 220px; /* Ligeramente más alto */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 .explore-button,
 .delete-btn {
-  margin-top: 5px;
-  padding: 5px 10px;
-  background-color: #ff3c3c;
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.8rem;
-  transition: 0.3s;
+  margin-top: 8px;
+  padding: 8px 15px; /* Más padding para mejor touch-target */
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--text-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .explore-button:hover,
 .delete-btn:hover {
-  background-color: #e63232;
+  background-color: #e63232;
+  transform: translateY(-1px);
+}
+
+.explore-button:focus,
+.delete-btn:focus {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
 }
 
 .card button.tick {
-  background: #4CAF50;
-  color: white;
-  cursor: default;
+  background: var(--success-color);
+  color: white;
+  cursor: default;
 }
 
 .card h2 {
-  font-size: 1rem;
-  margin: 5px 0;
+  font-size: 1.1rem;
+  margin: 5px 0;
+  color: var(--light-text);
 }
 
 .card p {
-  font-size: 0.8rem;
-  margin: 5px 0;
-  color: #ddd;
+  font-size: 0.85rem;
+  margin: 5px 0 10px;
+  color: var(--light-text);
 }
 
-/* ========================
-   Footer
-======================== */
+/* ====================================
+    🔹 Footer
+==================================== */
 footer {
-  background-color: #1a1a1a;
-  color: #fff;
-  text-align: center;
-  padding: 20px 0;
+  background-color: var(--secondary-bg);
+  color: var(--text-color);
+  text-align: center;
+  padding: 25px 0;
+  border-top: 1px solid #333;
 }
 
 .social-links a {
-  color: #fff;
-  margin: 0 10px;
-  font-size: 20px;
-  transition: 0.3s;
+  color: var(--text-color);
+  margin: 0 10px;
+  font-size: 22px;
+  transition: color 0.3s;
 }
 
 .social-links a:hover {
-  color: #ff3c3c;
+  color: var(--accent-color);
 }
 
-/* ========================
-   Back to top
-======================== */
+/* ====================================
+    🔹 Back to top
+==================================== */
 .back-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #ff3c3c;
-  color: #fff;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  padding: 12px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .back-to-top:hover {
-  background-color: #e63232;
+  background-color: #e63232;
+  transform: translateY(-2px);
 }
 
-/* ========================
-   Responsive básico
-======================== */
-@media screen and (max-width: 1024px) {
-  .card {
-    flex: 0 0 120px; /* más pequeño en pantallas medianas */
-  }
+.back-to-top:focus {
+  outline: 2px solid var(--text-color);
+  outline-offset: 2px;
 }
 
-@media screen and (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .navbar-menu {
-    flex-direction: column;
-    width: 100%;
-  }
-  .card {
-    flex: 0 0 140px;
-  }
-}
-/* ========================
-   Capítulos compactos (anime_detalle.html)
-======================== */
-.capitulo-container {
-  display: flex;
-  flex-wrap: nowrap; /* fila horizontal */
-  gap: 8px;
-  overflow-x: hidden; /* scroll oculto, usar flechas */
-  padding: 10px 0;
+
+/* ====================================
+    🔹 Dropdown Perfil (Mejorado)
+==================================== */
+.perfil-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  min-width: 200px;
 }
 
-.capitulo-container::-webkit-scrollbar {
-  height: 6px;
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.capitulo-container::-webkit-scrollbar-track {
-  background: #1a1a1a;
-  border-radius: 4px;
+.perfil-foto {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border: 3px solid var(--accent-color);
 }
 
-.capitulo-container::-webkit-scrollbar-thumb {
-  background-color: #ff3c3c;
-  border-radius: 4px;
+.perfil-nombre {
+  font-size: 1.1rem;
+  color: var(--accent-color);
+  margin: 0;
 }
 
-/* Flechas laterales para capítulos */
-.scroll-wrapper .scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255,60,60,0.8);
-  border: none;
-  color: white;
-  font-size: 18px;
-  padding: 8px;
-  cursor: pointer;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.3s, background-color 0.3s;
-  z-index: 10;
+.perfil-content a {
+  padding: 8px 15px;
+  font-weight: 500;
+}
+
+/* ====================================
+    🔹 Ajustes de Capítulos Compactos
+==================================== */
+.scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* NOTA: card-container fue ajustado arriba para scroll horizontal */
+
+/* Flechas laterales (mejorando estilos) */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo más neutro para las flechas */
+  border: none;
+  color: white;
+  font-size: 24px; /* Flechas más grandes */
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%; /* Circular */
+  opacity: 0;
+  transition: opacity 0.3s, background-color 0.3s;
+  z-index: 10;
+}
+
+.scroll-btn:hover {
+  background-color: rgba(255, 60, 60, 0.9);
 }
 
 .scroll-wrapper:hover .scroll-btn {
-  opacity: 1;
+  opacity: 1;
 }
 
-.scroll-wrapper .scroll-btn.left { left: 0; }
-.scroll-wrapper .scroll-btn.right { right: 0; }
+.scroll-btn.left { left: 0; }
+.scroll-btn.right { right: 0; }
+
+/* Tarjetas de Capítulo */
+.capitulo-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px; /* Espacio uniforme */
+  overflow-x: auto;
+  padding: 10px 0;
+  scrollbar-width: none; /* Ocultar en Firefox */
+}
+.capitulo-container::-webkit-scrollbar {
+  display: none; /* Ocultar en Webkit */
+}
+
 
 .capitulo-card {
-  flex: 0 0 100px; /* ancho más pequeño */
-  background-color: #2a2a2a;
-  border-radius: 6px;
-  padding: 6px;
-  text-align: center;
-  color: #fff;
-  font-size: 0.75rem; /* texto más pequeño */
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.capitulo-card img {
-  width: 100%;
-  height: 120px; /* altura compacta */
-  object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 4px;
-  cursor: pointer;
+  flex: 0 0 110px; /* Ancho ligeramente mayor */
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.8rem;
+  transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
 }
 
 .capitulo-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+  border: 1px solid var(--accent-color);
+}
+
+.capitulo-card img {
+  height: 140px; /* Altura ajustada */
+  border-radius: 6px;
+  margin-bottom: 6px;
 }
 
 .capitulo-card button {
-  margin-top: 4px;
-  padding: 4px 6px;
-  font-size: 0.7rem;
-  border-radius: 4px;
-  background-color: #ff3c3c;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.3s;
+  margin-top: 5px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  border-radius: 5px;
 }
 
-.capitulo-card button:hover {
-  background-color: #e63232;
-}
-
-/* Responsive para capítulos */
-@media screen and (max-width: 1024px) {
-  .capitulo-card {
-    flex: 0 0 90px;
-    font-size: 0.7rem;
-  }
-  .capitulo-card img {
-    height: 100px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .capitulo-card {
-    flex: 0 0 80px;
-    font-size: 0.65rem;
-  }
-  .capitulo-card img {
-    height: 90px;
-  }
-}
-
-/* =============================
-   🔹 Ajustes de responsividad mejorada 🔹
-   (para pantallas pequeñas, tablets y desktop)
-============================= */
-
-@media screen and (max-width: 992px) {
-  .navbar-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .card-container {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-
-  .container {
-    padding: 10px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    text-align: left;
-  }
-
-  .navbar-menu {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .navbar-menu a {
-    display: block;
-    width: 100%;
-  }
-
-  .card-container {
-    gap: 12px;
-    overflow-x: auto;
-  }
-
-  .card {
-    flex: 0 0 180px;
-  }
-
-  .section h1 {
-    font-size: 1.3rem;
-  }
-
-  footer {
-    font-size: 0.9rem;
-    padding: 15px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .navbar-logo {
-    width: 40px;
-    height: 40px;
-  }
-
-  .navbar-menu a {
-    font-size: 0.9rem;
-    padding: 6px 8px;
-  }
-
-  .card {
-    flex: 0 0 150px;
-    font-size: 0.8rem;
-  }
-
-  .card img {
-    height: 160px;
-  }
-
-  .explore-button {
-    font-size: 0.75rem;
-  }
-
-  footer p {
-    font-size: 0.75rem;
-  }
-
-  .social-links a {
-    font-size: 1rem;
-  }
-}
-/* =============================
-   🔹 Menú responsive hamburguesa
-============================= */
+/* ====================================
+    🔹 Menú responsive hamburguesa
+==================================== */
 .menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  margin-right: 10px;
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  /* margin-right: 10px; Removido, el flex lo maneja mejor */
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 .menu-toggle div {
-  width: 28px;
-  height: 3px;
-  background-color: white;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* Animación al abrir */
-.menu-toggle.active div:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-.menu-toggle.active div:nth-child(2) {
-  opacity: 0;
-}
-.menu-toggle.active div:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
+  width: 28px;
+  height: 3px;
+  background-color: var(--text-color);
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
 /* Animación de deslizamiento del menú */
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Estilos móviles */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
+@media (max-width: 992px) {
+  /* Mostrar hamburguesa a partir de tabletas */
+  .menu-toggle {
+    display: flex;
+  }
 
-  .navbar-menu {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: #1a1a1a;
-    border-top: 1px solid #333;
-    text-align: left;
-    padding: 10px 0;
-    animation: slideDown 0.4s ease forwards;
-  }
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    border-top: 1px solid #333;
+    text-align: left;
+    padding: 10px 0;
+    position: absolute;
+    top: 65px; /* Altura de la navbar */
+    left: 0;
+    animation: slideDown 0.3s ease forwards;
+  }
 
-  .navbar-menu.active {
-    display: flex;
-  }
+  .navbar-menu.active {
+    display: flex;
+  }
 
-  .navbar-menu a {
-    padding: 10px 20px;
-    border-bottom: 1px solid #333;
-  }
+  .navbar-menu a {
+    padding: 12px 20px;
+    border-bottom: 1px solid #333;
+    border-radius: 0;
+  }
+  /* Retirar el borde del último elemento */
+  .navbar-menu a:last-of-type,
+  .navbar-menu .dropdown:last-of-type a:first-child {
+    border-bottom: none;
+  }
 
-  .dropdown-content {
-    position: static;
-    background: none;
-    border: none;
-    box-shadow: none;
-  }
 
-  .menu-toggle {
-    display: flex;
-  }
-}
-/* ========================
-   Dropdown Perfil
-======================== */
-.perfil-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  background-color: #2a2a2a; /* coincide con el dropdown normal */
-  border-radius: 8px;
-  min-width: 180px;
-}
+  .dropdown-content {
+    position: static;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 0;
+  }
 
-.perfil-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10px;
-}
+  .dropdown-content a {
+    padding-left: 40px;
+    font-size: 0.9rem;
+    background-color: rgba(255, 60, 60, 0.1);
+    border-bottom: 1px solid #333;
+  }
+  .dropdown-content a:last-child {
+    border-bottom: none;
+  }
 
-.perfil-foto {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 8px;
-  border: 2px solid #ff3c3c; /* color destacado */
+  /* Resetear hover para evitar problemas visuales */
+  .dropdown:hover .dropdown-content {
+    display: none;
+  }
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
 }
 
-.perfil-nombre {
-  font-size: 1rem;
-  color: #ff3c3c;
-  margin: 0;
-  font-weight: bold;
+
+/* ====================================
+    🔹 Responsive - General 🔹
+==================================== */
+@media screen and (max-width: 1200px) {
+  .card {
+    flex: 0 0 calc(33.333% - 13.333px); /* 3 tarjetas por fila */
+  }
 }
 
-/* Enlaces dentro del dropdown de perfil */
-.perfil-content a {
-  color: #fff;
-  text-decoration: none;
-  margin: 5px 0;
-  padding: 5px 10px;
-  border-radius: 5px;
-  transition: 0.3s;
-  width: 100%;
-  text-align: center;
-}
-
-.perfil-content a:hover {
-  background-color: #ff3c3c;
-}
-
-/* Responsive para dropdown de perfil */
 @media screen and (max-width: 768px) {
-  .perfil-content {
-    min-width: 100%;
-    padding: 10px 0;
-  }
+  .container {
+    padding: 20px 15px;
+  }
 
-  .perfil-content a {
-    width: 100%;
-  }
+  .card {
+    flex: 0 0 calc(50% - 10px); /* 2 tarjetas por fila */
+    min-width: unset;
+    max-width: 100%;
+  }
+  
+  .card img {
+    height: 180px;
+  }
+
+  .section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .scroll-btn {
+    display: none; /* Ocultar flechas en móvil, usar scroll nativo */
+  }
+
+  .capitulo-card {
+    flex: 0 0 90px;
+    font-size: 0.7rem;
+  }
+  .capitulo-card img {
+    height: 100px;
+  }
 }
 
-/* =============================
-    🔹 Estilos Específicos para Editar Perfil (editar_perfil.html) 🔹
-============================= */
+@media screen and (max-width: 480px) {
+  .card {
+    flex: 0 0 100%; /* 1 tarjeta por fila */
+  }
 
-/* Contenedor principal del formulario */
+  .card img {
+    height: 250px;
+  }
+
+  .navbar-brand span {
+    font-size: 1rem;
+  }
+}
+
+/* ====================================
+    🔹 Estilos Específicos para Editar Perfil 🔹
+==================================== */
+
 .contenedor-principal {
-    max-width: 600px; /* Ancho cómodo para un formulario de perfil */
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #2a2a2a; /* Fondo oscuro, coincide con dropdown */
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    color: #fff; /* Texto blanco por defecto */
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
 }
 
 .contenedor-principal h1 {
-    text-align: center;
-    color: #ff3c3c; /* Color de acento rojo */
-    margin-bottom: 30px;
-    font-size: 1.8rem;
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
 }
 
-/* Formulario */
 .formulario-perfil {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espacio entre los campos */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Etiqueta y Controles */
 .campo {
-    display: flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .campo label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #ddd;
-    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--light-text);
+    font-size: 1rem;
 }
 
 .campo input[type="text"],
 .campo input[type="email"],
 .campo textarea {
-    padding: 12px;
-    border: 1px solid #444; /* Borde sutil */
-    background-color: #1a1a1a; /* Fondo del input muy oscuro */
-    color: #fff;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+    padding: 12px;
+    border: 1px solid #444;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
 .campo input:focus,
 .campo textarea:focus {
-    border-color: #ff3c3c; /* Borde rojo al enfocar */
-    outline: none;
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 60, 60, 0.5);
 }
 
 .campo textarea {
-    resize: vertical;
-    min-height: 100px;
+    resize: vertical;
+    min-height: 100px;
 }
 
-/* Sección de Foto de Perfil */
 .campo-foto {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 .foto-actual {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ff3c3c; /* Borde de acento */
-    box-shadow: 0 0 10px rgba(255, 60, 60, 0.3);
+    width: 140px; /* Ligeramente más pequeño */
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 0 15px rgba(255, 60, 60, 0.4);
 }
 
 .boton-subir {
-    /* Reutiliza el estilo de los botones principales, como explore-button */
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff3c3c;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
 }
 
 .boton-subir:hover {
-    background-color: #e63232;
+    background-color: #e63232;
 }
 
-/* Botón de Guardar */
 .boton-guardar {
-    /* Estilo para un botón de acción principal */
-    padding: 12px 20px;
-    background-color: #4CAF50; /* Un color de "Guardar" o "Éxito" */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    padding: 14px 25px; /* Más robusto */
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .boton-guardar:hover {
-    background-color: #3e8e41;
+    background-color: #3e8e41;
+    transform: translateY(-1px);
 }
 
-/* Responsive para el formulario */
 @media screen and (max-width: 600px) {
-    .contenedor-principal {
-        margin: 20px 10px;
-        padding: 20px;
-    }
+    .contenedor-principal {
+        margin: 20px 10px;
+        padding: 20px;
+    }
 
-    .foto-actual {
-        width: 120px;
-        height: 120px;
-    }
+    .foto-actual {
+        width: 100px;
+        height: 100px;
+    }
 
-    .boton-guardar {
-        font-size: 1rem;
-        padding: 10px 15px;
-    }
+    .boton-guardar {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
 }
