@@ -659,4 +659,138 @@ footer {
   }
 }
 
+/* =============================
+    🔹 Estilos Específicos para Editar Perfil (editar_perfil.html) 🔹
+============================= */
 
+/* Contenedor principal del formulario */
+.contenedor-principal {
+    max-width: 600px; /* Ancho cómodo para un formulario de perfil */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #2a2a2a; /* Fondo oscuro, coincide con dropdown */
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    color: #fff; /* Texto blanco por defecto */
+}
+
+.contenedor-principal h1 {
+    text-align: center;
+    color: #ff3c3c; /* Color de acento rojo */
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+/* Formulario */
+.formulario-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre los campos */
+}
+
+/* Etiqueta y Controles */
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-size: 1rem;
+}
+
+.campo input[type="text"],
+.campo input[type="email"],
+.campo textarea {
+    padding: 12px;
+    border: 1px solid #444; /* Borde sutil */
+    background-color: #1a1a1a; /* Fondo del input muy oscuro */
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+    border-color: #ff3c3c; /* Borde rojo al enfocar */
+    outline: none;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Sección de Foto de Perfil */
+.campo-foto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.foto-actual {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ff3c3c; /* Borde de acento */
+    box-shadow: 0 0 10px rgba(255, 60, 60, 0.3);
+}
+
+.boton-subir {
+    /* Reutiliza el estilo de los botones principales, como explore-button */
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff3c3c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.boton-subir:hover {
+    background-color: #e63232;
+}
+
+/* Botón de Guardar */
+.boton-guardar {
+    /* Estilo para un botón de acción principal */
+    padding: 12px 20px;
+    background-color: #4CAF50; /* Un color de "Guardar" o "Éxito" */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.boton-guardar:hover {
+    background-color: #3e8e41;
+}
+
+/* Responsive para el formulario */
+@media screen and (max-width: 600px) {
+    .contenedor-principal {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+
+    .foto-actual {
+        width: 120px;
+        height: 120px;
+    }
+
+    .boton-guardar {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+}
