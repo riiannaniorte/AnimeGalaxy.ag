@@ -87,14 +87,25 @@
     <p>© 2026 DaiAnime</p>
 </footer>
     <script>
-    const usuarioActual = localStorage.getItem('usuario_conectado');
-    const menuAdmin = document.getElementById('menu-admin');
+    window.addEventListener('DOMContentLoaded', function() {
+        const usuarioActual = localStorage.getItem('usuario_conectado');
+        const menuAdmin = document.getElementById('menu-admin');
+        const nombreUsuarioLink = document.getElementById('nombre-usuario');
 
-    if (menuAdmin) {
-        if (usuarioActual !== 'admin') {
-            menuAdmin.style.display = 'none';
+        console.log("Usuario actual en localStorage:", usuarioActual); // Para depurar en la consola
+
+        // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre
+        if (usuarioActual && nombreUsuarioLink) {
+            nombreUsuarioLink.textContent = usuarioActual;
         }
-    }
+
+        // Ocultar o mostrar el botón de Admin según el rol
+        if (menuAdmin) {
+            if (usuarioActual !== 'admin') {
+                menuAdmin.style.display = 'none';
+            }
+        }
+    });
 </script>
 </body>
 </html>
