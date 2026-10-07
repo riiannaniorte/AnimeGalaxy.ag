@@ -1,1082 +1,516 @@
-/* ====================================
-   VARIABLES
-==================================== */
-
 :root {
-
     --primary-bg: #111111;
-
     --secondary-bg: #1a1a1a;
-
     --card-bg: #2a2a2a;
-
     --accent-color: #ff3c3c;
-
     --text-color: #ffffff;
-
-    --light-text: #ddd;
-
-    --success-color: #4CAF50;
-
+    --light-text: #dddddd;
 }
-
 
 *,
 *::before,
 *::after {
-
     box-sizing: border-box;
-
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
-
     margin: 0;
-
     padding: 0;
-
     background-color: var(--primary-bg);
-
     color: var(--text-color);
-
-    font-family: 'Inter', sans-serif;
-
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-
 }
-
-
-
-/* ====================================
-   LOADING
-==================================== */
-
-.loading {
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    background-color: var(--primary-bg);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    opacity: 1;
-
-    transition: opacity 0.5s ease;
-
-    z-index: 99999;
-
-}
-
-
-.spinner {
-
-    width: 50px;
-
-    height: 50px;
-
-    border: 5px solid rgba(255, 255, 255, 0.3);
-
-    border-top-color: var(--accent-color);
-
-    border-radius: 50%;
-
-    animation: spin 1s linear infinite;
-
-}
-
-
-@keyframes spin {
-
-    from {
-
-        transform: rotate(0deg);
-
-    }
-
-    to {
-
-        transform: rotate(360deg);
-
-    }
-
-}
-
-
 
 /* ====================================
    NAVBAR
 ==================================== */
 
 .navbar {
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     background-color: var(--secondary-bg);
-
     padding: 10px 20px;
-
-    color: var(--text-color);
-
     position: sticky;
-
     top: 0;
-
     z-index: 5000;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.5);
-
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
-
 
 .navbar-brand {
-
     display: flex;
-
     align-items: center;
-
     font-size: 1.2rem;
-
     font-weight: bold;
-
     color: var(--accent-color);
-
 }
-
 
 .navbar-logo {
-
     width: 45px;
-
     height: 45px;
-
-    border-radius: 50%;
-
     margin-right: 10px;
-
+    border-radius: 50%;
     object-fit: cover;
-
 }
-
-
 
 /* ====================================
    MENÚ PRINCIPAL
 ==================================== */
 
 .navbar-menu {
-
     display: flex;
-
     align-items: center;
-
     gap: 15px;
-
 }
-
 
 .navbar-menu > a {
-
-    color: var(--text-color);
-
-    text-decoration: none;
-
-    padding: 8px 12px;
-
-    border-radius: 8px;
-
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
-
     display: flex;
-
     align-items: center;
-
     gap: 8px;
-
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
-.navbar-menu > a:hover {
-
+.navbar-menu > a:hover,
+.navbar-menu > a:focus {
     background-color: var(--accent-color);
-
     color: white;
-
 }
-
-
 
 /* ====================================
    PERFIL
 ==================================== */
 
 .dropdown {
-
     position: relative;
-
     display: inline-block;
-
 }
-
 
 .perfil-toggle {
-
-    display: flex !important;
-
+    display: flex;
     align-items: center;
-
     gap: 8px;
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    color: var(--text-color);
-
-    text-decoration: none;
-
+    border: 0;
     padding: 8px 12px;
-
     border-radius: 8px;
-
+    background: transparent;
+    color: var(--text-color);
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-
-.perfil-toggle:hover {
-
+.perfil-toggle:hover,
+.perfil-toggle:focus {
     background-color: var(--accent-color);
-
     color: white;
-
 }
-
 
 .perfil-flecha {
-
-    font-size: 11px;
-
     margin-left: 2px;
-
-    transition:
-        transform 0.2s ease;
-
+    font-size: 11px;
+    transition: transform 0.2s ease;
 }
-
 
 .dropdown.open .perfil-flecha {
-
     transform: rotate(180deg);
-
 }
 
-
-
-/* ====================================
-   DROPDOWN
-==================================== */
-
+/* Menú cerrado por defecto */
 .dropdown-content {
-
     display: none;
-
     position: absolute;
-
     top: calc(100% + 8px);
-
     right: 0;
-
-    width: 220px;
-
-    min-width: 220px;
-
-    background-color: var(--card-bg);
-
-    border-radius: 8px;
-
+    width: 240px;
     padding: 15px;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.55);
-
+    background-color: var(--card-bg);
+    border: 1px solid #444;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
     z-index: 9999;
-
 }
 
-
+/* Menú abierto mediante JavaScript */
 .dropdown.open .dropdown-content {
-
     display: block;
-
 }
-
-
-/*
-   En PC también permitimos
-   abrir al pasar el ratón.
-*/
-
-@media (min-width: 993px) {
-
-    .dropdown:hover .dropdown-content {
-
-        display: block;
-
-    }
-
-}
-
-
-
-/* ====================================
-   INFORMACIÓN DEL PERFIL
-==================================== */
 
 .perfil-info {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
-    justify-content: center;
-
     padding-bottom: 14px;
-
     margin-bottom: 10px;
-
     border-bottom: 1px solid #444;
-
 }
-
 
 .perfil-foto {
-
-    width: 80px;
-
-    height: 80px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
     display: block;
-
+    width: 80px;
+    height: 80px;
     margin-bottom: 10px;
-
     border: 3px solid var(--accent-color);
-
+    border-radius: 50%;
     background-color: #333;
-
+    object-fit: cover;
 }
-
 
 .perfil-nombre {
-
+    max-width: 100%;
     margin: 0;
-
-    padding: 0;
-
-    font-size: 1rem;
-
-    font-weight: 600;
-
     color: var(--accent-color);
-
+    font-size: 1rem;
+    font-weight: 600;
     text-align: center;
-
     word-break: break-word;
-
 }
-
-
-
-/* ====================================
-   OPCIONES DEL PERFIL
-==================================== */
 
 .perfil-opciones {
-
     display: flex;
-
     flex-direction: column;
-
     width: 100%;
-
 }
-
 
 .perfil-opciones a {
-
-    display: flex !important;
-
+    display: flex;
     align-items: center;
-
-    justify-content: flex-start;
-
     gap: 10px;
-
     width: 100%;
-
     padding: 11px 12px;
-
     margin: 2px 0;
-
-    color: var(--text-color);
-
-    background: transparent;
-
-    text-decoration: none;
-
     border-radius: 5px;
-
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
-
 
 .perfil-opciones a i {
-
     width: 18px;
-
     min-width: 18px;
-
     text-align: center;
-
 }
 
-
-.perfil-opciones a:hover {
-
+.perfil-opciones a:hover,
+.perfil-opciones a:focus {
     background-color: var(--accent-color);
-
     color: white;
-
 }
-
-
 
 /* ====================================
    HAMBURGUESA
 ==================================== */
 
 .menu-toggle {
-
     display: none;
-
     flex-direction: column;
-
     justify-content: center;
-
     gap: 5px;
-
-    cursor: pointer;
-
-    border: none;
-
-    background: transparent;
-
     padding: 5px;
-
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
-
 
 .menu-toggle div {
-
     width: 28px;
-
     height: 3px;
-
-    background-color: var(--text-color);
-
     border-radius: 2px;
-
-    transition:
-        all 0.3s ease;
-
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
 }
-
 
 .menu-toggle.active div:nth-child(1) {
-
-    transform:
-        translateY(8px)
-        rotate(45deg);
-
+    transform: translateY(8px) rotate(45deg);
 }
-
 
 .menu-toggle.active div:nth-child(2) {
-
     opacity: 0;
-
 }
-
 
 .menu-toggle.active div:nth-child(3) {
-
-    transform:
-        translateY(-8px)
-        rotate(-45deg);
-
+    transform: translateY(-8px) rotate(-45deg);
 }
-
-
 
 /* ====================================
-   ANIMACIÓN MENÚ
+   CONTENIDO
 ==================================== */
 
-@keyframes slideDown {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(-10px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
+.container {
+    max-width: 1200px;
+    padding: 40px 20px;
+    margin: 0 auto;
 }
 
+.section h1 {
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    color: var(--accent-color);
+    font-size: 2rem;
+}
 
+.tarjeta-principal {
+    margin-bottom: 35px;
+}
+
+.tarjeta-principal a {
+    color: var(--accent-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.tarjeta-principal a:hover {
+    text-decoration: underline;
+}
+
+.separador {
+    margin: 0 8px;
+    color: var(--light-text);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 10px 0;
+    overflow-x: auto;
+    scrollbar-color: var(--accent-color) var(--secondary-bg);
+    scrollbar-width: thin;
+}
+
+.card-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+}
+
+.card-container::-webkit-scrollbar-track {
+    background-color: var(--secondary-bg);
+}
+
+.card {
+    flex: 0 0 calc(25% - 15px);
+    min-width: 150px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+}
+
+.card:hover {
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    transform: translateY(-7px);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.card h2 {
+    margin: 5px 0;
+    color: var(--light-text);
+    font-size: 1.1rem;
+}
+
+.card p {
+    margin: 5px 0 10px;
+    color: var(--light-text);
+    font-size: 0.85rem;
+}
+
+.explore-button {
+    padding: 8px 15px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.explore-button:hover {
+    background-color: #d92d2d;
+}
+
+/* ====================================
+   FOOTER
+==================================== */
+
+footer {
+    padding: 25px 0;
+    border-top: 1px solid #333;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+    text-align: center;
+}
+
+.social-links a {
+    margin: 0 10px;
+    color: var(--text-color);
+    font-size: 22px;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+.back-to-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    cursor: pointer;
+}
 
 /* ====================================
    RESPONSIVE
 ==================================== */
 
-@media (max-width: 992px) {
-
-
-    .navbar {
-
-        position: sticky;
-
+@media screen and (max-width: 1200px) {
+    .card {
+        flex-basis: calc(33.333% - 13.333px);
     }
+}
 
+@media screen and (max-width: 992px) {
+    .navbar {
+        position: sticky;
+    }
 
     .menu-toggle {
-
         display: flex;
-
     }
-
 
     .navbar-menu {
-
-        display: none;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 0;
-
-        width: 100%;
-
-        background-color:
-            var(--secondary-bg);
-
-        border-top: 1px solid #333;
-
         position: absolute;
-
         top: 65px;
-
         left: 0;
-
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
         padding: 10px 0;
-
-        animation:
-            slideDown 0.3s ease;
-
+        border-top: 1px solid #333;
+        background-color: var(--secondary-bg);
     }
-
 
     .navbar-menu.active {
-
         display: flex;
-
     }
-
 
     .navbar-menu > a {
-
         padding: 12px 20px;
-
-        border-bottom:
-            1px solid #333;
-
+        border-bottom: 1px solid #333;
         border-radius: 0;
-
     }
-
-
-
-    /* ====================================
-       PERFIL MÓVIL
-    ==================================== */
 
     .dropdown {
-
         width: 100%;
-
     }
-
 
     .perfil-toggle {
-
+        justify-content: flex-start;
         width: 100%;
-
-        padding:
-            12px 20px !important;
-
+        padding: 12px 20px;
         border-radius: 0;
-
     }
-
 
     .dropdown-content {
-
         position: static;
-
         width: 100%;
-
         min-width: 0;
-
         padding: 0;
-
         margin: 0;
-
-        background-color: #222;
-
+        border: none;
         border-radius: 0;
-
+        background-color: #222;
         box-shadow: none;
-
     }
-
-
-    /*
-       En móvil NO usar hover.
-    */
 
     .dropdown:hover .dropdown-content {
-
         display: none;
-
     }
-
 
     .dropdown.open .dropdown-content {
-
         display: block;
-
     }
-
 
     .perfil-info {
-
         padding: 15px;
-
         margin: 0;
-
-        border-bottom:
-            1px solid #444;
-
+        border-bottom: 1px solid #444;
     }
-
 
     .perfil-opciones a {
-
-        padding:
-            12px 40px;
-
+        padding: 12px 40px;
         margin: 0;
-
+        border-bottom: 1px solid #333;
         border-radius: 0;
-
-        border-bottom:
-            1px solid #333;
-
-        background-color:
-            rgba(255, 60, 60, 0.05);
-
+        background-color: rgba(255, 60, 60, 0.05);
     }
-
 
     .perfil-opciones a:last-child {
-
         border-bottom: none;
-
     }
-
 }
-
-
-
-/* ====================================
-   RESTO DE TU CSS
-==================================== */
-
-.container {
-
-    padding: 40px 20px;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-}
-
-
-.section h1 {
-
-    margin-bottom: 20px;
-
-    color: var(--accent-color);
-
-    font-size: 2rem;
-
-    border-bottom:
-        2px solid #333;
-
-    padding-bottom: 5px;
-
-}
-
-
-.section .card-container {
-
-    display: flex;
-
-    flex-wrap: nowrap;
-
-    gap: 10px;
-
-    overflow-x: auto;
-
-    padding: 10px 0;
-
-    scrollbar-width: thin;
-
-    scrollbar-color:
-        var(--accent-color)
-        var(--secondary-bg);
-
-}
-
-
-.section .card-container::-webkit-scrollbar {
-
-    height: 8px;
-
-}
-
-
-.section .card-container::-webkit-scrollbar-thumb {
-
-    background-color:
-        var(--accent-color);
-
-}
-
-
-.section .card-container::-webkit-scrollbar-track {
-
-    background-color:
-        var(--secondary-bg);
-
-}
-
-
-.card {
-
-    flex: 0 0
-        calc(25% - 15px);
-
-    min-width: 150px;
-
-    background-color:
-        var(--card-bg);
-
-    color:
-        var(--text-color);
-
-    border-radius: 12px;
-
-    padding: 12px;
-
-    text-align: center;
-
-    font-size: 0.9rem;
-
-    transition:
-        transform 0.3s,
-        box-shadow 0.3s,
-        border 0.3s;
-
-    border:
-        1px solid transparent;
-
-}
-
-
-.card:hover {
-
-    transform:
-        translateY(-7px);
-
-    box-shadow:
-        0 8px 25px
-        rgba(0, 0, 0, 0.5);
-
-    border:
-        1px solid
-        var(--accent-color);
-
-}
-
-
-.card img {
-
-    width: 100%;
-
-    height: 220px;
-
-    object-fit: cover;
-
-    border-radius: 8px;
-
-    margin-bottom: 8px;
-
-}
-
-
-.explore-button,
-.delete-btn {
-
-    margin-top: 8px;
-
-    padding:
-        8px 15px;
-
-    background-color:
-        var(--accent-color);
-
-    border: none;
-
-    color: white;
-
-    border-radius: 6px;
-
-    cursor: pointer;
-
-    font-size: 0.9rem;
-
-    font-weight: 600;
-
-}
-
-
-.card h2 {
-
-    font-size: 1.1rem;
-
-    margin: 5px 0;
-
-    color:
-        var(--light-text);
-
-}
-
-
-.card p {
-
-    font-size: 0.85rem;
-
-    margin:
-        5px 0 10px;
-
-    color:
-        var(--light-text);
-
-}
-
-
-footer {
-
-    background-color:
-        var(--secondary-bg);
-
-    color:
-        var(--text-color);
-
-    text-align: center;
-
-    padding: 25px 0;
-
-    border-top:
-        1px solid #333;
-
-}
-
-
-.social-links a {
-
-    color:
-        var(--text-color);
-
-    margin:
-        0 10px;
-
-    font-size: 22px;
-
-}
-
-
-.social-links a:hover {
-
-    color:
-        var(--accent-color);
-
-}
-
-
-.back-to-top {
-
-    position: fixed;
-
-    bottom: 20px;
-
-    right: 20px;
-
-    background-color:
-        var(--accent-color);
-
-    color: white;
-
-    padding: 12px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-
-/* ====================================
-   RESPONSIVE TARJETAS
-==================================== */
-
-@media screen and (max-width: 1200px) {
-
-    .card {
-
-        flex: 0 0
-            calc(33.333% - 13.333px);
-
-    }
-
-}
-
 
 @media screen and (max-width: 768px) {
-
     .container {
-
-        padding:
-            20px 15px;
-
+        padding: 20px 15px;
     }
-
 
     .card {
-
-        flex: 0 0
-            calc(50% - 10px);
-
-        min-width: unset;
-
+        flex-basis: calc(50% - 10px);
     }
-
 
     .card img {
-
         height: 180px;
-
     }
-
 
     .section h1 {
-
         font-size: 1.5rem;
-
     }
-
 }
 
-
 @media screen and (max-width: 480px) {
-
     .card {
-
-        flex: 0 0 100%;
-
+        flex-basis: 100%;
     }
-
 
     .card img {
-
         height: 250px;
-
     }
-
 
     .navbar-brand span {
-
         font-size: 1rem;
-
     }
-
 }
