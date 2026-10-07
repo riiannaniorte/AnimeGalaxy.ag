@@ -214,5 +214,51 @@
         }
     });
 </script>
+    <script>
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc'; // Tu URL de SheetDB
+    // Si usas otra pestaña/tabla para los animes, recuerda usar su endpoint correspondiente de SheetDB
+
+    const inputBuscar = document.querySelector('input[name="busqueda"]'); // Ajusta el selector según tu input de búsqueda
+    const contenedorResultados = document.getElementById('resultados-busqueda');
+
+    let todosLosAnimes = [];
+
+    // Cargar los animes al entrar a la página
+    fetch(sheetDbUrl)
+        .then(res => res.json())
+        .then(data => {
+            todosLosAnimes = data;
+            mostrarAnimes(todosLosAnimes);
+        })
+        .catch(err => console.error('Error al cargar animes:', err));
+
+    function mostrarAnimes(animes) {
+        if (!contenedorResultados) return;
+        contenedorResultados.innerHTML = '';
+        
+        animes.forEach(anime => {
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.innerHTML = `
+                <h3>${anime.titulo}</h3>
+                <p><b>Estudio:</b> ${anime.estudio} | <b>Rating:</b> ${anime.rating}</p>
+                <p>${anime.sinopsis}</p>
+            `;
+            contenedorResultados.appendChild(card);
+        });
+    }
+
+    // Filtrar en tiempo real al escribir
+    if (inputBuscar) {
+        inputBuscar.addEventListener('input', (e) => {
+            const texto = e.target.value.toLowerCase();
+            const filtrados = todosLosAnimes.filter(anime => 
+                anime.titulo.toLowerCase().includes(texto) || 
+                (anime.genero && anime.genero.toLowerCase().includes(texto))
+            );
+            mostrarAnimes(filtrados);
+        });
+    }
+</script>
 </body>
 </html>
