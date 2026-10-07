@@ -107,30 +107,26 @@
     const form = document.querySelector('form');
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita que la página recargue de golpe
+        e.preventDefault(); // Evitamos que recargue la página instantáneamente
 
-        const formData = {
-            email: form.querySelector('input[name="email"]').value,
-            user: form.querySelector('input[name="user"]').value,
-            pass: form.querySelector('input[name="pass"]').value
-        };
+        // Creamos los datos en formato de formulario clásico (evita bloqueos de CORS)
+        const formData = new URLSearchParams();
+        formData.append('email', form.querySelector('input[name="email"]').value);
+        formData.append('user', form.querySelector('input[name="user"]').value);
+        formData.append('pass', form.querySelector('input[name="pass"]').value);
 
-        // Enviamos los datos
+        // Enviamos la petición
         fetch(scriptURL, {
             method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+            body: formData
         })
-        .then(() => {
-            alert('¡Registro guardado correctamente en tu Excel!');
+        .then(response => {
+            alert('¡Registrado y guardado en tu Excel de Google Drive con éxito!');
             window.location.href = 'iniciar_sesion.html';
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un problema al registrar.');
+            console.error('Error!', error.message);
+            alert('Hubo un error al registrar.');
         });
     });
 </script>
