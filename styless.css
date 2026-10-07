@@ -1,3 +1,4 @@
+/* ✅ CORREGIDO: antes ponía "root {" sin dos puntos */
 :root {
     --primary-bg: #111111;
     --secondary-bg: #1a1a1a;
@@ -139,6 +140,11 @@ body {
 
 .dropdown.open .dropdown-content {
     display: block;
+}
+
+/* ✅ Por si el atributo hidden sigue puesto, se respeta */
+.dropdown-content[hidden] {
+    display: none !important;
 }
 
 /* INFORMACIÓN DEL PERFIL */
