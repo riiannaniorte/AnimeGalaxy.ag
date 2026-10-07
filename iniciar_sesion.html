@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DaiAnime - Acceso</title>
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: url('anime2.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #1c1b1b;
+            width: 350px;
+            padding: 30px;
+            border: 1px solid #333;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo img {
+            max-width: 150px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: white;
+            outline: none;
+        }
+        
+        .forgot {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+        
+        .forgot a {
+            color: #999;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid red;
+            background: transparent;
+            color: red;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        
+        .btn-red {
+            background: red;
+            color: white;
+            border: 1px solid red;
+        }
+        
+        .terms {
+            color: #666;
+            font-size: 11px;
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.4;
+        }
+        
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            border: 1px solid red;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo"><img src="DaiAnime.jpeg" alt="DaiAnime"></div>
+    <form>
+        <div style="color: white;">Nombre de usuario</div>
+        <input type="text" name="user" required>
+        <div style="color: white;">Contraseña</div>
+        <input type="password" name="pass" required>
+        <div class="forgot">
+            <a href="recuperar.html">¿Has olvidado tu contraseña?</a>
+        </div>
+        <div class="buttons">
+            <button type="button" onclick="window.location.href='registro.html'" class="btn-red">Registrarme</button>
+            <button type="submit">Iniciar sesión</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

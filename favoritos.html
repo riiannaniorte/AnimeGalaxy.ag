@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Favoritos</title>
+    <link rel="stylesheet" href="Buscar.css">
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <style>
+        .delete-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+
+<header class="page-header">
+    <h1>
+        <a href="index.html">
+            <img src="DaiAnime.jpeg" alt="Logo" style="height:40px; vertical-align:middle;">
+            DaiAnime
+        </a>
+    </h1>
+
+    <nav class="main-menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Buscar.html">Buscar</a></li> 
+            <li><a href="admin.html">Admin</a></li>           
+
+            <li class="user-menu-item">
+                <a href="#" class="user-link">Usuario</a>
+                <ul class="user-dropdown">
+                    <li><a href="Mi_lista.html"> Mi Lista</a></li>
+                    <li><a href="favoritos.html">Animes Favoritos</a></li>
+                    <li class="logout-separator">
+                        <a href="iniciar_sesion.html">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<h1 style="text-align:center; margin:20px;">⭐ Mis Animes Favoritos</h1>
+
+<div class="anime-grid">
+    <div class="anime-card">
+        <a href="anime.html">
+            <img src="imagenes/anime/anime1.jpg" alt="Portada">
+        </a>
+        <h4>Anime Favorito 1</h4>
+
+        <div class="anime-details">
+            <p><strong>Año:</strong> 2024</p>
+            <p><strong>Tipo:</strong> TV</p>
+            <p><strong>Estado:</strong> En emisión</p>
+            <p><strong>Género:</strong> Acción, Aventura</p>
+        </div>
+
+        <form onsubmit="return confirm('¿Eliminar de favoritos?');">
+            <button type="submit" class="delete-button">
+                🗑️ Eliminar
+            </button>
+        </form>
+    </div>
+    <div class="anime-card">
+        <a href="anime.html">
+            <img src="imagenes/anime/anime2.jpg" alt="Portada">
+        </a>
+        <h4>Anime Favorito 2</h4>
+
+        <div class="anime-details">
+            <p><strong>Año:</strong> 2023</p>
+            <p><strong>Tipo:</strong> Movie</p>
+            <p><strong>Estado:</strong> Finalizado</p>
+            <p><strong>Género:</strong> Drama, Romance</p>
+        </div>
+
+        <form onsubmit="return confirm('¿Eliminar de favoritos?');">
+            <button type="submit" class="delete-button">
+                🗑️ Eliminar
+            </button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <p style="text-align:center; padding:20px;">© 2026 DaiAnime</p>
+</footer>
+
+</body>
+</html>
