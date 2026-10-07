@@ -2,43 +2,40 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AnimeGalaxy - Noticias y Novedades de Anime</title>
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="icon"
           href="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy">
+
     <link rel="stylesheet" href="styless.css">
 </head>
+
 <body>
-<!-- =====================================
-     LOADING
-==================================== -->
-<div class="loading" id="loading">
-    <div class="spinner"></div>
-</div>
-<!-- =====================================
-     CONTENIDO PRINCIPAL
-===================================== -->
+
 <main class="content-wrapper">
-    <!-- =====================================
-         NAVBAR
-    ===================================== -->
+
+    <!-- NAVBAR -->
     <header class="navbar">
+
         <div class="navbar-brand">
             <img
                 src="https://drive.google.com/uc?export=view&id=1snA7nhE3vNeix-iXoUGH_sU7Yg531aAy"
-                alt="AnimeGalaxy Logo"
+                alt="Logo de AnimeGalaxy"
                 class="navbar-logo"
             >
+
             <span>AnimeGalaxy</span>
         </div>
+
         <!-- BOTÓN HAMBURGUESA -->
         <button
             type="button"
             class="menu-toggle"
-            onclick="toggleMenu()"
             aria-label="Abrir menú"
             aria-expanded="false"
         >
@@ -46,107 +43,116 @@
             <div></div>
             <div></div>
         </button>
-        <!-- =====================================
-             MENÚ
-        ===================================== -->
+
+        <!-- MENÚ -->
         <nav class="navbar-menu" id="navbar-menu">
+
             <a href="index.html">
                 <i class="fas fa-home"></i>
-                Inicio
+                <span>Inicio</span>
             </a>
+
             <a href="buscar_anime.html">
                 <i class="fas fa-film"></i>
-                Directorio Anime
+                <span>Directorio Anime</span>
             </a>
+
             <a href="foro.html">
                 <i class="fas fa-comments"></i>
-                Foro
+                <span>Foro</span>
             </a>
+
             <a href="quienes_somos.html">
                 <i class="fas fa-users"></i>
-                Quiénes Somos
+                <span>Quiénes Somos</span>
             </a>
+
             <a href="contacto.html">
                 <i class="fas fa-envelope"></i>
-                Contacto
+                <span>Contacto</span>
             </a>
-            <!-- =====================================
-                 PERFIL
-            ===================================== -->
+
+            <!-- PERFIL -->
             <div class="dropdown" id="perfil-dropdown-container">
-                <!-- BOTÓN PERFIL -->
-                <a
-                    href="#"
+
+                <button
+                    type="button"
                     class="perfil-toggle"
                     id="perfil-toggle"
                     aria-expanded="false"
+                    aria-controls="perfil-dropdown"
                 >
                     <i class="fas fa-user"></i>
                     <span>Perfil</span>
                     <i class="fas fa-caret-down perfil-flecha"></i>
-                </a>
-                <!-- =====================================
-                     MENÚ DEL PERFIL
-                ===================================== -->
+                </button>
+
                 <div
                     class="dropdown-content perfil-content"
                     id="perfil-dropdown"
                 >
-                    <!--FOTO + NOMBRE -->
+
                     <div class="perfil-info">
+
                         <img
                             src="https://via.placeholder.com/80"
                             alt="Foto de usuario"
                             class="perfil-foto"
                             id="perfil-foto"
                         >
-                        <h3 class="perfil-nombre">
 
+                        <h3 class="perfil-nombre">
                             <span id="perfil-nombre">
                                 NombreUsuario
                             </span>
                         </h3>
+
                     </div>
-                    <!-- OPCIONES -->
+
                     <div class="perfil-opciones">
+
                         <a href="editar_perfil.html">
                             <i class="fas fa-user-edit"></i>
-                            <span>
-                                Editar Perfil
-                            </span>
+                            <span>Editar Perfil</span>
                         </a>
+
                         <a href="mi_lista.html">
                             <i class="fas fa-list"></i>
-                            <span>
-                                Mi Lista
-                            </span>
+                            <span>Mi Lista</span>
                         </a>
+
                         <a href="#" id="cerrar-sesion">
                             <i class="fas fa-sign-out-alt"></i>
-                            <span>
-                                Cerrar Sesión
-                            </span>
+                            <span>Cerrar Sesión</span>
                         </a>
+
                     </div>
+
                 </div>
+
             </div>
+
         </nav>
+
     </header>
-    <!-- =====================================
-         CONTENIDO
-    ===================================== -->
+
+    <!-- CONTENIDO -->
     <div class="container">
+
         <!-- TARJETA PRINCIPAL -->
-        <div class="card">
+        <div class="card tarjeta-principal">
+
             <h2>Anime</h2>
+
             <p>
                 Bienvenido a la sección de Anime.
             </p>
+
             <a href="manga.html">
                 Ir a Manga
             </a>
 
-            |
+            <span class="separador">|</span>
 
             <a href="crear_publicacion.html">
                 Crear Publicación
@@ -154,19 +160,12 @@
 
         </div>
 
-
-
-        <!-- =====================================
-             NOTICIAS
-        ===================================== -->
-
+        <!-- NOTICIAS -->
         <section class="section">
 
             <h1>¡NOTICIAS!</h1>
 
-
             <div class="card-container">
-
 
                 <div class="card">
 
@@ -176,12 +175,10 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        Serie Temporada 1
-                    </h2>
+                    <h2>Serie Temporada 1</h2>
 
                     <p>
-                        Temporada 1 de la serie disponible en animeflv o Netflix.
+                        Temporada 1 de la serie disponible en AnimeFLV o Netflix.
                     </p>
 
                     <button
@@ -194,8 +191,6 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
@@ -204,12 +199,10 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        Gachiakuta
-                    </h2>
+                    <h2>Gachiakuta</h2>
 
                     <p>
-                        Temporada 1 ya salió
+                        La primera temporada ya está disponible.
                     </p>
 
                     <button
@@ -222,8 +215,6 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
@@ -232,13 +223,11 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        One Punch Man temporada 3
-                    </h2>
+                    <h2>One Punch Man temporada 3</h2>
 
                     <p>
                         Descubre la esperada tercera temporada de One Punch Man.
-                        Fecha de estreno: 12 de octubre
+                        Fecha de estreno: 12 de octubre.
                     </p>
 
                     <button
@@ -251,22 +240,18 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
                         src="https://a.storyblok.com/f/178900/1064x1596/7394dd442d/fire-force-season-3-key-art.png/m/filters:quality(95)format(webp)"
-                        alt="Fire Force - Temporada 3"
+                        alt="Fire Force temporada 3"
                         loading="lazy"
                     >
 
-                    <h2>
-                        Fire Force - Temporada 3
-                    </h2>
+                    <h2>Fire Force - Temporada 3</h2>
 
                     <p>
-                        En abril de 2025 se podrá ver en animeflv
+                        En abril de 2025 se podrá ver en AnimeFLV.
                     </p>
 
                     <button
@@ -279,28 +264,21 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
-
-
-        <!-- =====================================
-             NOVEDADES
-        ===================================== -->
-
+        <!-- NOVEDADES -->
         <section class="section">
 
             <h1>NOVEDADES</h1>
 
             <p>
-                Descubre los animes más populares y las últimas noticias del mundo del anime.
+                Descubre los animes más populares y las últimas noticias
+                del mundo del anime.
             </p>
 
-
             <div class="card-container">
-
 
                 <div class="card">
 
@@ -310,21 +288,10 @@
                         loading="lazy"
                     >
 
-                    <h2>
-
-                        <a
-                            href="https://www3.animeflv.net/anime/dragon-ball-daima"
-                            target="_blank"
-                            style="color: var(--secondary-color); text-decoration: none;"
-                        >
-                            Dragon Ball Daima
-                        </a>
-
-                    </h2>
+                    <h2>Dragon Ball Daima</h2>
 
                     <p>
-                        Nueva serie de Dragon Ball que promete revolucionar
-                        la franquicia con una historia completamente nueva.
+                        Nueva serie de Dragon Ball con una historia completamente nueva.
                     </p>
 
                     <button
@@ -337,8 +304,6 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
@@ -347,13 +312,11 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        Kimetsu no Yaiba: La Fortaleza Infinita
-                    </h2>
+                    <h2>Kimetsu no Yaiba: La Fortaleza Infinita</h2>
 
                     <p>
-                        La esperada película continúa la emocionante historia
-                        de Tanjiro y sus compañeros.
+                        La esperada película continúa la historia de Tanjiro
+                        y sus compañeros.
                     </p>
 
                     <button
@@ -366,8 +329,6 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
@@ -376,12 +337,10 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        Zenshu
-                    </h2>
+                    <h2>Zenshu</h2>
 
                     <p>
-                        Ya está disponible en Crunchyroll esta emocionante nueva serie.
+                        Ya está disponible en Crunchyroll.
                     </p>
 
                     <button
@@ -394,8 +353,6 @@
 
                 </div>
 
-
-
                 <div class="card">
 
                     <img
@@ -404,12 +361,10 @@
                         loading="lazy"
                     >
 
-                    <h2>
-                        Ataque a los titanes: The Last Attack
-                    </h2>
+                    <h2>Ataque a los titanes: The Last Attack</h2>
 
                     <p>
-                        La conclusión épica de una de las series más aclamadas de la década.
+                        La conclusión épica de una de las series más aclamadas.
                     </p>
 
                     <button
@@ -422,26 +377,18 @@
 
                 </div>
 
-
             </div>
 
         </section>
 
-
     </div>
 
-
-
-    <!-- =====================================
-         FOOTER
-    ===================================== -->
-
+    <!-- FOOTER -->
     <footer>
 
         <p>
             © 2025 AnimeGalaxy. Todos los derechos reservados.
         </p>
-
 
         <div class="social-links">
 
@@ -465,442 +412,19 @@
 
     </footer>
 
-
-
     <!-- VOLVER ARRIBA -->
-
     <button
         type="button"
         class="back-to-top"
-        onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
         aria-label="Ir arriba"
     >
-
         <i class="fas fa-arrow-up"></i>
-
     </button>
-
 
 </main>
 
+<script src="script.js"></script>
 
-
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
-
-<script>
-
-/* =========================================
-   LOADING
-========================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const loader =
-        document.getElementById("loading");
-
-
-    if (loader) {
-
-        loader.style.opacity = "0";
-
-
-        setTimeout(function () {
-
-            loader.style.display = "none";
-
-        }, 500);
-
-    }
-
-});
-
-
-/*
-   Seguridad:
-   si algo falla, quitar el loading
-   después de 5 segundos.
-*/
-
-setTimeout(function () {
-
-    const loader =
-        document.getElementById("loading");
-
-
-    if (loader) {
-
-        loader.style.opacity = "0";
-
-        loader.style.display = "none";
-
-    }
-
-}, 5000);
-
-
-
-/* =========================================
-   ANIMACIÓN DE TARJETAS
-========================================= */
-
-const cards =
-    document.querySelectorAll(".card");
-
-
-if ("IntersectionObserver" in window) {
-
-
-    const observer =
-        new IntersectionObserver(
-
-            function (entries) {
-
-                entries.forEach(function (entry) {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.style.opacity = "1";
-
-                        entry.target.style.transform =
-                            "translateY(0)";
-
-                    }
-
-                });
-
-            },
-
-            {
-                threshold: 0.1
-            }
-
-        );
-
-
-    cards.forEach(function (card) {
-
-        card.style.opacity = "0";
-
-        card.style.transform =
-            "translateY(50px)";
-
-        card.style.transition =
-            "all 0.6s ease";
-
-        observer.observe(card);
-
-    });
-
-}
-
-
-
-/* =========================================
-   MENÚ HAMBURGUESA
-========================================= */
-
-function toggleMenu() {
-
-    const menu =
-        document.getElementById("navbar-menu");
-
-
-    const toggle =
-        document.querySelector(".menu-toggle");
-
-
-    if (!menu || !toggle) {
-        return;
-    }
-
-
-    menu.classList.toggle("active");
-
-    toggle.classList.toggle("active");
-
-
-    const abierto =
-        menu.classList.contains("active");
-
-
-    toggle.setAttribute(
-        "aria-expanded",
-        abierto
-    );
-
-}
-
-
-
-/* =========================================
-   PERFIL
-========================================= */
-
-const perfilToggle =
-    document.getElementById("perfil-toggle");
-
-
-const perfilContainer =
-    document.getElementById(
-        "perfil-dropdown-container"
-    );
-
-
-if (perfilToggle && perfilContainer) {
-
-
-    perfilToggle.addEventListener(
-        "click",
-        function (e) {
-
-            e.preventDefault();
-
-            e.stopPropagation();
-
-
-            perfilContainer.classList.toggle(
-                "open"
-            );
-
-
-            const abierto =
-                perfilContainer.classList.contains(
-                    "open"
-                );
-
-
-            perfilToggle.setAttribute(
-                "aria-expanded",
-                abierto
-            );
-
-        }
-    );
-
-}
-
-
-
-/* =========================================
-   CERRAR PERFIL AL HACER CLICK FUERA
-========================================= */
-
-document.addEventListener(
-    "click",
-    function (e) {
-
-
-        if (
-            perfilContainer &&
-            !perfilContainer.contains(e.target)
-        ) {
-
-
-            perfilContainer.classList.remove(
-                "open"
-            );
-
-
-            if (perfilToggle) {
-
-                perfilToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
-
-        }
-
-    }
-);
-
-
-
-/* =========================================
-   CERRAR HAMBURGUESA AL PULSAR EN UN ENLACE
-========================================= */
-
-document.querySelectorAll(
-    ".navbar-menu > a"
-).forEach(function (link) {
-
-
-    link.addEventListener(
-        "click",
-        function () {
-
-
-            const menu =
-                document.getElementById(
-                    "navbar-menu"
-                );
-
-
-            const toggle =
-                document.querySelector(
-                    ".menu-toggle"
-                );
-
-
-            if (
-                menu &&
-                menu.classList.contains("active")
-            ) {
-
-
-                menu.classList.remove(
-                    "active"
-                );
-
-
-                toggle.classList.remove(
-                    "active"
-                );
-
-
-                toggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            }
-
-        }
-    );
-
-});
-
-
-
-/* =========================================
-   CERRAR HAMBURGUESA AL ENTRAR EN UNA
-   OPCIÓN DEL PERFIL
-========================================= */
-
-document.querySelectorAll(
-    ".perfil-opciones a"
-).forEach(function (link) {
-
-
-    link.addEventListener(
-        "click",
-        function () {
-
-
-            const menu =
-                document.getElementById(
-                    "navbar-menu"
-                );
-
-
-            const toggle =
-                document.querySelector(
-                    ".menu-toggle"
-                );
-
-
-            if (menu) {
-
-                menu.classList.remove(
-                    "active"
-                );
-
-            }
-
-
-            if (toggle) {
-
-                toggle.classList.remove(
-                    "active"
-                );
-
-                toggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-            }
-        }
-    );
-});
-/* =========================================
-   MOSTRAR NOMBRE DEL USUARIO
-========================================= */
-const perfilNombre =
-    document.getElementById(
-        "perfil-nombre"
-    );
-const perfilFoto =
-    document.getElementById(
-        "perfil-foto"
-    );
-if (
-    typeof localStorage !== "undefined"
-) {
-    try {
-        const datos =
-            localStorage.getItem("usuario");
-        if (datos) {
-            const usuario =
-                JSON.parse(datos);
-            if (
-                usuario &&
-                usuario.username &&
-                perfilNombre
-            ) {
-                perfilNombre.textContent =
-                    usuario.username;
-            }
-            /*
-               Si posteriormente guardas
-               una foto en localStorage
-               como "foto", también la cargará.
-            */
-            if (
-                usuario &&
-                usuario.foto &&
-                perfilFoto
-            ) {
-                perfilFoto.src =
-                    usuario.foto;
-            }
-        }
-    } catch (error) {
-        console.error(
-            "Error al cargar el usuario:",
-            error
-        );
-    }
-}
-/* =========================================
-   CERRAR SESIÓN
-========================================= */
-
-const btnCerrarSesion =
-    document.getElementById(
-        "cerrar-sesion"
-    );
-if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener(
-        "click",
-        function (e) {
-            e.preventDefault();
-            if (
-                typeof localStorage !==
-                "undefined"
-            ) {
-                localStorage.removeItem(
-                    "usuario"
-                );
-            }
-            window.location.href =
-                "iniciar_sesion.html";
-        }
-    );
-}
-</script>
 </body>
-
 </html>
