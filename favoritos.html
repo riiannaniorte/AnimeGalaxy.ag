@@ -53,70 +53,80 @@
 
 <h1 style="text-align:center; margin:20px;">⭐ Mis Animes Favoritos</h1>
 
-<div class="anime-grid">
-    <div class="anime-card">
-        <a href="anime.html">
-            <img src="imagenes/anime/anime1.jpg" alt="Portada">
-        </a>
-        <h4>Anime Favorito 1</h4>
-
-        <div class="anime-details">
-            <p><strong>Año:</strong> 2024</p>
-            <p><strong>Tipo:</strong> TV</p>
-            <p><strong>Estado:</strong> En emisión</p>
-            <p><strong>Género:</strong> Acción, Aventura</p>
-        </div>
-
-        <form onsubmit="return confirm('¿Eliminar de favoritos?');">
-            <button type="submit" class="delete-button">
-                🗑️ Eliminar
-            </button>
-        </form>
-    </div>
-    <div class="anime-card">
-        <a href="anime.html">
-            <img src="imagenes/anime/anime2.jpg" alt="Portada">
-        </a>
-        <h4>Anime Favorito 2</h4>
-
-        <div class="anime-details">
-            <p><strong>Año:</strong> 2023</p>
-            <p><strong>Tipo:</strong> Movie</p>
-            <p><strong>Estado:</strong> Finalizado</p>
-            <p><strong>Género:</strong> Drama, Romance</p>
-        </div>
-
-        <form onsubmit="return confirm('¿Eliminar de favoritos?');">
-            <button type="submit" class="delete-button">
-                🗑️ Eliminar
-            </button>
-        </form>
-    </div>
+<div class="anime-grid" id="contenedor-favoritos">
+    <!-- Los animes favoritos se cargarán aquí dinámicamente -->
 </div>
 
 <footer>
     <p style="text-align:center; padding:20px;">© 2026 DaiAnime</p>
 </footer>
- <script>
+
+<script>
     window.addEventListener('DOMContentLoaded', function() {
         const usuarioActual = localStorage.getItem('usuario_conectado');
         const menuAdmin = document.getElementById('menu-admin');
         const nombreUsuarioLink = document.getElementById('nombre-usuario');
 
-        console.log("Usuario actual en localStorage:", usuarioActual); // Para depurar en la consola
-
-        // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre
         if (usuarioActual && nombreUsuarioLink) {
             nombreUsuarioLink.textContent = usuarioActual;
         }
 
-        // Ocultar o mostrar el botón de Admin según el rol
         if (menuAdmin) {
             if (usuarioActual !== 'admin') {
                 menuAdmin.style.display = 'none';
             }
         }
+
+        // Cargar animes favoritos desde el almacenamiento local
+        cargarFavoritos();
     });
+
+    function cargarFavoritos() {
+        const contenedor = document.getElementById('contenedor-favoritos');
+        const favoritos = JSON.parse(localStorage.getItem('favoritos_anime')) || [];
+
+        if (favoritos.length === 0) {
+            contenedor.innerHTML = '<p style="color: white; text-align: center; grid-column: 1 / -1;">No tienes animes en favoritos.</p>';
+            return;
+        }
+
+        contenedor.innerHTML = '';
+
+        favoritos.forEach(anime => {
+            const anio = anime.fecha ? anime.fecha.substring(0, 4) : 'N/D';
+            const rutaImagen = anime.imagen ? anime.imagen : 'imagenes/anime/default.jpg';
+
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.innerHTML = `
+                <a href="anime.html">
+                    <img src="${rutaImagen}" alt="${anime.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                </a>
+                <h4>${anime.titulo}</h4>
+
+                <div class="anime-details">
+                    <p><strong>Año:</strong> ${anio}</p>
+                    <p><strong>Tipo:</strong> ${anime.tipo || 'N/D'}</p>
+                    <p><strong>Estado:</strong> ${anime.estado || 'N/D'}</p>
+                    <p><strong>Género:</strong> ${anime.genero || 'N/D'}</p>
+                </div>
+
+                <button type="button" class="delete-button" onclick="eliminarFavorito('${anime.titulo}')">
+                    🗑️ Eliminar
+                </button>
+            `;
+            contenedor.appendChild(card);
+        });
+    }
+
+    function eliminarFavorito(titulo) {
+        if (!confirm('¿Eliminar de favoritos?')) return;
+
+        let favoritos = JSON.parse(localStorage.getItem('favoritos_anime')) || [];
+        favoritos = favoritos.filter(a => a.titulo !== titulo);
+        localStorage.setItem('favoritos_anime', JSON.stringify(favoritos));
+        
+        cargarFavoritos(); // Recarga la lista en pantalla
+    }
 </script>
 </body>
-</html>
