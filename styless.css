@@ -124,7 +124,7 @@ body {
 }
 
 .dropdown-content {
-  display: none; /* Se muestra con JS o hover según tu lógica */
+  display: none !important; /* El !important fuerza a que esté oculto al iniciar */
   position: absolute;
   right: 0;
   background-color: #222;
@@ -177,7 +177,7 @@ body {
 
 /* Mostrar el menú al pasar el cursor (o puedes controlarlo con tu clase JS si usas una) */
 .dropdown:hover .dropdown-content {
-    display: block;
+  display: block !important;
 }
 
 /* ====================================
