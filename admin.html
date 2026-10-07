@@ -35,11 +35,11 @@
             </li>
 
             <li class="user-menu-item">
-                <a href="#" class="user-link">Usuario</a>
-                <ul class="submenú">
-                    <li><a href="Mi_lista.html">Mi Lista</a></li>
-                    <li><a href="favoritos.html">Animes Favoritos</a></li>
-                    <li class="logout-separator"><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                <a href="#" class="user-link" id="nombre-usuario">Usuario</a>
+                <ul class="user-dropdown">
+                <li><a href="Mi_lista.html">Mi Lista</a></li>
+                <li><a href="favoritos.html">Animes Favoritos</a></li>
+                <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>
