@@ -98,7 +98,7 @@
         })
         .catch(err => console.error('Error al cargar animes:', err));
 
-    // Función para pintar las tarjetas en la pantalla
+    // Función para pintar las tarjetas en la pantalla con su respectiva imagen
     function mostrarAnimes(animes) {
         if (!contenedorAnimes) return;
         contenedorAnimes.innerHTML = '';
@@ -114,12 +114,17 @@
             const card = document.createElement('div');
             card.className = 'anime-card';
             
-            // Extraer el año de la fecha o mostrar N/D
             const anio = anime.fecha ? anime.fecha.substring(0, 4) : 'N/D';
             
+            // Verificamos si la imagen es una URL externa o un archivo local de la carpeta imagenes/anime/
+            const rutaImagen = anime.imagen ? (anime.imagen.startsWith('http') ? anime.imagen : `imagenes/anime/${anime.imagen}`) : 'imagenes/anime/default.jpg';
+            
+            // Serializamos el objeto anime de forma segura para pasarlo por parámetro en los botones
+            const animeJson = JSON.stringify(anime).replace(/"/g, '&quot;');
+
             card.innerHTML = `
                 <a href="anime.html">
-                    <img src="imagenes/anime/${anime.imagen || 'default.jpg'}" alt="${anime.titulo}">
+                    <img src="${rutaImagen}" alt="${anime.titulo}">
                 </a>
                 <div class="anime-details">
                     <h4>${anime.titulo}</h4>
@@ -128,17 +133,36 @@
                     <p class="sinopsis-corta"><strong>Sinopsis:</strong> ${anime.sinopsis || 'Sin sinopsis.'}</p>
                     
                     <div class="botones">
-                        <form method="POST" action="Mi_lista.html" onsubmit="event.preventDefault(); alert('Añadido a Mi Lista');">
-                            <button type="submit" class="save-button">Guardar Anime</button>
-                        </form>
-                        <form method="POST" action="favoritos.html" onsubmit="event.preventDefault(); alert('Añadido a Favoritos');">
-                            <button type="submit" class="favorite-button">⭐</button>
-                        </form>
+                        <button type="button" class="save-button" onclick='guardarEnLista(${animeJson})'>Guardar Anime</button>
+                        <button type="button" class="favorite-button" onclick='guardarEnFavoritos(${animeJson})'>⭐</button>
                     </div>
                 </div>
             `;
             contenedorAnimes.appendChild(card);
         });
+    }
+
+    // Funciones para guardar el anime completo en Mi Lista o Favoritos (LocalStorage)
+    function guardarEnLista(animeObj) {
+        let miLista = JSON.parse(localStorage.getItem('mi_lista_anime')) || [];
+        if (!miLista.some(a => a.titulo === animeObj.titulo)) {
+            miLista.push(animeObj);
+            localStorage.setItem('mi_lista_anime', JSON.stringify(miLista));
+            alert(`¡"${animeObj.titulo}" se ha añadido a tu Lista!`);
+        } else {
+            alert(`"${animeObj.titulo}" ya está en tu Lista.`);
+        }
+    }
+
+    function guardarEnFavoritos(animeObj) {
+        let favoritos = JSON.parse(localStorage.getItem('favoritos_anime')) || [];
+        if (!favoritos.some(a => a.titulo === animeObj.titulo)) {
+            favoritos.push(animeObj);
+            localStorage.setItem('favoritos_anime', JSON.stringify(favoritos));
+            alert(`⭐ ¡"${animeObj.titulo}" se ha añadido a Favoritos!`);
+        } else {
+            alert(`"${animeObj.titulo}" ya está en tus Favoritos.`);
+        }
     }
 
     // Filtrar en tiempo real al escribir en el buscador o cambiar selects
