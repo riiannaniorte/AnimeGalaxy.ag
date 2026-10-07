@@ -34,18 +34,42 @@
   <a href="foro.html"><i class="fas fa-comments"></i> Foro</a>
   <a href="quienes_somos.html"><i class="fas fa-users"></i> Quiénes Somos</a>
   <a href="contacto.html"><i class="fas fa-envelope"></i> Contacto</a>
-  <div class="dropdown-content perfil-content" id="perfil-dropdown" style="display: none;">  
-  <div class="perfil-info">
-    <img src="https://via.placeholder.com/80" alt="Foto de usuario" class="perfil-foto">
-    <h3 class="perfil-nombre"><span id="perfil-nombre">NombreUsuario</span></h3>
-  </div>
-  <div>
-    <a href="editar_perfil.html">Editar Perfil</a>
-    <a href="mi_lista.html">Mi Lista</a>
-    <a href="#" id="cerrar-sesion">Cerrar Sesión</a>
-  </div>
-</div>
-  </div>
+    <div class="dropdown">
+        <a href="#" class="perfil-toggle" id="perfil-toggle">
+            <i class="fas fa-user"></i>
+            Perfil
+            <i class="fas fa-caret-down perfil-flecha"></i>
+        </a>
+        <!--MENÚ DEL PERFIL -->
+        <div class="dropdown-content perfil-content" id="perfil-dropdown">
+            <!-- Foto + nombre -->
+            <div class="perfil-info">
+                <img
+                    src="https://via.placeholder.com/80"
+                    alt="Foto de usuario"
+                    class="perfil-foto"
+                >
+                <h3 class="perfil-nombre">
+                    <span id="perfil-nombre">NombreUsuario</span>
+               </h3>
+            </div>
+            <!-- Opciones -->
+            <div class="perfil-opciones">
+                <a href="editar_perfil.html">
+                    <i class="fas fa-user-edit"></i>
+                    Editar Perfil
+                </a>
+                <a href="mi_lista.html">
+                    <i class="fas fa-list"></i>
+                    Mi Lista
+                </a>
+                <a href="#" id="cerrar-sesion">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar Sesión
+                </a>
+            </div>
+       </div>
+    </div>
 </nav>
  </header>
 
