@@ -104,19 +104,22 @@
 </div>
 <!-- Iframe oculto para evitar que la página se quede en blanco al enviar -->
 <script>
-    const apiURL = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
     const form = document.querySelector('form');
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        e.preventDefault(); // Evita que la página recargue de golpe
 
+        // Capturamos los datos de los inputs del formulario
         const data = {
-            email: form.querySelector('input[name="email"]').value,
-            user: form.querySelector('input[name="user"]').value,
-            pass: form.querySelector('input[name="pass"]').value
+            fecha: new Date().toLocaleString(),
+            correo: form.querySelector('input[name="email"]').value,
+            usuario: form.querySelector('input[name="user"]').value,
+            contraseña: form.querySelector('input[name="pass"]').value
         };
 
-        fetch(apiURL, {
+        // Enviamos los datos mediante una petición limpia a SheetDB
+        fetch(sheetDbUrl, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -125,13 +128,13 @@
             body: JSON.stringify({ data: [data] })
         })
         .then(response => response.json())
-        .then(data => {
-            alert('¡Usuario registrado con éxito!');
+        .then(result => {
+            alert('¡Registro exitoso! Guardado en tu Google Drive.');
             window.location.href = 'iniciar_sesion.html';
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Hubo un error al registrar.');
+            alert('Hubo un error al registrarse.');
         });
     });
 </script>
