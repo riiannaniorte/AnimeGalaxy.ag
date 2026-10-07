@@ -10,29 +10,29 @@
 
 <header class="page-header">
     <a href="index.html">
-        <img src="DaiAnime.jpeg" style="height:40px; vertical-align:middle;">
+        <img src="DaiAnime.jpeg" style="height:40px; vertical-align:middle;" alt="Logo">
         DaiAnime
     </a>
 </header>
 
 <div class="anime-container">
     <div class="anime-image">
-        <img src="imagenes/anime/anime1.jpg" alt="Portada">
+        <img id="anime-img" src="imagenes/anime/default.jpg" alt="Portada">
     </div>
 
     <div class="anime-info">
-        <h1>Título del Anime Ejemplo</h1>
+        <h1 id="anime-titulo">Cargando...</h1>
 
         <p><strong>Sinopsis:</strong><br>
-        Esta es la sinopsis de ejemplo del anime. Aquí iría la descripción completa de la trama y los personajes principales.</p>
+        <span id="anime-sinopsis">Aguray bassit...</span></p>
 
-        <p><strong>Tipo:</strong> TV</p>
-        <p><strong>Estado:</strong> En emisión</p>
-        <p><strong>Género:</strong> Acción, Aventura, Fantasía</p>
-        <p><strong>Año:</strong> 2024</p>
+        <p><strong>Tipo:</strong> <span id="anime-tipo">--</span></p>
+        <p><strong>Estado:</strong> <span id="anime-estado">--</span></p>
+        <p><strong>Género:</strong> <span id="anime-genero">--</span></p>
+        <p><strong>Año:</strong> <span id="anime-anio">--</span></p>
 
         <div class="rating-box">
-            <h3>⭐ Media: 8.5</h3>
+            <h3 id="anime-rating">⭐ Media: --</h3>
         </div>
 
         <a href="Buscar.html" class="back-btn">⬅ Volver</a>
@@ -42,7 +42,7 @@
 <div class="comentarios-seccion" style="max-width: 1100px; margin: 0 auto; padding: 20px;">
     <div class="rating-box">
         <h3>Deja tu reseña</h3>
-        <form>
+        <form onsubmit="event.preventDefault(); alert('Reseña enviada con éxito');">
             <select name="puntuacion" required>
                 <option value="10">10</option>
                 <option value="9">9</option>
@@ -70,13 +70,51 @@
         <p>¡Excelente anime! Me encantó la animación y la historia.</p>
         <small>2026-01-15 10:30:00</small>
     </div>
-    <div class="rating-box">
-        <strong>OtroUsuario</strong> 
-        <span style="color: #f1c40f;">⭐ 7/10</span>
-        <p>Está bien, pero esperaba más del final.</p>
-        <small>2026-01-14 18:45:00</small>
-    </div>
 </div>
 
+<script>
+    const sheetDbAnimesUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+
+    window.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tituloBuscado = urlParams.get('titulo');
+
+        if (!tituloBuscado) {
+            document.getElementById('anime-titulo').textContent = "Saan a nabirukan ti anime.";
+            return;
+        }
+
+        fetch(sheetDbAnimesUrl)
+            .then(res => res.json())
+            .then(animes => {
+                const animeEncontrado = animes.find(a => a.titulo === tituloBuscado);
+
+                if (animeEncontrado) {
+                    document.getElementById('anime-titulo').textContent = animeEncontrado.titulo;
+                    document.getElementById('anime-sinopsis').textContent = animeEncontrado.sinopsis || 'Awang sinopsis.';
+                    document.getElementById('anime-tipo').textContent = animeEncontrado.tipo || 'N/D';
+                    document.getElementById('anime-estado').textContent = animeEncontrado.estado || 'N/D';
+                    document.getElementById('anime-genero').textContent = animeEncontrado.genero || 'N/D';
+                    
+                    const anio = animeEncontrado.fecha ? animeEncontrado.fecha.substring(0, 4) : 'N/D';
+                    document.getElementById('anime-anio').textContent = anio;
+
+                    if (animeEncontrado.rating) {
+                        document.getElementById('anime-rating').textContent = `⭐ Media: ${animeEncontrado.rating}`;
+                    }
+
+                    if (animeEncontrado.imagen) {
+                        document.getElementById('anime-img').src = animeEncontrado.imagen;
+                    }
+                } else {
+                    document.getElementById('anime-titulo').textContent = "Saan a nabirukan daytoy nga anime iti database.";
+                }
+            })
+            .catch(err => {
+                console.error('Error al cargar datos:', err);
+                document.getElementById('anime-titulo').textContent = "Biddut iti panangikarga kadagiti datos.";
+            });
+    });
+</script>
 </body>
 </html>
