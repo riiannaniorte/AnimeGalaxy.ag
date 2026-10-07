@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DaiAnime - Recuperar Contraseña</title>
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: url('anime2.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #1c1b1b;
+            width: 350px;
+            padding: 30px;
+            border: 1px solid #333;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo img {
+            max-width: 150px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: white;
+            outline: none;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid red;
+            background: transparent;
+            color: red;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+        
+        .btn-red {
+            background: red;
+            color: white;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo"><img src="DaiAnime.jpeg" alt="DaiAnime"></div>
+    <div style="color: white; text-align: center; margin-bottom: 20px; font-size: 14px;">Recuperar Contraseña</div>
+    <form>
+        <div style="color: white;">Introduce tu correo</div>
+        <input type="email" name="email" required>
+        <div style="color: white;">Nueva contraseña</div>
+        <input type="password" name="pass" required>
+        <div style="color: white;">Repite la nueva contraseña</div>
+        <input type="password" name="pass2" required>
+        <div class="buttons">
+            <button type="button" onclick="window.location.href='iniciar_sesion.html'">Cancelar</button>
+            <button type="submit" class="btn-red">Cambiar</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
