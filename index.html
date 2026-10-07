@@ -92,21 +92,25 @@
     </div>
 </footer>
     <script>
-    const usuarioActual = localStorage.getItem('usuario_conectado');
-    const menuAdmin = document.getElementById('menu-admin');
-    const nombreUsuarioLink = document.getElementById('nombre-usuario');
+    window.addEventListener('DOMContentLoaded', function() {
+        const usuarioActual = localStorage.getItem('usuario_conectado');
+        const menuAdmin = document.getElementById('menu-admin');
+        const nombreUsuarioLink = document.getElementById('nombre-usuario');
 
-    // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre real
-    if (usuarioActual && nombreUsuarioLink) {
-        nombreUsuarioLink.textContent = usuarioActual;
-    }
+        console.log("Usuario actual en localStorage:", usuarioActual); // Para depurar en la consola
 
-    // Ocultar el botón de Admin si no es el administrador
-    if (menuAdmin) {
-        if (usuarioActual !== 'admin') {
-            menuAdmin.style.display = 'none';
+        // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre
+        if (usuarioActual && nombreUsuarioLink) {
+            nombreUsuarioLink.textContent = usuarioActual;
         }
-    }
+
+        // Ocultar o mostrar el botón de Admin según el rol
+        if (menuAdmin) {
+            if (usuarioActual !== 'admin') {
+                menuAdmin.style.display = 'none';
+            }
+        }
+    });
 </script>
 </body>
 </html>
