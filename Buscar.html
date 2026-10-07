@@ -98,7 +98,7 @@
         })
         .catch(err => console.error('Error al cargar animes:', err));
 
-    // Función para pintar las tarjetas en la pantalla con su respectiva imagen
+    // Función para pintar las tarjetas en la pantalla con su respectiva URL de imagen
     function mostrarAnimes(animes) {
         if (!contenedorAnimes) return;
         contenedorAnimes.innerHTML = '';
@@ -116,15 +116,15 @@
             
             const anio = anime.fecha ? anime.fecha.substring(0, 4) : 'N/D';
             
-            // Verificamos si la imagen es una URL externa o un archivo local de la carpeta imagenes/anime/
-            const rutaImagen = anime.imagen ? (anime.imagen.startsWith('http') ? anime.imagen : `imagenes/anime/${anime.imagen}`) : 'imagenes/anime/default.jpg';
+            // Usamos directamente la URL de la imagen pegada en el admin (o una por defecto si está vacía)
+            const rutaImagen = anime.imagen ? anime.imagen : 'imagenes/anime/default.jpg';
             
             // Serializamos el objeto anime de forma segura para pasarlo por parámetro en los botones
             const animeJson = JSON.stringify(anime).replace(/"/g, '&quot;');
 
             card.innerHTML = `
                 <a href="anime.html">
-                    <img src="${rutaImagen}" alt="${anime.titulo}">
+                    <img src="${rutaImagen}" alt="${anime.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
                 </a>
                 <div class="anime-details">
                     <h4>${anime.titulo}</h4>
