@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="admin.css">
     <link rel="icon" type="image/png" href="DaiAnime.jpeg">
     <script>
-    const usuarioActual = localStorage.getItem('usuario_conectado');
-    if (usuarioActual !== 'admin') {
-        alert('Acceso denegado. Solo para administradores.');
-        window.location.href = 'index.html';
-    }
-</script>
+        const usuarioActual = localStorage.getItem('usuario_conectado');
+        if (usuarioActual !== 'admin') {
+            alert('Acceso denegado. Solo para administradores.');
+            window.location.href = 'index.html';
+        }
+    </script>
 </head>
 <body>
 
@@ -83,19 +83,7 @@
                 <a href="#" class="btn btn-orange">Rol</a>
                 <a href="#" class="btn btn-blue">Pass</a>
                 <a href="#" class="btn btn-gray">Ban</a>
-                <a href="#" class="btn btn-red" onclick="borrarRegistro('usuario', 'nombre_usuario')">X</a>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>usuario2</td>
-            <td><strong>usuario</strong></td>
-            <td>❌ Baneado</td>
-            <td>
-                <a href="#" class="btn btn-orange">Rol</a>
-                <a href="#" class="btn btn-blue">Pass</a>
-                <a href="#" class="btn btn-green">Ok</a>
-                <a href="#" class="btn btn-red" onclick="return confirm('¿Borrar usuario?')">X</a>
+                <a href="#" class="btn btn-red" onclick="borrarUsuario('usuario1')">X</a>
             </td>
         </tr>
     </table>
@@ -141,57 +129,44 @@
 
         <button type="submit">Guardar Anime</button>
     </form>
+
     <h2 style="margin-top:40px;">Lista de Animes</h2>
-    <table>
+    <table id="tabla-animes">
         <tr>
             <th>Título</th>
             <th>Año</th>
             <th>Acción</th>
         </tr>
-        <tr>
-            <td>Anime Ejemplo 1</td>
-            <td>2024</td>
-            <td>
-                <a href="#" style="color:#e74c3c;" onclick="return confirm('¿Borrar?')">Borrar</a>
-            </td>
-        </tr>
-        <tr>
-            <td>Anime Ejemplo 2</td>
-            <td>2023</td>
-            <td>
-                <a href="#" style="color:#e74c3c;" onclick="return confirm('¿Borrar?')">Borrar</a>
-            </td>
-        </tr>
     </table>
 </div>
-    <script>
-    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+
+<script>
+    // URLs separadas para cada base de datos de SheetDB
+    const sheetDbUsuariosUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
+    const sheetDbAnimesUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+    
     const formAnime = document.querySelector('form');
 
-    // 1. CARGAR Y MOSTRAR LOS ANIMES EN LA TABLA DEL ADMIN AL ENTRAR
+    // 1. CARGAR Y MOSTRAR LOS ANIMES DESDE SU URL CORRESPONDIENTE
     document.addEventListener('DOMContentLoaded', function() {
-        fetch(sheetDbUrl)
+        fetch(sheetDbAnimesUrl)
             .then(res => res.json())
             .then(animes => {
-                const tablaAnimes = document.querySelector('h2:has-text("Lista de Animes") + table'); // O selecciona la tabla de animes
-                // Buscamos la segunda tabla de la página (que corresponde a la de animes)
-                const tablas = document.querySelectorAll('table');
-                if (tablas.length < 2) return;
-                
-                const tablaListaAnimes = tablas[1]; // La tabla de animes es la segunda
-                
-                // Mantenemos la cabecera de la tabla
+                console.log("Animes cargados:", animes);
+                const tablaListaAnimes = document.getElementById('tabla-animes');
+                if (!tablaListaAnimes) return;
+
+                // Limpiamos y dejamos la cabecera
                 tablaListaAnimes.innerHTML = `
                     <tr>
                         <th>Título</th>
-                        <th>Año / Fecha</th>
+                        <th>Año</th>
                         <th>Acción</th>
                     </tr>
                 `;
 
-                // Recorremos cada anime del Excel y lo añadimos a la tabla
-                animes.forEach((anime, index) => {
-                    // Verificamos que sea un registro de anime (por ejemplo, si tiene el campo 'titulo')
+                // Recorremos los registros de animes
+                animes.forEach(anime => {
                     if (anime.titulo) {
                         const fila = document.createElement('tr');
                         fila.innerHTML = `
@@ -208,7 +183,7 @@
             .catch(err => console.error('Error al cargar la lista de animes:', err));
     });
 
-    // 2. AÑADIR NUEVO ANIME DESDE EL FORMULARIO
+    // 2. AÑADIR NUEVO ANIME A LA BASE DE DATOS DE ANIMES
     formAnime.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -226,7 +201,7 @@
             imagen: formData.get('imagen') ? formData.get('imagen').name : ''
         };
 
-        fetch(sheetDbUrl, {
+        fetch(sheetDbAnimesUrl, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -238,20 +213,19 @@
         .then(() => {
             alert('¡Anime añadido correctamente!');
             formAnime.reset();
-            location.reload(); // Recarga para actualizar la tabla automáticamente
+            location.reload();
         })
         .catch(error => {
-            console.error('Error al guardar:', error);
+            console.error('Error al guardar anime:', error);
             alert('Hubo un error al guardar el anime.');
         });
     });
 
-    // 3. FUNCIÓN PARA BORRAR UN ANIME DEL EXCEL
+    // 3. FUNCIÓN PARA BORRAR UN ANIME
     function borrarAnime(tituloAnime) {
         if (!confirm(`¿Estás seguro de borrar el anime "${tituloAnime}"?`)) return;
 
-        // SheetDB permite borrar buscando por una columna específica (ej: titulo)
-        fetch(`${sheetDbUrl}/titulo/${encodeURIComponent(tituloAnime)}`, {
+        fetch(`${sheetDbAnimesUrl}/titulo/${encodeURIComponent(tituloAnime)}`, {
             method: 'DELETE',
             headers: { 'Accept': 'application/json' }
         })
@@ -261,54 +235,28 @@
             location.reload();
         })
         .catch(err => {
-            console.error('Error al borrar:', err);
+            console.error('Error al borrar anime:', err);
             alert('No se pudo borrar el anime.');
         });
     }
-</script>
-    <script>
-    const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
 
-    // Cargar datos en el panel de administración
-    fetch(sheetDbUrl)
-        .then(res => res.json())
-        .then(datos => {
-            console.log("Datos cargados en admin:", datos);
-            // Aquí puedes recorrer los datos y rellenar las tablas de usuarios o animes dinámicamente con JavaScript
-        });
+    // 4. FUNCIÓN PARA BORRAR USUARIOS (Usa la URL de usuarios)
+    function borrarUsuario(nombreUsuario) {
+        if (!confirm(`¿Estás seguro de eliminar al usuario "${nombreUsuario}"?`)) return;
 
-    // Función para borrar un registro por su identificador (ej: usuario o id)
-    function borrarRegistro(columna, valor) {
-        if (!confirm('¿Estás seguro de que deseas eliminar este elemento?')) return;
-
-        fetch(`${sheetDbUrl}/${columna}/${valor}`, {
+        fetch(`${sheetDbUsuariosUrl}/usuario/${encodeURIComponent(nombreUsuario)}`, {
             method: 'DELETE',
             headers: { 'Accept': 'application/json' }
         })
         .then(res => res.json())
         .then(() => {
-            alert('Eliminado correctamente');
+            alert('Usuario eliminado correctamente.');
             location.reload();
         })
-        .catch(err => console.error('Error al borrar:', err));
-    }
-
-    // Función para actualizar el estado o rol de un usuario (ej: bloquear o cambiar rol)
-    function actualizarUsuario(usuario, nuevosDatos) {
-        fetch(`${sheetDbUrl}/usuario/${usuario}`, {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ data: nuevosDatos })
-        })
-        .then(res => res.json())
-        .then(() => {
-            alert('Usuario actualizado con éxito');
-            location.reload();
-        })
-        .catch(err => console.error('Error al actualizar:', err));
+        .catch(err => {
+            console.error('Error al borrar usuario:', err);
+            alert('No se pudo borrar el usuario.');
+        });
     }
 </script>
 </body>
