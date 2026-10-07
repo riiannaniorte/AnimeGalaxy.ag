@@ -89,7 +89,7 @@
     </table>
 
     <h2 style="margin-top:40px;">Añadir Nuevo Anime</h2>
-    <form enctype="multipart/form-data">
+    <form>
         <label>Título</label>
         <input type="text" name="titulo" required>
         
@@ -124,8 +124,8 @@
         <label>Fecha de Estreno</label>
         <input type="date" name="fecha" required>
         
-        <label>Imagen de Portada</label>
-        <input type="file" name="imagen" required>
+        <label>URL de la Imagen de Portada</label>
+        <input type="url" name="imagen" placeholder="https://ejemplo.com/imagen.jpg" required>
 
         <button type="submit">Guardar Anime</button>
     </form>
@@ -198,7 +198,7 @@
             estado: formData.get('estado'),
             genero: formData.get('genero'),
             fecha: formData.get('fecha'),
-            imagen: formData.get('imagen') ? formData.get('imagen').name : ''
+            imagen: formData.get('imagen') // Captura directamente la URL escrita
         };
 
         fetch(sheetDbAnimesUrl, {
