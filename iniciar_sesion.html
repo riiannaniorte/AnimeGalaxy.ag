@@ -140,17 +140,19 @@
         
         const passwordHashIngresada = await encriptarPassword(passwordPlana);
 
+        // AQUÍ VA EL NUEVO BLOQUE CON EL CONSOLE.LOG
         fetch(sheetDbUrl)
             .then(response => response.json())
             .then(usuarios => {
+                // MIRA ESTO EN LA CONSOLA DE TU NAVEGADOR (F12)
+                console.log("Datos que llegan de SheetDB:", usuarios);
+
                 const usuarioEncontrado = usuarios.find(u => 
                     u.usuario === usuarioIngresado && u.contraseña === passwordHashIngresada
                 );
 
                 if (usuarioEncontrado) {
-                    // AQUÍ ESTÁ LA CLAVE: Guardamos el usuario para que el menú lo reconozca
                     localStorage.setItem('usuario_conectado', usuarioEncontrado.usuario);
-
                     alert('¡Inicio de sesión exitoso! Bienvenido, ' + usuarioEncontrado.usuario);
                     window.location.href = 'index.html';
                 } else {
