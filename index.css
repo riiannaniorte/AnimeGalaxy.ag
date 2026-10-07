@@ -159,3 +159,54 @@ footer {
 .social-links a:hover {
     color: #e50914;
 }
+/* Ocultar los submenús por defecto */
+.user-menu-item .user-dropdown,
+.user-menu-item .submenú {
+    display: none !important;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: #1c1b1b;
+    border: 1px solid #333;
+    list-style: none;
+    padding: 8px 0;
+    min-width: 180px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    border-radius: 4px;
+}
+
+/* Forzar que se apilen en columna cuando se muestren */
+.user-menu-item .user-dropdown li,
+.user-menu-item .submenú li {
+    display: block;
+    width: 100%;
+}
+
+.user-menu-item .user-dropdown li a,
+.user-menu-item .submenú li a {
+    display: block;
+    padding: 10px 20px;
+    color: #ccc;
+    white-space: nowrap;
+    text-align: left;
+    text-decoration: none;
+}
+
+.user-menu-item .user-dropdown li a:hover,
+.user-menu-item .submenú li a:hover {
+    background: #252525;
+    color: #fff;
+}
+
+/* Mostrar SOLAMENTE cuando el ratón esté encima del elemento contenedor */
+.user-menu-item:hover .user-dropdown,
+.user-menu-item:hover .submenú {
+    display: block !important;
+}
+
+.logout-separator {
+    border-top: 1px solid #333;
+    margin-top: 5px;
+    padding-top: 5px;
+}
