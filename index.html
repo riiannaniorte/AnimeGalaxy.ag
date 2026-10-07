@@ -1,548 +1,95 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-```
-<meta
-    name="description"
-    content="AnimeGalaxy - Anime news, updates, and content about anime and manga."
->
-
-<title>AnimeGalaxy - Anime News and Updates</title>
-
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
->
-
-<!-- CSS -->
-<link rel="stylesheet" href="styless.css">
-```
-
+    <title>DaiAnime - Inicio</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
 
-```
-<main class="content-wrapper">
-
-    <!-- ================= NAVBAR ================= -->
-
-    <header class="navbar">
-
-        <a href="index.html" class="navbar-brand">
-
-            <img
-                src="https://via.placeholder.com/80/ff3c3c/ffffff?text=AG"
-                alt="AnimeGalaxy Logo"
-                class="navbar-logo"
-            >
-
-            <span>AnimeGalaxy</span>
-
+<header class="page-header">
+    <h1>
+        <a href="index.html">
+            <img src="DaiAnime.jpeg" alt="Logo" style="height:40px; vertical-align:middle;">
+            DaiAnime
         </a>
-
-
-        <button
-            type="button"
-            class="menu-toggle"
-            id="menu-toggle"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="navbar-menu"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-
-        <nav
-            class="navbar-menu"
-            id="navbar-menu"
-            aria-label="Main navigation"
-        >
-
-            <a href="index.html">
-                <i class="fas fa-home" aria-hidden="true"></i>
-                <span>Home</span>
-            </a>
-
-            <a href="buscar_anime.html">
-                <i class="fas fa-film" aria-hidden="true"></i>
-                <span>Anime Directory</span>
-            </a>
-
-            <a href="foro.html">
-                <i class="fas fa-comments" aria-hidden="true"></i>
-                <span>Forum</span>
-            </a>
-
-            <a href="quienes_somos.html">
-                <i class="fas fa-users" aria-hidden="true"></i>
-                <span>About Us</span>
-            </a>
-
-            <a href="contacto.html">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-                <span>Contact</span>
-            </a>
-
-        </nav>
-
-    </header>
-
-
-    <!-- ================= MAIN CONTENT ================= -->
-
-    <div class="container">
-
-        <!-- MAIN CARD -->
-
-        <section class="card tarjeta-principal">
-
-            <h1>AnimeGalaxy</h1>
-
-            <p>
-                Welcome to AnimeGalaxy, your place to discover
-                anime news, updates, and the latest content
-                from the world of anime.
-            </p>
-
-            <div class="principal-links">
-
-                <a href="manga.html">
-                    Go to Manga
-                </a>
-
-                <span
-                    class="separador"
-                    aria-hidden="true"
-                >
-                    |
-                </span>
-
-                <a href="crear_publicacion.html">
-                    Create Post
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= NEWS ================= -->
-
-        <section
-            class="section"
-            aria-labelledby="news-title"
-        >
-
-            <h2 id="news-title">
-                NEWS!
-            </h2>
-
-
-            <div class="card-container">
-
-                <!-- SAKAMOTO DAYS -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://m.media-amazon.com/images/M/MV5BNmYzZDE5MmEtZDNmMy00NGUxLTliZDYtMWY3NzJlZGFhZDk2XkEyXkFqcGc@._V1_.jpg"
-                        alt="Sakamoto Days"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>Sakamoto Days</h3>
-
-                        <p>
-                            Enjoy the first season of
-                            Sakamoto Days.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://www3.animeflv.net/anime/sakamoto-days"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- GACHIAKUTA -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://www.normaeditorial.com/upload/media/albumes/0001/27/2d481efb8d6a3fb29e16937d1cda019aec8f71da.jpeg"
-                        alt="Gachiakuta"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>Gachiakuta</h3>
-
-                        <p>
-                            Discover the first season
-                            of Gachiakuta.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://www3.animeflv.net/anime/gachiakuta"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ONE PUNCH MAN -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://cdn.atomix.vg/wp-content/uploads/2024/02/Diseno-sin-titulo-2024-02-29T105508.745.png"
-                        alt="One Punch Man Season 3"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            One Punch Man - Season 3
-                        </h3>
-
-                        <p>
-                            Discover the latest news about
-                            the third season of One Punch Man.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://atomix.vg/primer-trailer-de-la-tercera-temporada-de-one-punch-man/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- FIRE FORCE -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://a.storyblok.com/f/178900/1064x1596/7394dd442d/fire-force-season-3-key-art.png/m/filters:quality(95)format(webp)"
-                        alt="Fire Force Season 3"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            Fire Force - Season 3
-                        </h3>
-
-                        <p>
-                            Discover the latest updates about
-                            the third season of Fire Force.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://www3.animeflv.net/anime/enen-no-shouboutai-san-no-shou"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= UPDATES ================= -->
-
-        <section
-            class="section"
-            aria-labelledby="updates-title"
-        >
-
-            <h2 id="updates-title">
-                LATEST UPDATES
-            </h2>
-
-            <p class="section-description">
-                Discover the most popular anime and the latest
-                news and updates from the world of anime.
-            </p>
-
-
-            <div class="card-container">
-
-                <!-- DRAGON BALL DAIMA -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://www3.animeflv.net/uploads/animes/covers/4081.jpg"
-                        alt="Dragon Ball Daima"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            Dragon Ball Daima
-                        </h3>
-
-                        <p>
-                            A new Dragon Ball series with
-                            a completely new story.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://www3.animeflv.net/anime/dragon-ball-daima"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- KIMETSU NO YAIBA -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://i.blogs.es/1c4a1a/kimetsu-no-yaiba-the-movie-mugen-train/1366_2000.jpeg"
-                        alt="Demon Slayer"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            Demon Slayer
-                        </h3>
-
-                        <p>
-                            Discover the latest news about
-                            the Demon Slayer series.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://youtu.be/rQ_tVJhDRBA"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ZENSHU -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://www3.animeflv.net/uploads/animes/covers/3613.jpg"
-                        alt="Zenshu"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            Zenshu
-                        </h3>
-
-                        <p>
-                            Discover the latest updates
-                            about this series.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://youtu.be/12Rul9uV3Pg"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- ATTACK ON TITAN -->
-
-                <article class="card anime-card">
-
-                    <img
-                        src="https://www3.animeflv.net/uploads/animes/covers/3455.jpg"
-                        alt="Attack on Titan"
-                        loading="lazy"
-                    >
-
-                    <div class="card-content">
-
-                        <h3>
-                            Attack on Titan
-                        </h3>
-
-                        <p>
-                            The epic conclusion of one of
-                            the most acclaimed anime series.
-                        </p>
-
-                        <a
-                            class="explore-button"
-                            href="https://youtu.be/O5hzKGxTUno"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Explore
-                        </a>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-    </div>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <p>
-            © <span id="current-year"></span>
-            AnimeGalaxy. All rights reserved.
-        </p>
-
-
-        <div class="social-links">
-
-            <a
-                href="https://www.facebook.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-            >
-                <i
-                    class="fab fa-facebook"
-                    aria-hidden="true"
-                ></i>
-            </a>
-
-
-            <a
-                href="https://twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-            >
-                <i
-                    class="fab fa-twitter"
-                    aria-hidden="true"
-                ></i>
-            </a>
-
-
-            <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-            >
-                <i
-                    class="fab fa-instagram"
-                    aria-hidden="true"
-                ></i>
-            </a>
-
-
-            <a
-                href="https://www.youtube.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-            >
-                <i
-                    class="fab fa-youtube"
-                    aria-hidden="true"
-                ></i>
-            </a>
-
+    </h1>
+    <nav class="main-menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Buscar.html">Buscar</a></li> 
+            <li><a href="admin.html">Admin</a></li>
+            <li class="user-menu-item">
+                <a href="#" class="user-link">Usuario</a>
+                <ul class="user-dropdown">
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Animes Favoritos</a></li>
+                    <li class="logout-separator"><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+   <h2 class="h3">Animes/Temporadas Nuevas 2026</h2>
+
+    <section class="anime-list">
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime1.jpg" class="anime-img">
+            <h3 class="anime-title">Anime Nuevo 1</h3>
+            <p class="anime-genre">Estreno: 15/01/2026</p>
         </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime2.jpg" class="anime-img">
+            <h3 class="anime-title">Anime Nuevo 2</h3>
+            <p class="anime-genre">Estreno: 10/02/2026</p>
+        </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime3.jpg" class="anime-img">
+            <h3 class="anime-title">Anime Nuevo 3</h3>
+            <p class="anime-genre">Estreno: 05/03/2026</p>
+        </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime4.jpg" class="anime-img">
+            <h3 class="anime-title">Anime Nuevo 4</h3>
+            <p class="anime-genre">Estreno: 20/04/2026</p>
+        </div>
+</section>
 
-    </footer>
+   <h2 class="h3">Animes 2025 </h2>
+   <section class="anime-list">
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime5.jpg" class="anime-img">
+            <h3 class="anime-title">Anime 2025 - 1</h3>
+            <p class="anime-genre">Estreno: 12/01/2025</p>
+        </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime6.jpg" class="anime-img">
+            <h3 class="anime-title">Anime 2025 - 2</h3>
+            <p class="anime-genre">Estreno: 18/03/2025</p>
+        </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime7.jpg" class="anime-img">
+            <h3 class="anime-title">Anime 2025 - 3</h3>
+            <p class="anime-genre">Estreno: 25/06/2025</p>
+        </div>
+        <div class="anime-card news-card">
+            <img src="imagenes/anime/anime8.jpg" class="anime-img">
+            <h3 class="anime-title">Anime 2025 - 4</h3>
+            <p class="anime-genre">Estreno: 30/09/2025</p>
+        </div>
+</section>
 
-
-    <!-- ================= BACK TO TOP ================= -->
-
-    <button
-        type="button"
-        class="back-to-top"
-        id="back-to-top"
-        aria-label="Back to top"
-    >
-        <i
-            class="fas fa-arrow-up"
-            aria-hidden="true"
-        ></i>
-    </button>
-
-</main>
-
-
-<!-- JavaScript -->
-
-<script src="script.js" defer></script>
-```
-
+<footer>
+    <p>© 2026 DaiAnime. Todos los derechos reservados.</p>
+    <div class="social-links">  
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+</footer>
 </body>
 </html>
