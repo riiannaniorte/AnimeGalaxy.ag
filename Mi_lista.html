@@ -16,6 +16,9 @@
             width: 100%;
             margin-top: 10px;
         }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
         .mensaje-exito {
             background-color: #4CAF50;
             color: white;
@@ -31,7 +34,7 @@
 <header class="page-header">
     <h1>
         <a href="index.html">
-            <img src="DaiAnime.jpeg" style="height:40px; vertical-align:middle;">
+            <img src="DaiAnime.jpeg" style="height:40px; vertical-align:middle;" alt="Logo">
             DaiAnime
         </a>
     </h1>
@@ -55,44 +58,20 @@
 <main style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     <h1 style="text-align: center;">Mi Lista</h1>
 
-    <div class="anime-grid">
-        <div class="anime-card">
-            <a href="anime.html">
-                <img src="imagenes/anime/anime1.jpg" alt="Portada">
-            </a>
-            <div class="anime-details">
-                <p><strong>Anime Guardado 1</strong></p>
-                <p>Tipo: TV</p>
-                <form>
-                    <button type="submit" class="delete-button">Eliminar</button>
-                </form>
-            </div>
-        </div>
-        <div class="anime-card">
-            <a href="anime.html">
-                <img src="imagenes/anime/anime2.jpg" alt="Portada">
-            </a>
-            <div class="anime-details">
-                <p><strong>Anime Guardado 2</strong></p>
-                <p>Tipo: Movie</p>
-                <form>
-                    <button type="submit" class="delete-button">Eliminar</button>
-                </form>
-            </div>
-        </div>
+    <div class="anime-grid" id="contenedor-mi-lista">
+        <!-- Los animes de la lista se cargarán aquí dinámicamente -->
     </div>
 </main>
 
 <footer>
     <p>© 2026 DaiAnime</p>
 </footer>
-    <script>
+
+<script>
     window.addEventListener('DOMContentLoaded', function() {
         const usuarioActual = localStorage.getItem('usuario_conectado');
         const menuAdmin = document.getElementById('menu-admin');
         const nombreUsuarioLink = document.getElementById('nombre-usuario');
-
-        console.log("Usuario actual en localStorage:", usuarioActual); // Para depurar en la consola
 
         // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre
         if (usuarioActual && nombreUsuarioLink) {
@@ -105,7 +84,56 @@
                 menuAdmin.style.display = 'none';
             }
         }
+
+        // Cargar los animes guardados en Mi Lista
+        cargarMiLista();
     });
+
+    function cargarMiLista() {
+        const contenedor = document.getElementById('contenedor-mi-lista');
+        const miLista = JSON.parse(localStorage.getItem('mi_lista_anime')) || [];
+
+        if (miLista.length === 0) {
+            contenedor.innerHTML = '<p style="color: white; text-align: center; grid-column: 1 / -1;">No tienes animes guardados en tu lista.</p>';
+            return;
+        }
+
+        contenedor.innerHTML = '';
+
+        miLista.forEach(anime => {
+            const anio = anime.fecha ? anime.fecha.substring(0, 4) : 'N/D';
+            const rutaImagen = anime.imagen ? anime.imagen : 'imagenes/anime/default.jpg';
+
+            const card = document.createElement('div');
+            card.className = 'anime-card';
+            card.innerHTML = `
+                <a href="anime.html">
+                    <img src="${rutaImagen}" alt="${anime.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                </a>
+                <div class="anime-details">
+                    <p><strong>${anime.titulo}</strong></p>
+                    <p><strong>Año:</strong> ${anio}</p>
+                    <p><strong>Tipo:</strong> ${anime.tipo || 'N/D'}</p>
+                    <p class="sinopsis-corta"><strong>Sinopsis:</strong> ${anime.sinopsis || 'Sin sinopsis.'}</p>
+                    
+                    <button type="button" class="delete-button" onclick="eliminarDeMiLista('${anime.titulo}')">
+                        🗑️ Eliminar
+                    </button>
+                </div>
+            `;
+            contenedor.appendChild(card);
+        });
+    }
+
+    function eliminarDeMiLista(titulo) {
+        if (!confirm('¿Estás seguro de eliminar este anime de tu lista?')) return;
+
+        let miLista = JSON.parse(localStorage.getItem('mi_lista_anime')) || [];
+        miLista = miLista.filter(a => a.titulo !== titulo);
+        localStorage.setItem('mi_lista_anime', JSON.stringify(miLista));
+        
+        cargarMiLista(); // Recarga la vista de la lista
+    }
 </script>
 </body>
 </html>
