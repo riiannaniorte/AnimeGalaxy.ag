@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Lista - DaiAnime</title>
+    <link rel="stylesheet" href="Buscar.css">
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <style>
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .mensaje-exito {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="page-header">
+    <h1>
+        <a href="index.html">
+            <img src="DaiAnime.jpeg" style="height:40px; vertical-align:middle;">
+            DaiAnime
+        </a>
+    </h1>
+    <nav class="main-menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Buscar.html">Buscar</a></li> 
+            <li><a href="admin.html">Admin</a></li>  
+            <li class="user-menu-item">
+                <a href="#" class="user-link">Usuario</a>
+                <ul class="user-dropdown">
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Animes Favoritos</a></li>
+                    <li><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <h1 style="text-align: center;">Mi Lista</h1>
+
+    <div class="anime-grid">
+        <div class="anime-card">
+            <a href="anime.html">
+                <img src="imagenes/anime/anime1.jpg" alt="Portada">
+            </a>
+            <div class="anime-details">
+                <p><strong>Anime Guardado 1</strong></p>
+                <p>Tipo: TV</p>
+                <form>
+                    <button type="submit" class="delete-button">Eliminar</button>
+                </form>
+            </div>
+        </div>
+        <div class="anime-card">
+            <a href="anime.html">
+                <img src="imagenes/anime/anime2.jpg" alt="Portada">
+            </a>
+            <div class="anime-details">
+                <p><strong>Anime Guardado 2</strong></p>
+                <p>Tipo: Movie</p>
+                <form>
+                    <button type="submit" class="delete-button">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 DaiAnime</p>
+</footer>
+</body>
+</html>

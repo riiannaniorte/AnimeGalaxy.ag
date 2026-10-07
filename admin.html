@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Admin - DaiAnime</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+</head>
+<body>
+
+<header class="page-header">
+    <h1>
+        <a href="index.html">
+            <img src="DaiAnime.jpeg" alt="Logo" style="height:40px; vertical-align:middle;">
+            DaiAnime
+        </a>
+    </h1>
+    <nav class="main-menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Buscar.html">Buscar</a></li> 
+            
+            <li class="user-menu-item">
+                <a href="admin.html" class="user-link">Admin</a>
+                <ul class="submenú">
+                    <li><a href="editor_generos.html">Editor de Géneros</a></li>
+                </ul>
+            </li>
+
+            <li class="user-menu-item">
+                <a href="#" class="user-link">Usuario</a>
+                <ul class="submenú">
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Animes Favoritos</a></li>
+                    <li class="logout-separator"><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Panel de Administración</h1>
+
+    <div style="background:#222; padding:20px; margin-bottom:30px; text-align:center; border:1px solid #333;">
+        <h2>Total de Animes en Base de Datos</h2>
+        <p style="font-size:28px; font-weight:bold; color:#e74c3c;">42</p>
+    </div>
+
+    <h2>Gestión de Usuarios</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>admin</td>
+            <td><strong>admin</strong></td>
+            <td>✅ Activo</td>
+            <td>
+                <a href="#" class="btn btn-orange">Rol</a>
+                <a href="#" class="btn btn-blue">Pass</a>
+                <a href="#" class="btn btn-gray">Ban</a>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>usuario1</td>
+            <td><strong>usuario</strong></td>
+            <td>✅ Activo</td>
+            <td>
+                <a href="#" class="btn btn-orange">Rol</a>
+                <a href="#" class="btn btn-blue">Pass</a>
+                <a href="#" class="btn btn-gray">Ban</a>
+                <a href="#" class="btn btn-red" onclick="return confirm('¿Borrar usuario?')">X</a>
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>usuario2</td>
+            <td><strong>usuario</strong></td>
+            <td>❌ Baneado</td>
+            <td>
+                <a href="#" class="btn btn-orange">Rol</a>
+                <a href="#" class="btn btn-blue">Pass</a>
+                <a href="#" class="btn btn-green">Ok</a>
+                <a href="#" class="btn btn-red" onclick="return confirm('¿Borrar usuario?')">X</a>
+            </td>
+        </tr>
+    </table>
+
+    <h2 style="margin-top:40px;">Añadir Nuevo Anime</h2>
+    <form enctype="multipart/form-data">
+        <label>Título</label>
+        <input type="text" name="titulo" required>
+        
+        <label>Título Original</label>
+        <input type="text" name="titulo_original" required>
+        
+        <label>Sinopsis</label>
+        <textarea name="sinopsis" rows="4" required></textarea>
+        
+        <label>Estudio</label>
+        <input type="text" name="estudio" required>
+        
+        <label>Rating (0 - 10)</label>
+        <input type="number" step="0.1" name="rating" required>
+
+        <label>Tipo de contenido</label>
+        <select name="tipo">
+            <option value="TV">TV</option>
+            <option value="Movie">Movie</option>
+            <option value="OVA">OVA</option>
+        </select>
+
+        <label>Estado</label>
+        <select name="estado">
+            <option value="En emisión">En Emisión</option>
+            <option value="Finalizado">Finalizado</option>
+        </select>
+
+        <label>Géneros</label>
+        <input type="text" name="genero">
+        
+        <label>Fecha de Estreno</label>
+        <input type="date" name="fecha" required>
+        
+        <label>Imagen de Portada</label>
+        <input type="file" name="imagen" required>
+
+        <button type="submit">Guardar Anime</button>
+    </form>
+    <h2 style="margin-top:40px;">Lista de Animes</h2>
+    <table>
+        <tr>
+            <th>Título</th>
+            <th>Año</th>
+            <th>Acción</th>
+        </tr>
+        <tr>
+            <td>Anime Ejemplo 1</td>
+            <td>2024</td>
+            <td>
+                <a href="#" style="color:#e74c3c;" onclick="return confirm('¿Borrar?')">Borrar</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Anime Ejemplo 2</td>
+            <td>2023</td>
+            <td>
+                <a href="#" style="color:#e74c3c;" onclick="return confirm('¿Borrar?')">Borrar</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
