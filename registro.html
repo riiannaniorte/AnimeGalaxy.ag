@@ -104,28 +104,34 @@
 </div>
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzUqPxWk--2aKXr2slY2Hrmtdl6uaGgQKT86GaPycM_FLg1eJwSDmXWs8N5PObC3nbP/exec';
+    const form = document.querySelector('form');
 
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita que la página se recargue de golpe
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que la página recargue de golpe
 
         const formData = {
-            email: document.querySelector('input[name="email"]').value,
-            user: document.querySelector('input[name="user"]').value,
-            pass: document.querySelector('input[name="pass"]').value
+            email: form.querySelector('input[name="email"]').value,
+            user: form.querySelector('input[name="user"]').value,
+            pass: form.querySelector('input[name="pass"]').value
         };
 
-        // Enviar los datos a tu Excel en Google Drive
+        // Enviamos los datos
         fetch(scriptURL, {
             method: 'POST',
-            mode: 'no-cors', // Necesario para peticiones externas a Apps Script
-            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(formData)
         })
         .then(() => {
-            alert('¡Registro exitoso y guardado en tu Drive!');
+            alert('¡Registro guardado correctamente en tu Excel!');
             window.location.href = 'iniciar_sesion.html';
         })
-        .catch(error => console.error('Error!', error.message));
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al registrar.');
+        });
     });
 </script>
 </body>
