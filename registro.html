@@ -102,32 +102,22 @@
         </div>
     </form>
 </div>
+<!-- Iframe oculto para evitar que la página se quede en blanco al enviar -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(isSubmitted){window.location.href='iniciar_sesion.html';}"></iframe>
+
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyWK6uiL5cICQb2eAJF_CBb33l6W2jwpJWvmvL_vhzr2oHOU3TGYOVxM-tCbhZL2zcU/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwGn0qspMmvRKn7uoBd6nCzcgSHYKW6Evrlrr_4YnPu5ehXccoO0TTNWm8vwfR-2Mpx/exec';
     const form = document.querySelector('form');
+    let isSubmitted = false;
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evitamos que recargue la página instantáneamente
+    // Configuramos el formulario para que apunte a Google y use el iframe oculto
+    form.action = scriptURL;
+    form.method = 'POST';
+    form.target = 'hidden_iframe';
 
-        // Creamos los datos en formato de formulario clásico (evita bloqueos de CORS)
-        const formData = new URLSearchParams();
-        formData.append('email', form.querySelector('input[name="email"]').value);
-        formData.append('user', form.querySelector('input[name="user"]').value);
-        formData.append('pass', form.querySelector('input[name="pass"]').value);
-
-        // Enviamos la petición
-        fetch(scriptURL, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            alert('¡Registrado y guardado en tu Excel de Google Drive con éxito!');
-            window.location.href = 'iniciar_sesion.html';
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            alert('Hubo un error al registrar.');
-        });
+    form.addEventListener('submit', function() {
+        isSubmitted = true;
+        // Opcional: puedes mostrar un aviso de carga si quieres
     });
 </script>
 </body>
