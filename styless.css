@@ -19,35 +19,34 @@ html {
 
 body {
     margin: 0;
-    padding: 0;
     background-color: var(--primary-bg);
     color: var(--text-color);
     font-family: Arial, sans-serif;
     line-height: 1.6;
 }
 
-/* ====================================
-   NAVBAR
-==================================== */
+/* NAVBAR */
 
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--secondary-bg);
-    padding: 10px 20px;
     position: sticky;
     top: 0;
     z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70px;
+    padding: 10px 20px;
+    background-color: var(--secondary-bg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-brand {
     display: flex;
     align-items: center;
+    color: var(--accent-color);
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--accent-color);
+    text-decoration: none;
 }
 
 .navbar-logo {
@@ -58,9 +57,7 @@ body {
     object-fit: cover;
 }
 
-/* ====================================
-   MENÚ PRINCIPAL
-==================================== */
+/* MENÚ */
 
 .navbar-menu {
     display: flex;
@@ -76,7 +73,6 @@ body {
     border-radius: 8px;
     color: var(--text-color);
     text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar-menu > a:hover,
@@ -85,31 +81,32 @@ body {
     color: white;
 }
 
-/* ====================================
-   PERFIL
-==================================== */
+/* PERFIL */
 
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
 }
 
 .perfil-toggle {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    border: 0;
-    padding: 8px 12px;
+    min-height: 42px;
+    padding: 8px 14px;
+    border: none;
     border-radius: 8px;
     background: transparent;
     color: var(--text-color);
     font: inherit;
     cursor: pointer;
-    white-space: nowrap;
 }
 
 .perfil-toggle:hover,
 .perfil-toggle:focus {
+    outline: none;
     background-color: var(--accent-color);
     color: white;
 }
@@ -124,40 +121,44 @@ body {
     transform: rotate(180deg);
 }
 
-/* Menú cerrado por defecto */
+/* DROPDOWN */
+
 .dropdown-content {
-    display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 10px);
     right: 0;
+    z-index: 9999;
+    display: none;
     width: 240px;
-    padding: 15px;
-    background-color: var(--card-bg);
+    overflow: hidden;
     border: 1px solid #444;
     border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
-    z-index: 9999;
+    background-color: var(--card-bg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
-/* Menú abierto mediante JavaScript */
 .dropdown.open .dropdown-content {
     display: block;
 }
+
+/* INFORMACIÓN DEL PERFIL */
 
 .perfil-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 14px;
-    margin-bottom: 10px;
+    justify-content: center;
+    min-height: 185px;
+    padding: 22px 15px;
     border-bottom: 1px solid #444;
+    text-align: center;
 }
 
 .perfil-foto {
     display: block;
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 14px;
     border: 3px solid var(--accent-color);
     border-radius: 50%;
     background-color: #333;
@@ -165,54 +166,56 @@ body {
 }
 
 .perfil-nombre {
-    max-width: 100%;
+    width: 100%;
     margin: 0;
     color: var(--accent-color);
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     text-align: center;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
+
+/* OPCIONES DEL PERFIL */
 
 .perfil-opciones {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    padding: 8px;
 }
 
 .perfil-opciones a {
     display: flex;
     align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 11px 12px;
-    margin: 2px 0;
-    border-radius: 5px;
+    gap: 12px;
+    min-height: 44px;
+    padding: 11px 14px;
+    border-radius: 6px;
     color: var(--text-color);
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.perfil-opciones a i {
-    width: 18px;
-    min-width: 18px;
-    text-align: center;
 }
 
 .perfil-opciones a:hover,
 .perfil-opciones a:focus {
+    outline: none;
     background-color: var(--accent-color);
     color: white;
 }
 
-/* ====================================
-   HAMBURGUESA
-==================================== */
+.perfil-opciones a i {
+    width: 20px;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+.perfil-opciones a:hover i {
+    color: white;
+}
+
+/* HAMBURGUESA */
 
 .menu-toggle {
     display: none;
     flex-direction: column;
-    justify-content: center;
     gap: 5px;
     padding: 5px;
     border: none;
@@ -220,34 +223,45 @@ body {
     cursor: pointer;
 }
 
-.menu-toggle div {
+.menu-toggle span {
     width: 28px;
     height: 3px;
     border-radius: 2px;
-    background-color: var(--text-color);
-    transition: all 0.3s ease;
+    background-color: white;
+    transition: 0.3s;
 }
 
-.menu-toggle.active div:nth-child(1) {
+.menu-toggle.active span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
 }
 
-.menu-toggle.active div:nth-child(2) {
+.menu-toggle.active span:nth-child(2) {
     opacity: 0;
 }
 
-.menu-toggle.active div:nth-child(3) {
+.menu-toggle.active span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ====================================
-   CONTENIDO
-==================================== */
+/* CONTENIDO */
 
 .container {
     max-width: 1200px;
     padding: 40px 20px;
     margin: 0 auto;
+}
+
+.tarjeta-principal {
+    margin-bottom: 35px;
+}
+
+.tarjeta-principal a {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.separador {
+    margin: 0 8px;
 }
 
 .section h1 {
@@ -258,45 +272,11 @@ body {
     font-size: 2rem;
 }
 
-.tarjeta-principal {
-    margin-bottom: 35px;
-}
-
-.tarjeta-principal a {
-    color: var(--accent-color);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.tarjeta-principal a:hover {
-    text-decoration: underline;
-}
-
-.separador {
-    margin: 0 8px;
-    color: var(--light-text);
-}
-
 .card-container {
     display: flex;
-    flex-wrap: nowrap;
     gap: 10px;
     padding: 10px 0;
     overflow-x: auto;
-    scrollbar-color: var(--accent-color) var(--secondary-bg);
-    scrollbar-width: thin;
-}
-
-.card-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.card-container::-webkit-scrollbar-thumb {
-    background-color: var(--accent-color);
-}
-
-.card-container::-webkit-scrollbar-track {
-    background-color: var(--secondary-bg);
 }
 
 .card {
@@ -306,68 +286,53 @@ body {
     border: 1px solid transparent;
     border-radius: 12px;
     background-color: var(--card-bg);
-    color: var(--text-color);
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
 }
 
 .card:hover {
-    border: 1px solid var(--accent-color);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    transform: translateY(-7px);
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
 }
 
 .card img {
     width: 100%;
     height: 220px;
-    margin-bottom: 8px;
     border-radius: 8px;
     object-fit: cover;
 }
 
 .card h2 {
-    margin: 5px 0;
     color: var(--light-text);
     font-size: 1.1rem;
 }
 
 .card p {
-    margin: 5px 0 10px;
     color: var(--light-text);
     font-size: 0.85rem;
 }
 
 .explore-button {
     padding: 8px 15px;
-    margin-top: 8px;
     border: none;
     border-radius: 6px;
     background-color: var(--accent-color);
     color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.explore-button:hover {
-    background-color: #d92d2d;
-}
-
-/* ====================================
-   FOOTER
-==================================== */
+/* FOOTER */
 
 footer {
     padding: 25px 0;
     border-top: 1px solid #333;
     background-color: var(--secondary-bg);
-    color: var(--text-color);
     text-align: center;
 }
 
 .social-links a {
     margin: 0 10px;
-    color: var(--text-color);
+    color: white;
     font-size: 22px;
 }
 
@@ -390,28 +355,16 @@ footer {
     cursor: pointer;
 }
 
-/* ====================================
-   RESPONSIVE
-==================================== */
+/* MÓVIL */
 
-@media screen and (max-width: 1200px) {
-    .card {
-        flex-basis: calc(33.333% - 13.333px);
-    }
-}
-
-@media screen and (max-width: 992px) {
-    .navbar {
-        position: sticky;
-    }
-
+@media (max-width: 992px) {
     .menu-toggle {
         display: flex;
     }
 
     .navbar-menu {
         position: absolute;
-        top: 65px;
+        top: 70px;
         left: 0;
         display: none;
         flex-direction: column;
@@ -419,7 +372,6 @@ footer {
         gap: 0;
         width: 100%;
         padding: 10px 0;
-        border-top: 1px solid #333;
         background-color: var(--secondary-bg);
     }
 
@@ -434,6 +386,7 @@ footer {
     }
 
     .dropdown {
+        display: block;
         width: 100%;
     }
 
@@ -447,70 +400,38 @@ footer {
     .dropdown-content {
         position: static;
         width: 100%;
-        min-width: 0;
-        padding: 0;
-        margin: 0;
         border: none;
         border-radius: 0;
-        background-color: #222;
         box-shadow: none;
     }
 
-    .dropdown:hover .dropdown-content {
-        display: none;
-    }
-
-    .dropdown.open .dropdown-content {
-        display: block;
-    }
-
     .perfil-info {
-        padding: 15px;
-        margin: 0;
-        border-bottom: 1px solid #444;
+        min-height: 170px;
+        background-color: #242424;
+    }
+
+    .perfil-opciones {
+        padding: 0;
+        background-color: #222222;
     }
 
     .perfil-opciones a {
         padding: 12px 40px;
-        margin: 0;
         border-bottom: 1px solid #333;
         border-radius: 0;
-        background-color: rgba(255, 60, 60, 0.05);
-    }
-
-    .perfil-opciones a:last-child {
-        border-bottom: none;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        padding: 20px 15px;
     }
 
     .card {
         flex-basis: calc(50% - 10px);
     }
-
-    .card img {
-        height: 180px;
-    }
-
-    .section h1 {
-        font-size: 1.5rem;
-    }
 }
 
-@media screen and (max-width: 480px) {
-    .card {
-        flex-basis: 100%;
-    }
-
-    .card img {
-        height: 250px;
-    }
-
+@media (max-width: 480px) {
     .navbar-brand span {
         font-size: 1rem;
+    }
+
+    .card {
+        flex-basis: 100%;
     }
 }
