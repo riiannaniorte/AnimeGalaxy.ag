@@ -122,7 +122,7 @@
     </form>
 </div>
 <script>
-    const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3'; // La misma URL que usaste en el registro
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3'; 
     const form = document.querySelector('form');
 
     async function encriptarPassword(password) {
@@ -138,7 +138,6 @@
         const usuarioIngresado = form.querySelector('input[name="user"]').value.trim();
         const passwordPlana = form.querySelector('input[name="pass"]').value.trim();
         
-        // Ciframos la contraseña ingresada para compararla con la del Excel
         const passwordHashIngresada = await encriptarPassword(passwordPlana);
 
         fetch(sheetDbUrl)
@@ -149,6 +148,9 @@
                 );
 
                 if (usuarioEncontrado) {
+                    // AQUÍ ESTÁ LA CLAVE: Guardamos el usuario para que el menú lo reconozca
+                    localStorage.setItem('usuario_conectado', usuarioEncontrado.usuario);
+
                     alert('¡Inicio de sesión exitoso! Bienvenido, ' + usuarioEncontrado.usuario);
                     window.location.href = 'index.html';
                 } else {
