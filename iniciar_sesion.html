@@ -121,6 +121,38 @@
         </div>
     </form>
 </div>
+<script>
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3'; // La misma URL que usaste en el registro
+    const form = document.querySelector('form');
 
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Evita que se envíe de golpe
+
+        const usuarioIngresado = form.querySelector('input[name="user"]').value.trim();
+        const passwordIngresada = form.querySelector('input[name="pass"]').value.trim();
+
+        // Consultamos todos los registros guardados en tu Google Sheet mediante SheetDB
+        fetch(sheetDbUrl)
+            .then(response => response.json())
+            .then(usuarios => {
+                // Buscamos si hay alguna fila que coincida con el usuario y contraseña
+                const usuarioEncontrado = usuarios.find(u => 
+                    u.usuario === usuarioIngresado && u.contraseña === passwordIngresada
+                );
+
+                if (usuarioEncontrado) {
+                    alert('¡Inicio de sesión exitoso! Bienvenido de nuevo, ' + usuarioEncontrado.usuario);
+                    // Redirigir a la página de inicio o panel
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Usuario o contraseña incorrectos.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al verificar:', error);
+                alert('Hubo un error al conectar con el servidor de usuarios.');
+            });
+    });
+</script>
 </body>
 </html>
