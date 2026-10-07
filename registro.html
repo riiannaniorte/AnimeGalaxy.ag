@@ -107,18 +107,27 @@
     const sheetDbUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
     const form = document.querySelector('form');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Evita que la página recargue de golpe
+    // Función estándar de JavaScript para generar un Hash SHA-256
+    async function encriptarPassword(password) {
+        const msgBuffer = new TextEncoder().encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 
-        // Capturamos los datos de los inputs del formulario
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const passwordPlana = form.querySelector('input[name="pass"]').value;
+        const passwordHash = await encriptarPassword(passwordPlana); // Ciframos la contraseña
+
         const data = {
             fecha: new Date().toLocaleString(),
             correo: form.querySelector('input[name="email"]').value,
             usuario: form.querySelector('input[name="user"]').value,
-            contraseña: form.querySelector('input[name="pass"]').value
+            contraseña: passwordHash // Guardamos el hash en el Excel
         };
 
-        // Enviamos los datos mediante una petición limpia a SheetDB
         fetch(sheetDbUrl, {
             method: 'POST',
             headers: {
@@ -129,7 +138,7 @@
         })
         .then(response => response.json())
         .then(result => {
-            alert('¡Registro exitoso! Guardado en tu Google Drive.');
+            alert('¡Registro exitoso! Contraseña protegida.');
             window.location.href = 'iniciar_sesion.html';
         })
         .catch(error => {
