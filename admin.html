@@ -157,6 +157,12 @@
         </tr>
     </table>
 </div>
-
+<script>
+    const usuarioActual = localStorage.getItem('usuario_conectado');
+    if (usuarioActual !== 'admin') {
+        alert('Acceso denegado. Solo para administradores.');
+        window.location.href = 'index.html';
+    }
+</script>
 </body>
 </html>
