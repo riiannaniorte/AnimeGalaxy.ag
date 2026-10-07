@@ -113,73 +113,194 @@ body {
     color: var(--text-color);
 }
 
-/* Dropdown */
+/* ====================================
+   🔹 DROPDOWN DEL PERFIL
+==================================== */
+
 .dropdown {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
-.dropdown > a {
+
+/* Botón Perfil */
+
+.perfil-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
     cursor: pointer;
+    white-space: nowrap;
 }
+
+
+/* Flecha */
+
+.perfil-flecha {
+    font-size: 11px;
+    margin-left: 2px;
+}
+
+
+/* Menú desplegable */
 
 .dropdown-content {
-  display: none !important; /* El !important fuerza a que esté oculto al iniciar */
-  position: absolute;
-  right: 0;
-  background-color: #222;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-  z-index: 1000;
-  border-radius: 8px;
-  padding: 15px 10px;
-  text-align: center;
+    display: none;
+
+    position: absolute;
+
+    top: calc(100% + 8px);
+    right: 0;
+
+    width: 210px;
+    min-width: 210px;
+
+    background-color: var(--card-bg);
+
+    border-radius: 8px;
+
+    padding: 15px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
+
+    z-index: 2000;
+
+    text-align: center;
 }
 
-/* Estilos para la sección de la foto y el nombre */
-.perfil-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #444;
-  margin-bottom: 8px;
+
+/* Mostrar menú al pasar el ratón */
+
+.dropdown:hover > .dropdown-content {
+    display: block;
 }
+
+
+/* Evita que desaparezca al mover el ratón */
+
+.dropdown-content:hover {
+    display: block;
+}
+
+
+/* ====================================
+   🔹 INFORMACIÓN DEL USUARIO
+==================================== */
+
+.perfil-info {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding-bottom: 14px;
+
+    margin-bottom: 10px;
+
+    border-bottom: 1px solid #444;
+}
+
+
+/* Foto */
 
 .perfil-foto {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover; /* Evita que la foto se deforme */
-  margin-bottom: 8px;
-  border: 2px solid var(--accent-color, #e50914);
+    width: 80px;
+    height: 80px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    border: 3px solid var(--accent-color);
+
+    background-color: #333;
 }
+
+
+/* Nombre */
 
 .perfil-nombre {
-  font-size: 15px;
-  color: var(--text-color, #fff);
-  margin: 0;
+    margin: 0;
+
+    padding: 0;
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+    color: var(--accent-color);
+
+    text-align: center;
+
+    word-break: break-word;
 }
 
-/* Enlaces del menú desplegable */
-.dropdown-content a {
+
+/* ====================================
+   🔹 OPCIONES DEL PERFIL
+==================================== */
+
+.perfil-opciones {
+    display: flex;
+
+    flex-direction: column;
+
+    width: 100%;
+}
+
+
+/* Enlaces */
+
+.perfil-opciones a {
+    display: flex !important;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 11px 12px;
+
+    margin: 2px 0;
+
     color: var(--text-color);
-    padding: 10px 15px;
+
     text-decoration: none;
-    display: block;
-    transition: background-color 0.3s;
-    border-radius: 4px; /* Un pequeño radio uniforme para cada opción queda más limpio */
+
+    border-radius: 5px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
-.dropdown-content a:hover {
+
+/* Iconos */
+
+.perfil-opciones a i {
+    width: 18px;
+
+    text-align: center;
+}
+
+
+/* Hover */
+
+.perfil-opciones a:hover {
     background-color: var(--accent-color);
-}
 
-/* Mostrar el menú al pasar el cursor (o puedes controlarlo con tu clase JS si usas una) */
-.dropdown:hover .dropdown-content {
-  display: block !important;
+    color: white;
 }
-
 /* ====================================
     🔹 Contenedor de búsqueda (oculto en HTML, pero manteniendo estilos)
 ==================================== */
