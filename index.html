@@ -23,11 +23,13 @@
             <li><a href="Buscar.html">Buscar</a></li> 
             <li><a href="admin.html" id="menu-admin">Admin</a></li>
             <li class="user-menu-item">
-                <a href="#" class="user-link">Usuario</a>
+                <a href="#" class="user-link" id="nombre-usuario">Usuario</a>
                 <ul class="user-dropdown">
-                    <li><a href="Mi_lista.html">Mi Lista</a></li>
-                    <li><a href="favoritos.html">Animes Favoritos</a></li>
-                    <li class="logout-separator"><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                <li><a href="Mi_lista.html">Mi Lista</a></li>
+                <li><a href="favoritos.html">Animes Favoritos</a></li>
+                <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
+                  </ul>
+                </li>
                 </ul>
             </li>
         </ul>
@@ -94,7 +96,14 @@
     <script>
     const usuarioActual = localStorage.getItem('usuario_conectado');
     const menuAdmin = document.getElementById('menu-admin');
+    const nombreUsuarioLink = document.getElementById('nombre-usuario');
 
+    // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre real
+    if (usuarioActual && nombreUsuarioLink) {
+        nombreUsuarioLink.textContent = usuarioActual;
+    }
+
+    // Ocultar el botón de Admin si no es el administrador
     if (menuAdmin) {
         if (usuarioActual !== 'admin') {
             menuAdmin.style.display = 'none';
