@@ -35,17 +35,17 @@
             DaiAnime
         </a>
     </h1>
-    <nav class="main-menu">
+     <nav class="main-menu">
         <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="Buscar.html">Buscar</a></li> 
-            <li><a href="admin.html" id="menu-admin">Admin</a></li>           
+            <li><a href="admin.html" id="menu-admin">Admin</a></li>
             <li class="user-menu-item">
-                <a href="#" class="user-link">Usuario</a>
+                <a href="#" id="nombre-usuario">Usuario</a>
                 <ul class="user-dropdown">
-                    <li><a href="Mi_lista.html">Mi Lista</a></li>
-                    <li><a href="favoritos.html">Animes Favoritos</a></li>
-                    <li><a href="iniciar_sesion.html">Cerrar Sesión</a></li>
+                <li><a href="Mi_lista.html">Mi Lista</a></li>
+                <li><a href="favoritos.html">Animes Favoritos</a></li>
+                <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>
