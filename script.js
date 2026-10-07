@@ -1,6 +1,8 @@
 "use strict";
 
-/* MENÚ HAMBURGUESA */
+/* ============================
+   MENÚ HAMBURGUESA
+   ============================ */
 
 const menuToggle = document.getElementById("menu-toggle");
 const navbarMenu = document.getElementById("navbar-menu");
@@ -30,14 +32,13 @@ if (menuToggle) {
     menuToggle.addEventListener("click", abrirOCerrarMenu);
 }
 
-/* PERFIL */
+/* ============================
+   DROPDOWN PERFIL
+   ============================ */
 
-const perfilContainer = document.getElementById(
-    "perfil-dropdown-container"
-);
-
-const perfilToggle = document.getElementById("perfil-toggle");
-const perfilDropdown = document.getElementById("perfil-dropdown");
+const perfilContainer = document.getElementById("perfil-dropdown-container");
+const perfilToggle    = document.getElementById("perfil-toggle");
+const perfilDropdown  = document.getElementById("perfil-dropdown");
 
 function cerrarPerfil() {
     if (!perfilContainer || !perfilToggle) {
@@ -46,99 +47,74 @@ function cerrarPerfil() {
 
     perfilContainer.classList.remove("open");
     perfilToggle.setAttribute("aria-expanded", "false");
+
+    if (perfilDropdown) {
+        perfilDropdown.hidden = true;
+    }
 }
 
 function abrirOCerrarPerfil() {
-    if (!perfilContainer || !perfilToggle) {
+    if (!perfilContainer || !perfilToggle || !perfilDropdown) {
         return;
     }
 
     const abierto = perfilContainer.classList.toggle("open");
 
-    perfilToggle.setAttribute(
-        "aria-expanded",
-        String(abierto)
-    );
+    perfilToggle.setAttribute("aria-expanded", String(abierto));
+    perfilDropdown.hidden = !abierto;
 }
 
 if (perfilToggle) {
-    perfilToggle.addEventListener(
-        "click",
-        function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            abrirOCerrarPerfil();
-        }
-    );
+    perfilToggle.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        abrirOCerrarPerfil();
+    });
 }
 
+/* Evita que un clic dentro del dropdown lo cierre */
 if (perfilDropdown) {
-    perfilDropdown.addEventListener(
-        "click",
-        function (event) {
-            event.stopPropagation();
-        }
-    );
+    perfilDropdown.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
 }
 
-document.addEventListener(
-    "click",
-    function (event) {
-        if (
-            perfilContainer &&
-            !perfilContainer.contains(event.target)
-        ) {
-            cerrarPerfil();
-        }
+/* Cierra el perfil al hacer clic fuera */
+document.addEventListener("click", function (event) {
+    if (perfilContainer && !perfilContainer.contains(event.target)) {
+        cerrarPerfil();
     }
-);
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-        if (event.key === "Escape") {
-            cerrarPerfil();
-            cerrarMenu();
-        }
-    }
-);
-
-/* CERRAR MENÚ AL PULSAR UN ENLACE */
-
-document.querySelectorAll(
-    ".navbar-menu > a"
-).forEach(function (enlace) {
-    enlace.addEventListener(
-        "click",
-        function () {
-            cerrarMenu();
-            cerrarPerfil();
-        }
-    );
 });
 
-document.querySelectorAll(
-    ".perfil-opciones a"
-).forEach(function (enlace) {
-    enlace.addEventListener(
-        "click",
-        function () {
-            cerrarMenu();
-            cerrarPerfil();
-        }
-    );
+/* Cierra todo con Escape */
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        cerrarPerfil();
+        cerrarMenu();
+    }
 });
 
-/* CARGAR DATOS DEL USUARIO */
+/* Cerrar menús al pulsar enlaces */
+document.querySelectorAll(".navbar-menu > a").forEach(function (enlace) {
+    enlace.addEventListener("click", function () {
+        cerrarMenu();
+        cerrarPerfil();
+    });
+});
 
-const perfilNombre = document.getElementById(
-    "perfil-nombre"
-);
+document.querySelectorAll(".perfil-opciones a").forEach(function (enlace) {
+    enlace.addEventListener("click", function () {
+        cerrarMenu();
+        cerrarPerfil();
+    });
+});
 
-const perfilFoto = document.getElementById(
-    "perfil-foto"
-);
+/* ============================
+   CARGAR DATOS DEL USUARIO
+   ============================ */
+
+const perfilNombre = document.getElementById("perfil-nombre");
+const perfilFoto   = document.getElementById("perfil-foto");
 
 try {
     const datos = localStorage.getItem("usuario");
@@ -146,45 +122,30 @@ try {
     if (datos) {
         const usuario = JSON.parse(datos);
 
-        if (
-            usuario &&
-            usuario.username &&
-            perfilNombre
-        ) {
+        if (usuario && usuario.username && perfilNombre) {
             perfilNombre.textContent = usuario.username;
         }
 
-        if (
-            usuario &&
-            usuario.foto &&
-            perfilFoto
-        ) {
+        if (usuario && usuario.foto && perfilFoto) {
             perfilFoto.src = usuario.foto;
         }
     }
 } catch (error) {
-    console.error(
-        "No se pudieron cargar los datos del usuario:",
-        error
-    );
+    console.error("No se pudieron cargar los datos del usuario:", error);
 }
 
-/* CERRAR SESIÓN */
+/* ============================
+   CERRAR SESIÓN
+   ============================ */
 
-const cerrarSesion = document.getElementById(
-    "cerrar-sesion"
-);
+const cerrarSesion = document.getElementById("cerrar-sesion");
 
 if (cerrarSesion) {
-    cerrarSesion.addEventListener(
-        "click",
-        function (event) {
-            event.preventDefault();
+    cerrarSesion.addEventListener("click", function (event) {
+        event.preventDefault();
 
-            localStorage.removeItem("usuario");
+        localStorage.removeItem("usuario");
 
-            window.location.href =
-                "iniciar_sesion.html";
-        }
-    );
+        window.location.href = "iniciar_sesion.html";
+    });
 }
