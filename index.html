@@ -37,14 +37,9 @@
     </nav>
 </header>
 
-<h2 class="h3">Animes/Temporadas Nuevas 2026</h2>
+<h2 class="h3">Novedades y Estrenos</h2>
 <section class="anime-list" id="contenedor-2026">
-    <!-- Los animes de 2026 se cargarán aquí automáticamente -->
-</section>
-
-<h2 class="h3">Animes 2025</h2>
-<section class="anime-list" id="contenedor-2025">
-    <!-- Los animes de 2025 se cargarán aquí automáticamente -->
+    <!-- Los elementos se cargarán aquí automáticamente -->
 </section>
 
 <footer>
@@ -63,68 +58,50 @@
         const menuAdmin = document.getElementById('menu-admin');
         const nombreUsuarioLink = document.getElementById('nombre-usuario');
 
-        // Si hay un usuario conectado, cambiamos el texto "Usuario" por su nombre
         if (usuarioActual && nombreUsuarioLink) {
             nombreUsuarioLink.textContent = usuarioActual;
         }
 
-        // Ocultar o mostrar el botón de Admin según el rol
         if (menuAdmin) {
             if (usuarioActual !== 'admin') {
                 menuAdmin.style.display = 'none';
             }
         }
 
-        // Cargar animes de la base de datos de SheetDB
-        cargarAnimesInicio();
+        cargarElementosInicio();
     });
 
-    const sheetDbAnimesUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
 
-    function cargarAnimesInicio() {
-        fetch(sheetDbAnimesUrl)
+    function cargarElementosInicio() {
+        fetch(sheetDbUrl)
             .then(res => res.json())
-            .then(animes => {
+            .then(datos => {
                 const contenedor2026 = document.getElementById('contenedor-2026');
-                const contenedor2025 = document.getElementById('contenedor-2025');
-
                 contenedor2026.innerHTML = '';
-                contenedor2025.innerHTML = '';
+                let hayRegistros = false;
 
-                let hay2026 = false;
-                let hay2025 = false;
+                datos.forEach(item => {
+                    if (!item.titulo) return;
 
-                animes.forEach(anime => {
-                    if (!anime.titulo || !anime.fecha) return;
+                    const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
+                    // Apunta a informacion.html
+                    const linkDetalle = `informacion.html?titulo=${encodeURIComponent(item.titulo)}`;
 
-                    const anioEstreno = anime.fecha.substring(0, 4);
-                    const rutaImagen = anime.imagen ? anime.imagen : 'imagenes/anime/default.jpg';
-                    const linkDetalle = `anime.html?titulo=${encodeURIComponent(anime.titulo)}`;
-
-                    const tarjetaHTML = `
+                    contenedor2026.innerHTML += `
                         <div class="anime-card news-card">
                             <a href="${linkDetalle}">
-                                <img src="${rutaImagen}" class="anime-img" alt="${anime.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                                <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
                             </a>
-                            <h3 class="anime-title">${anime.titulo}</h3>
-                            <p class="anime-genre">Estreno: ${anime.fecha}</p>
+                            <h3 class="anime-title">${item.titulo}</h3>
+                            <p class="anime-genre">Categoría: ${item.categoria || 'N/A'}</p>
                         </div>
                     `;
-
-                    if (anioEstreno === '2026') {
-                        contenedor2026.innerHTML += tarjetaHTML;
-                        hay2026 = true;
-                    } else if (anioEstreno === '2025') {
-                        contenedor2025.innerHTML += tarjetaHTML;
-                        hay2025 = true;
-                    }
+                    hayRegistros = true;
                 });
 
-                if (!hay2026) {
-                    contenedor2026.innerHTML = '<p style="color: white; padding: 10px;">No hay registros para 2026.</p>';
-                }
-                if (!hay2025) {
-                    contenedor2025.innerHTML = '<p style="color: white; padding: 10px;">No hay registros para 2025.</p>';
+                if (!hayRegistros) {
+                    contenedor2026.innerHTML = '<p style="color: white; padding: 10px;">No hay registros disponibles.</p>';
                 }
             })
             .catch(err => console.error('Error al cargar los elementos de inicio:', err));
