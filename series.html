@@ -3,10 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DaiAnime - Series</title>
+    <title>Series</title>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/png" href="DaiAnime.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .filtros-container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .filtros-container select {
+            padding: 8px 12px;
+            background: #252525;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,9 +59,21 @@
     </nav>
 </header>
 
-<h2 class="h3">Series Disponibles</h2>
+<h2 class="h3" style="text-align:center; margin-top:20px;">Series Disponibles</h2>
+
+<!-- Panel de Filtros -->
+<div class="filtros-container">
+    <label style="color:white; font-weight:bold;">Filtrar por:</label>
+    <select id="filtro-genero" onchange="filtrarContenido()">
+        <option value="todos">Todos los géneros</option>
+    </select>
+    <select id="filtro-anio" onchange="filtrarContenido()">
+        <option value="todos">Todos los años</option>
+    </select>
+</div>
+
 <section class="anime-list" id="contenedor-series">
-    <!-- Las series se cargarán aquí automáticamente -->
+    <!-- Las series se cargarán aquí -->
 </section>
 
 <footer>
@@ -53,6 +87,9 @@
 </footer>
 
 <script>
+    let listaGlobalSeries = [];
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+
     window.addEventListener('DOMContentLoaded', function() {
         const usuarioActual = localStorage.getItem('usuario_conectado');
         const menuAdmin = document.getElementById('menu-admin');
@@ -69,43 +106,102 @@
         cargarSeries();
     });
 
-    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
-
     function cargarSeries() {
         fetch(sheetDbUrl)
             .then(res => res.json())
             .then(datos => {
-                const contenedor = document.getElementById('contenedor-series');
-                contenedor.innerHTML = '';
-                let haySeries = false;
-
-                datos.forEach(item => {
-                    if (!item.titulo) return;
-
-                    const categoriaItem = item.categoria ? item.categoria.toLowerCase().trim() : '';
-                    
-                    if (categoriaItem === 'serie') {
-                        const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
-                        const linkDetalle = `informacion.html?titulo=${encodeURIComponent(item.titulo)}`;
-
-                        contenedor.innerHTML += `
-                            <div class="anime-card news-card">
-                                <a href="${linkDetalle}">
-                                    <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
-                                </a>
-                                <h3 class="anime-title">${item.titulo}</h3>
-                                <p class="anime-genre">Estreno: ${item.fecha || 'N/A'}</p>
-                            </div>
-                        `;
-                        haySeries = true;
-                    }
+                listaGlobalSeries = datos.filter(item => {
+                    if (!item.titulo) return false;
+                    const cat = item.categoria ? item.categoria.toLowerCase().trim() : '';
+                    return cat === 'serie';
                 });
 
-                if (!haySeries) {
-                    contenedor.innerHTML = '<p style="color: white; padding: 10px;">No hay series registradas todavía.</p>';
-                }
+                poblarFiltros(listaGlobalSeries);
+                mostrarSeries(listaGlobalSeries);
             })
-            .catch(err => console.error('Error al cargar las series:', err));
+            .catch(err => console.error('Error al cargar series:', err));
+    }
+
+    function poblarFiltros(datos) {
+        const selectGenero = document.getElementById('filtro-genero');
+        const selectAnio = document.getElementById('filtro-anio');
+        
+        let generosSet = new Set();
+        let aniosSet = new Set();
+
+        datos.forEach(item => {
+            if (item.genero) {
+                item.genero.split(',').forEach(g => {
+                    generosSet.add(g.trim());
+                });
+            }
+            if (item.fecha) {
+                let anio = item.fecha.substring(0, 4);
+                if (anio) aniosSet.add(anio);
+            }
+        });
+
+        generosSet.forEach(genero => {
+            selectGenero.innerHTML += `<option value="${genero}">${genero}</option>`;
+        });
+
+        Array.from(aniosSet).sort().reverse().forEach(anio => {
+            selectAnio.innerHTML += `<option value="${anio}">${anio}</option>`;
+        });
+    }
+
+    function mostrarSeries(datos) {
+        const contenedor = document.getElementById('contenedor-series');
+        contenedor.innerHTML = '';
+
+        if (datos.length === 0) {
+            contenedor.innerHTML = '<p style="color: white; padding: 20px; text-align:center; width:100%;">No hay series con estos filtros.</p>';
+            return;
+        }
+
+        datos.forEach(item => {
+            const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
+            const linkDetalle = `informacion.html?titulo=${encodeURIComponent(item.titulo)}`;
+
+            contenedor.innerHTML += `
+                <div class="anime-card news-card">
+                    <a href="${linkDetalle}">
+                        <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                    </a>
+                    <h3 class="anime-title">${item.titulo}</h3>
+                    <p class="anime-genre">${item.genero || 'N/A'}</p>
+                </div>
+            `;
+        });
+    }
+
+    function filtrarContenido() {
+        const generoSeleccionado = document.getElementById('filtro-genero').value;
+        const anioSeleccionado = document.getElementById('filtro-anio').value;
+
+        const filtradas = listaGlobalSeries.filter(item => {
+            let cumpleGenero = true;
+            let cumpleAnio = true;
+
+            if (generoSeleccionado !== 'todos') {
+                if (!item.genero) {
+                    cumpleGenero = false;
+                } else {
+                    const generosItem = item.genero.split(',').map(g => g.trim().toLowerCase());
+                    cumpleGenero = generosItem.includes(generoSeleccionado.toLowerCase());
+                }
+            }
+
+            if (anioSeleccionado !== 'todos') {
+                if (!item.fecha || !item.fecha.startsWith(anioSeleccionado)) {
+                    cumpleAnio = false;
+                }
+            }
+
+            return cumpleGenero && cumpleAnio;
+        });
+
+        mostrarSeries(filtradas);
     }
 </script>
 </body>
