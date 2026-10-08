@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DaiAnime - Inicio</title>
+    <title>DaiAnime - Películas</title>
     <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/png" href="DaiAnime.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -20,7 +20,7 @@
     <nav class="main-menu">
         <ul>
             <li><a href="index.html">Inicio</a></li>
-            <li><a href="peliculas.html">Películas</a></li>
+            <li><a href="peliculas.html" class="active">Películas</a></li>
             <li><a href="series.html">Series</a></li>
             <li><a href="animes.html">Animes</a></li>
             <li><a href="Buscar.html">Buscar</a></li> 
@@ -28,18 +28,18 @@
             <li class="user-menu-item">
                 <a href="#" id="nombre-usuario">Usuario</a>
                 <ul class="user-dropdown">
-                <li><a href="Mi_lista.html">Mi Lista</a></li>
-                <li><a href="favoritos.html">Favoritos</a></li>
-                <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Favoritos</a></li>
+                    <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
 </header>
 
-<h2 class="h3">Novedades y Estrenos</h2>
-<section class="anime-list" id="contenedor-2026">
-    <!-- Los elementos se cargarán aquí automáticamente -->
+<h2 class="h3">Películas Disponibles</h2>
+<section class="anime-list" id="contenedor-peliculas">
+    <!-- Las películas se cargarán aquí automáticamente -->
 </section>
 
 <footer>
@@ -62,49 +62,50 @@
             nombreUsuarioLink.textContent = usuarioActual;
         }
 
-        if (menuAdmin) {
-            if (usuarioActual !== 'admin') {
-                menuAdmin.style.display = 'none';
-            }
+        if (menuAdmin && usuarioActual !== 'admin') {
+            menuAdmin.style.display = 'none';
         }
 
-        cargarElementosInicio();
+        cargarPeliculas();
     });
 
     const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
 
-    function cargarElementosInicio() {
+    function cargarPeliculas() {
         fetch(sheetDbUrl)
             .then(res => res.json())
             .then(datos => {
-                const contenedor2026 = document.getElementById('contenedor-2026');
-                contenedor2026.innerHTML = '';
-                let hayRegistros = false;
+                const contenedor = document.getElementById('contenedor-peliculas');
+                contenedor.innerHTML = '';
+                let hayPeliculas = false;
 
                 datos.forEach(item => {
                     if (!item.titulo) return;
 
-                    const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
-                    // Apunta a informacion.html
-                    const linkDetalle = `informacion.html?titulo=${encodeURIComponent(item.titulo)}`;
+                    const categoriaItem = item.categoria ? item.categoria.toLowerCase().trim() : '';
+                    
+                    if (categoriaItem === 'pelicula') {
+                        const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
+                        const linkDetalle = `informacion.html?titulo=${encodeURIComponent(item.titulo)}`;
 
-                    contenedor2026.innerHTML += `
-                        <div class="anime-card news-card">
-                            <a href="${linkDetalle}">
-                                <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
-                            </a>
-                            <h3 class="anime-title">${item.titulo}</h3>
-                            <p class="anime-genre">Categoría: ${item.categoria || 'N/A'}</p>
-                        </div>
-                    `;
-                    hayRegistros = true;
+                        contenedor.innerHTML += `
+                            <div class="anime-card news-card">
+                                <a href="${linkDetalle}">
+                                    <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                                </a>
+                                <h3 class="anime-title">${item.titulo}</h3>
+                                <p class="anime-genre">Estreno: ${item.fecha || 'N/A'}</p>
+                            </div>
+                        `;
+                        hayPeliculas = true;
+                    }
                 });
 
-                if (!hayRegistros) {
-                    contenedor2026.innerHTML = '<p style="color: white; padding: 10px;">No hay registros disponibles.</p>';
+                if (!hayPeliculas) {
+                    contenedor.innerHTML = '<p style="color: white; padding: 10px;">No hay películas registradas todavía.</p>';
                 }
             })
-            .catch(err => console.error('Error al cargar los elementos de inicio:', err));
+            .catch(err => console.error('Error al cargar las películas:', err));
     }
 </script>
 </body>
