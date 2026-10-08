@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DaiAnime - Series</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/png" href="DaiAnime.jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header class="page-header">
+    <h1>
+        <a href="index.html">
+            <img src="DaiAnime.jpeg" alt="Logo" style="height:40px; vertical-align:middle;">
+            DaiAnime
+        </a>
+    </h1>
+    <nav class="main-menu">
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="peliculas.html">Películas</a></li>
+            <li><a href="series.html" class="active">Series</a></li>
+            <li><a href="animes.html">Animes</a></li>
+            <li><a href="Buscar.html">Buscar</a></li> 
+            <li><a href="admin.html" id="menu-admin">Admin</a></li>
+            <li class="user-menu-item">
+                <a href="#" id="nombre-usuario">Usuario</a>
+                <ul class="user-dropdown">
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Favoritos</a></li>
+                    <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<h2 class="h3">Series Disponibles</h2>
+<section class="anime-list" id="contenedor-series">
+    <!-- Las series se cargarán aquí automáticamente -->
+</section>
+
+<footer>
+    <p>© 2026 DaiAnime. Todos los derechos reservados.</p>
+    <div class="social-links">  
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+</footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        const usuarioActual = localStorage.getItem('usuario_conectado');
+        const menuAdmin = document.getElementById('menu-admin');
+        const nombreUsuarioLink = document.getElementById('nombre-usuario');
+
+        if (usuarioActual && nombreUsuarioLink) {
+            nombreUsuarioLink.textContent = usuarioActual;
+        }
+
+        if (menuAdmin && usuarioActual !== 'admin') {
+            menuAdmin.style.display = 'none';
+        }
+
+        cargarSeries();
+    });
+
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+
+    function cargarSeries() {
+        fetch(sheetDbUrl)
+            .then(res => res.json())
+            .then(datos => {
+                const contenedor = document.getElementById('contenedor-series');
+                contenedor.innerHTML = '';
+                let haySeries = false;
+
+                datos.forEach(item => {
+                    if (!item.titulo) return;
+
+                    const categoriaItem = item.categoria ? item.categoria.toLowerCase().trim() : '';
+                    
+                    if (categoriaItem === 'serie') {
+                        const rutaImagen = item.imagen ? item.imagen : 'imagenes/anime/default.jpg';
+                        const linkDetalle = `anime.html?titulo=${encodeURIComponent(item.titulo)}`;
+
+                        contenedor.innerHTML += `
+                            <div class="anime-card news-card">
+                                <a href="${linkDetalle}">
+                                    <img src="${rutaImagen}" class="anime-img" alt="${item.titulo}" onerror="this.src='imagenes/anime/default.jpg';">
+                                </a>
+                                <h3 class="anime-title">${item.titulo}</h3>
+                                <p class="anime-genre">Estreno: ${item.fecha || 'N/A'}</p>
+                            </div>
+                        `;
+                        haySeries = true;
+                    }
+                });
+
+                if (!haySeries) {
+                    contenedor.innerHTML = '<p style="color: white; padding: 10px;">No hay series registradas todavía.</p>';
+                }
+            })
+            .catch(err => console.error('Error al cargar las series:', err));
+    }
+</script>
+</body>
+</html>
