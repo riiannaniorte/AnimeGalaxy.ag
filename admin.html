@@ -38,7 +38,7 @@
                 <a href="#" class="user-link" id="nombre-usuario">Usuario</a>
                 <ul class="user-dropdown">
                 <li><a href="Mi_lista.html">Mi Lista</a></li>
-                <li><a href="favoritos.html">Animes Favoritos</a></li>
+                <li><a href="favoritos.html">Favoritos</a></li>
                 <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
                 </ul>
             </li>
@@ -50,7 +50,7 @@
     <h1>Panel de Administración</h1>
 
     <div style="background:#222; padding:20px; margin-bottom:30px; text-align:center; border:1px solid #333;">
-        <h2>Total de Animes en Base de Datos</h2>
+        <h2>Total de Registros en Base de Datos</h2>
         <p style="font-size:28px; font-weight:bold; color:#e74c3c;">42</p>
     </div>
 
@@ -88,52 +88,38 @@
         </tr>
     </table>
 
-    <h2 style="margin-top:40px;">Añadir Nuevo Anime</h2>
+    <h2 style="margin-top:40px;">Añadir Nuevo Contenido</h2>
     <form>
         <label>Título</label>
         <input type="text" name="titulo" required>
         
-        <label>Título Original</label>
-        <input type="text" name="titulo_original" required>
-        
-        <label>Sinopsis</label>
-        <textarea name="sinopsis" rows="4" required></textarea>
-        
-        <label>Estudio</label>
-        <input type="text" name="estudio" required>
-        
-        <label>Rating (0 - 10)</label>
-        <input type="number" step="0.1" name="rating" required>
-
-        <label>Tipo de contenido</label>
-        <select name="tipo">
-            <option value="TV">TV</option>
-            <option value="Movie">Movie</option>
-            <option value="OVA">OVA</option>
-        </select>
-
-        <label>Estado</label>
-        <select name="estado">
-            <option value="En emisión">En Emisión</option>
-            <option value="Finalizado">Finalizado</option>
-        </select>
-
-        <label>Géneros</label>
-        <input type="text" name="genero">
-        
         <label>Fecha de Estreno</label>
         <input type="date" name="fecha" required>
-        
+
         <label>URL de la Imagen de Portada</label>
         <input type="url" name="imagen" placeholder="https://ejemplo.com/imagen.jpg" required>
 
-        <button type="submit">Guardar Anime</button>
+        <label>Categoría</label>
+        <select name="categoria" required>
+            <option value="anime">Anime</option>
+            <option value="serie">Serie</option>
+            <option value="pelicula">Película</option>
+        </select>
+        
+        <label>Sinopsis</label>
+        <textarea name="sinopsis" rows="4" required></textarea>
+
+        <label>Link de Visualización</label>
+        <input type="url" name="link" placeholder="https://..." required>
+
+        <button type="submit">Guardar en Base de Datos</button>
     </form>
 
-    <h2 style="margin-top:40px;">Lista de Animes</h2>
+    <h2 style="margin-top:40px;">Lista de Contenidos</h2>
     <table id="tabla-animes">
         <tr>
             <th>Título</th>
+            <th>Categoría</th>
             <th>Año</th>
             <th>Acción</th>
         </tr>
@@ -141,36 +127,40 @@
 </div>
 
 <script>
-    // URLs separadas para cada base de datos de SheetDB
     const sheetDbUsuariosUrl = 'https://sheetdb.io/api/v1/z5xz8q7sh8ad3';
     const sheetDbAnimesUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
     
     const formAnime = document.querySelector('form');
 
-    // 1. CARGAR Y MOSTRAR LOS ANIMES DESDE SU URL CORRESPONDIENTE
+    // 1. CARGAR Y MOSTRAR LOS REGISTROS DESDE SHEETDB
     document.addEventListener('DOMContentLoaded', function() {
+        const usuarioActualStorage = localStorage.getItem('usuario_conectado');
+        const nombreUsuarioLink = document.getElementById('nombre-usuario');
+        if (usuarioActualStorage && nombreUsuarioLink) {
+            nombreUsuarioLink.textContent = usuarioActualStorage;
+        }
+
         fetch(sheetDbAnimesUrl)
             .then(res => res.json())
             .then(animes => {
-                console.log("Animes cargados:", animes);
                 const tablaListaAnimes = document.getElementById('tabla-animes');
                 if (!tablaListaAnimes) return;
 
-                // Limpiamos y dejamos la cabecera
                 tablaListaAnimes.innerHTML = `
                     <tr>
                         <th>Título</th>
+                        <th>Categoría</th>
                         <th>Año</th>
                         <th>Acción</th>
                     </tr>
                 `;
 
-                // Recorremos los registros de animes
                 animes.forEach(anime => {
                     if (anime.titulo) {
                         const fila = document.createElement('tr');
                         fila.innerHTML = `
                             <td>${anime.titulo}</td>
+                            <td>${anime.categoria || 'N/D'}</td>
                             <td>${anime.fecha ? anime.fecha.substring(0, 4) : 'N/D'}</td>
                             <td>
                                 <a href="#" style="color:#e74c3c;" onclick="borrarAnime('${anime.titulo}')">Borrar</a>
@@ -180,25 +170,21 @@
                     }
                 });
             })
-            .catch(err => console.error('Error al cargar la lista de animes:', err));
+            .catch(err => console.error('Error al cargar la lista:', err));
     });
 
-    // 2. AÑADIR NUEVO ANIME A LA BASE DE DATOS DE ANIMES
+    // 2. AÑADIR NUEVO CONTENIDO A SHEETDB
     formAnime.addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(formAnime);
-        const nuevoAnime = {
+        const nuevoContenido = {
             titulo: formData.get('titulo'),
-            titulo_original: formData.get('titulo_original'),
-            sinopsis: formData.get('sinopsis'),
-            estudio: formData.get('estudio'),
-            rating: formData.get('rating'),
-            tipo: formData.get('tipo'),
-            estado: formData.get('estado'),
-            genero: formData.get('genero'),
             fecha: formData.get('fecha'),
-            imagen: formData.get('imagen') // Captura directamente la URL escrita
+            imagen: formData.get('imagen'),
+            categoria: formData.get('categoria'),
+            sinopsis: formData.get('sinopsis'),
+            link: formData.get('link')
         };
 
         fetch(sheetDbAnimesUrl, {
@@ -207,23 +193,23 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ data: [nuevoAnime] })
+            body: JSON.stringify({ data: [nuevoContenido] })
         })
         .then(res => res.json())
         .then(() => {
-            alert('¡Anime añadido correctamente!');
+            alert('¡Contenido añadido correctamente!');
             formAnime.reset();
             location.reload();
         })
         .catch(error => {
-            console.error('Error al guardar anime:', error);
-            alert('Hubo un error al guardar el anime.');
+            console.error('Error al guardar:', error);
+            alert('Hubo un error al guardar el contenido.');
         });
     });
 
-    // 3. FUNCIÓN PARA BORRAR UN ANIME
+    // 3. FUNCIÓN PARA BORRAR UN CONTENIDO
     function borrarAnime(tituloAnime) {
-        if (!confirm(`¿Estás seguro de borrar el anime "${tituloAnime}"?`)) return;
+        if (!confirm(`¿Estás seguro de borrar "${tituloAnime}"?`)) return;
 
         fetch(`${sheetDbAnimesUrl}/titulo/${encodeURIComponent(tituloAnime)}`, {
             method: 'DELETE',
@@ -231,16 +217,16 @@
         })
         .then(res => res.json())
         .then(() => {
-            alert('Anime borrado correctamente.');
+            alert('Contenido borrado correctamente.');
             location.reload();
         })
         .catch(err => {
-            console.error('Error al borrar anime:', err);
-            alert('No se pudo borrar el anime.');
+            console.error('Error al borrar:', err);
+            alert('No se pudo borrar el contenido.');
         });
     }
 
-    // 4. FUNCIÓN PARA BORRAR USUARIOS (Usa la URL de usuarios)
+    // 4. FUNCIÓN PARA BORRAR USUARIOS
     function borrarUsuario(nombreUsuario) {
         if (!confirm(`¿Estás seguro de eliminar al usuario "${nombreUsuario}"?`)) return;
 
