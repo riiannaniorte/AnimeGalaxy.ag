@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Admin - DaiAnime</title>
+    <title>Panel Admin</title>
     <link rel="stylesheet" href="admin.css">
     <link rel="icon" type="image/png" href="DaiAnime.jpeg">
     <script>
@@ -26,20 +26,12 @@
         <ul>
             <li><a href="index.html">Inicio</a></li>
             <li><a href="Buscar.html">Buscar</a></li> 
-            
-            <li class="user-menu-item">
-                <a href="admin.html" class="user-link">Admin</a>
-                <ul class="submenú">
-                    <li><a href="editor_generos.html">Editor de Géneros</a></li>
-                </ul>
-            </li>
-
             <li class="user-menu-item">
                 <a href="#" class="user-link" id="nombre-usuario">Usuario</a>
                 <ul class="user-dropdown">
-                <li><a href="Mi_lista.html">Mi Lista</a></li>
-                <li><a href="favoritos.html">Favoritos</a></li>
-                <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
+                    <li><a href="Mi_lista.html">Mi Lista</a></li>
+                    <li><a href="favoritos.html">Favoritos</a></li>
+                    <li class="logout-separator"><a href="iniciar_sesion.html" onclick="localStorage.removeItem('usuario_conectado');">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>
@@ -49,52 +41,13 @@
 <div class="container">
     <h1>Panel de Administración</h1>
 
-    <div style="background:#222; padding:20px; margin-bottom:30px; text-align:center; border:1px solid #333;">
-        <h2>Total de Registros en Base de Datos</h2>
-        <p style="font-size:28px; font-weight:bold; color:#e74c3c;">42</p>
-    </div>
-
-    <h2>Gestión de Usuarios</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Usuario</th>
-            <th>Rol</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>admin</td>
-            <td><strong>admin</strong></td>
-            <td>✅ Activo</td>
-            <td>
-                <a href="#" class="btn btn-orange">Rol</a>
-                <a href="#" class="btn btn-blue">Pass</a>
-                <a href="#" class="btn btn-gray">Ban</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>usuario1</td>
-            <td><strong>usuario</strong></td>
-            <td>✅ Activo</td>
-            <td>
-                <a href="#" class="btn btn-orange">Rol</a>
-                <a href="#" class="btn btn-blue">Pass</a>
-                <a href="#" class="btn btn-gray">Ban</a>
-                <a href="#" class="btn btn-red" onclick="borrarUsuario('usuario1')">X</a>
-            </td>
-        </tr>
-    </table>
-
-    <h2 style="margin-top:40px;">Añadir Nuevo Contenido</h2>
+    <h2 style="margin-top:20px;">Añadir Nuevo Contenido</h2>
     <form>
         <label>Título</label>
         <input type="text" name="titulo" required>
         
-        <label>Fecha de Estreno</label>
-        <input type="date" name="fecha" required>
+        <label>Fecha / Año de Estreno (Ej: 2026-03-19 o solo 2026)</label>
+        <input type="text" name="fecha" placeholder="2026" required>
 
         <label>URL de la Imagen de Portada</label>
         <input type="url" name="imagen" placeholder="https://ejemplo.com/imagen.jpg" required>
@@ -105,11 +58,14 @@
             <option value="serie">Serie</option>
             <option value="pelicula">Película</option>
         </select>
+
+        <label>Géneros (Sepáralos con comas, ej: Acción, Comedia, Drama)</label>
+        <input type="text" name="genero" placeholder="Acción, Aventura, Fantasía" required>
         
         <label>Sinopsis</label>
         <textarea name="sinopsis" rows="4" required></textarea>
 
-        <label>Link de Visualización</label>
+        <label>Link de Visualización / Reproducción</label>
         <input type="url" name="link" placeholder="https://..." required>
 
         <button type="submit">Guardar en Base de Datos</button>
@@ -120,7 +76,8 @@
         <tr>
             <th>Título</th>
             <th>Categoría</th>
-            <th>Año</th>
+            <th>Géneros</th>
+            <th>Año/Fecha</th>
             <th>Acción</th>
         </tr>
     </table>
@@ -132,7 +89,6 @@
     
     const formAnime = document.querySelector('form');
 
-    // 1. CARGAR Y MOSTRAR LOS REGISTROS DESDE SHEETDB
     document.addEventListener('DOMContentLoaded', function() {
         const usuarioActualStorage = localStorage.getItem('usuario_conectado');
         const nombreUsuarioLink = document.getElementById('nombre-usuario');
@@ -150,7 +106,8 @@
                     <tr>
                         <th>Título</th>
                         <th>Categoría</th>
-                        <th>Año</th>
+                        <th>Géneros</th>
+                        <th>Año/Fecha</th>
                         <th>Acción</th>
                     </tr>
                 `;
@@ -161,7 +118,8 @@
                         fila.innerHTML = `
                             <td>${anime.titulo}</td>
                             <td>${anime.categoria || 'N/D'}</td>
-                            <td>${anime.fecha ? anime.fecha.substring(0, 4) : 'N/D'}</td>
+                            <td>${anime.genero || 'N/D'}</td>
+                            <td>${anime.fecha || 'N/D'}</td>
                             <td>
                                 <a href="#" style="color:#e74c3c;" onclick="borrarAnime('${anime.titulo}')">Borrar</a>
                             </td>
@@ -173,7 +131,6 @@
             .catch(err => console.error('Error al cargar la lista:', err));
     });
 
-    // 2. AÑADIR NUEVO CONTENIDO A SHEETDB
     formAnime.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -183,6 +140,7 @@
             fecha: formData.get('fecha'),
             imagen: formData.get('imagen'),
             categoria: formData.get('categoria'),
+            genero: formData.get('genero'),
             sinopsis: formData.get('sinopsis'),
             link: formData.get('link')
         };
@@ -197,7 +155,7 @@
         })
         .then(res => res.json())
         .then(() => {
-            alert('¡Contenido añadido correctamente!');
+            alert('¡Contenido añadido correctamente con sus géneros y fecha!');
             formAnime.reset();
             location.reload();
         })
@@ -207,7 +165,6 @@
         });
     });
 
-    // 3. FUNCIÓN PARA BORRAR UN CONTENIDO
     function borrarAnime(tituloAnime) {
         if (!confirm(`¿Estás seguro de borrar "${tituloAnime}"?`)) return;
 
@@ -223,25 +180,6 @@
         .catch(err => {
             console.error('Error al borrar:', err);
             alert('No se pudo borrar el contenido.');
-        });
-    }
-
-    // 4. FUNCIÓN PARA BORRAR USUARIOS
-    function borrarUsuario(nombreUsuario) {
-        if (!confirm(`¿Estás seguro de eliminar al usuario "${nombreUsuario}"?`)) return;
-
-        fetch(`${sheetDbUsuariosUrl}/usuario/${encodeURIComponent(nombreUsuario)}`, {
-            method: 'DELETE',
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(res => res.json())
-        .then(() => {
-            alert('Usuario eliminado correctamente.');
-            location.reload();
-        })
-        .catch(err => {
-            console.error('Error al borrar usuario:', err);
-            alert('No se pudo borrar el usuario.');
         });
     }
 </script>
