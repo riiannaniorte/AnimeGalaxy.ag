@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Anime - DaiAnime</title>
+    <title>Información - DaiAnime</title>
     <link rel="stylesheet" href="anime.css">
     <link rel="icon" type="image/png" href="DaiAnime.jpeg">
 </head>
@@ -17,25 +17,28 @@
 
 <div class="anime-container">
     <div class="anime-image">
-        <img id="anime-img" src="imagenes/anime/default.jpg" alt="Portada">
+        <img id="contenido-img" src="imagenes/anime/default.jpg" alt="Portada">
     </div>
 
     <div class="anime-info">
-        <h1 id="anime-titulo">Cargando...</h1>
+        <h1 id="contenido-titulo">Cargando...</h1>
 
         <p><strong>Sinopsis:</strong><br>
-        <span id="anime-sinopsis">Aguray bassit...</span></p>
+        <span id="contenido-sinopsis">Cargando sinopsis...</span></p>
 
-        <p><strong>Tipo:</strong> <span id="anime-tipo">--</span></p>
-        <p><strong>Estado:</strong> <span id="anime-estado">--</span></p>
-        <p><strong>Género:</strong> <span id="anime-genero">--</span></p>
-        <p><strong>Año:</strong> <span id="anime-anio">--</span></p>
+        <p><strong>Categoría:</strong> <span id="contenido-categoria">--</span></p>
+        <p><strong>Fecha de Estreno:</strong> <span id="contenido-fecha">--</span></p>
 
-        <div class="rating-box">
-            <h3 id="anime-rating">⭐ Media: --</h3>
+        <div class="rating-box" style="margin: 20px 0;">
+            <h3 id="contenido-rating">⭐ Media: --</h3>
         </div>
 
-        <a href="Buscar.html" class="back-btn">⬅ Volver</a>
+        <!-- Botón para ver / reproducir el contenido -->
+        <div id="contenedor-link" style="margin-bottom: 20px;">
+            <!-- El enlace se inyectará aquí dinámicamente -->
+        </div>
+
+        <a href="index.html" class="back-btn">⬅ Volver al Inicio</a>
     </div>
 </div>
 
@@ -67,52 +70,60 @@
     <div class="rating-box">
         <strong>UsuarioEjemplo</strong> 
         <span style="color: #f1c40f;">⭐ 9/10</span>
-        <p>¡Excelente anime! Me encantó la animación y la historia.</p>
+        <p>¡Excelente contenido!</p>
         <small>2026-01-15 10:30:00</small>
     </div>
 </div>
 
 <script>
-    const sheetDbAnimesUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
+    const sheetDbUrl = 'https://sheetdb.io/api/v1/2fm1f2txx7vmc';
 
     window.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const tituloBuscado = urlParams.get('titulo');
 
         if (!tituloBuscado) {
-            document.getElementById('anime-titulo').textContent = "Saan a nabirukan ti anime.";
+            document.getElementById('contenido-titulo').textContent = "No se encontró el título.";
             return;
         }
 
-        fetch(sheetDbAnimesUrl)
+        fetch(sheetDbUrl)
             .then(res => res.json())
-            .then(animes => {
-                const animeEncontrado = animes.find(a => a.titulo === tituloBuscado);
+            .then(datos => {
+                const itemEncontrado = datos.find(i => i.titulo === tituloBuscado);
 
-                if (animeEncontrado) {
-                    document.getElementById('anime-titulo').textContent = animeEncontrado.titulo;
-                    document.getElementById('anime-sinopsis').textContent = animeEncontrado.sinopsis || 'Awang sinopsis.';
-                    document.getElementById('anime-tipo').textContent = animeEncontrado.tipo || 'N/D';
-                    document.getElementById('anime-estado').textContent = animeEncontrado.estado || 'N/D';
-                    document.getElementById('anime-genero').textContent = animeEncontrado.genero || 'N/D';
+                if (itemEncontrado) {
+                    document.getElementById('contenido-titulo').textContent = itemEncontrado.titulo;
+                    document.getElementById('contenido-sinopsis').textContent = itemEncontrado.sinopsis || 'Sin sinopsis disponible.';
+                    document.getElementById('contenido-categoria').textContent = itemEncontrado.categoria || 'N/D';
+                    document.getElementById('contenido-fecha').textContent = itemEncontrado.fecha || 'N/D';
                     
-                    const anio = animeEncontrado.fecha ? animeEncontrado.fecha.substring(0, 4) : 'N/D';
-                    document.getElementById('anime-anio').textContent = anio;
-
-                    if (animeEncontrado.rating) {
-                        document.getElementById('anime-rating').textContent = `⭐ Media: ${animeEncontrado.rating}`;
+                    if (itemEncontrado.rating) {
+                        document.getElementById('contenido-rating').textContent = `⭐ Media: ${itemEncontrado.rating}`;
                     }
 
-                    if (animeEncontrado.imagen) {
-                        document.getElementById('anime-img').src = animeEncontrado.imagen;
+                    if (itemEncontrado.imagen) {
+                        document.getElementById('contenido-img').src = itemEncontrado.imagen;
                     }
+
+                    const contenedorLink = document.getElementById('contenedor-link');
+                    if (itemEncontrado.link) {
+                        contenedorLink.innerHTML = `
+                            <a href="${itemEncontrado.link}" target="_blank" class="back-btn" style="background-color: #27ae60; color: white; text-decoration: none; display: inline-block; padding: 10px 20px; font-weight: bold; border-radius: 5px;">
+                                ▶ Ver / Reproducir Ahora
+                            </a>
+                        `;
+                    } else {
+                        contenedorLink.innerHTML = '<p style="color: #e74c3c;">Enlace de reproducción no disponible.</p>';
+                    }
+
                 } else {
-                    document.getElementById('anime-titulo').textContent = "Saan a nabirukan daytoy nga anime iti database.";
+                    document.getElementById('contenido-titulo').textContent = "No se encontró este contenido en la base de datos.";
                 }
             })
             .catch(err => {
                 console.error('Error al cargar datos:', err);
-                document.getElementById('anime-titulo').textContent = "Biddut iti panangikarga kadagiti datos.";
+                document.getElementById('contenido-titulo').textContent = "Error al cargar los datos.";
             });
     });
 </script>
